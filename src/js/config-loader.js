@@ -7,10 +7,11 @@
    Steps:
      1. Fetch config.json
      2. Apply accent colours as CSS custom properties
-     3. Inject custom font via @font-face (optional)
-     4. Set profile photo (with emoji fallback)
-     5. Render all project cards
-     6. Patch i18n strings from profile data
+     3. Apply noise texture parameters
+     4. Inject custom font via @font-face (optional)
+     5. Set profile photo (with emoji fallback)
+     6. Render all project cards
+     7. Patch i18n strings from profile data
    ============================================================ */
 
 (async function bootstrap() {
@@ -29,6 +30,7 @@
   window.__cfg = cfg;
 
   applyAccentColors(cfg.theme);
+  applyNoise(cfg.noise);
   if (cfg.font?.path || cfg.font?.files?.length) injectFont(cfg.font);
   applyProfilePhoto(cfg.profile);
   renderProjects(cfg.projects);
@@ -61,6 +63,27 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+
+
+/* ════════════════════════════════════════════════════════════
+   NOISE TEXTURE
+   Generates the grain SVG from config values and sets it as
+   --noise-svg on :root so body::after can use it.
+   ════════════════════════════════════════════════════════════ */
+function applyNoise({ frequency = 0.75, octaves = 8 } = {}) {
+  /* Build the SVG, URL-encode it, wrap as CSS url() */
+  const svg = [
+    `<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'>`,
+    `<filter id='n'>`,
+    `<feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='${octaves}' stitchTiles='stitch'/>`,
+    `</filter>`,
+    `<rect width='100%' height='100%' filter='url(#n)' opacity='0.04'/>`,
+    `</svg>`,
+  ].join('');
+
+  const encoded = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  document.documentElement.style.setProperty('--noise-svg', encoded);
+}
 
 /* ════════════════════════════════════════════════════════════
    CUSTOM FONT
