@@ -1,5 +1,5 @@
 {
-  "_doc": "Portfolio config. Edit this file only — the site reads everything from here.",
+  "_doc": "Portfolio config. Edit this file only - the site reads everything from here.",
 
   "theme": {
     "accentDark":  "#847271",
@@ -18,8 +18,8 @@
     "nameEn":    "Anton Piruev",
     "taglineRu": "Senior Unity разработчик",
     "taglineEn": "Senior Unity Developer",
-    "bioRu":     "Senior Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции — от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
-    "bioEn":     "Senior Unity Developer. I build PC and mobile games as well as industrial simulations — from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
+    "bioRu":     "Senior Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
+    "bioEn":     "Senior Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
     "links": {
       "github":   "https://github.com/username",
       "telegram": "https://t.me/username",
@@ -30,19 +30,19 @@
 
   "projects": [
     {
-      "_comment": "Preset 'no-links' — display only, nothing is clickable",
+      "_comment": "Preset 'no-links' - display only, nothing is clickable",
       "preset":  "no-links",
       "image":   "images/projects/project-1.jpg",
       "emoji":   "🔬",
       "color":   "c1",
       "nameRu":  "SafetyDrill VR",
       "nameEn":  "SafetyDrill VR",
-      "descRu":  "VR-симулятор аварийных ситуаций на производстве. NDA — ссылки недоступны.",
-      "descEn":  "VR emergency drill simulator for industrial facilities. NDA — links unavailable.",
+      "descRu":  "VR-симулятор аварийных ситуаций на производстве. NDA - ссылки недоступны.",
+      "descEn":  "VR emergency drill simulator for industrial facilities. NDA - links unavailable.",
       "tags":    ["Unity", "VR", "HTC Vive"]
     },
     {
-      "_comment": "Preset 'link' — whole card opens a custom URL (any site, itch.io, steam, etc.)",
+      "_comment": "Preset 'link' - whole card opens a custom URL (any site, itch.io, steam, etc.)",
       "preset":  "link",
       "url":     "https://username.itch.io/my-game",
       "image":   "images/projects/project-2.jpg",
@@ -55,7 +55,7 @@
       "tags":    ["Unity", "C#", "PC"]
     },
     {
-      "_comment": "Preset 'github' — whole card opens GitHub repo",
+      "_comment": "Preset 'github' - whole card opens GitHub repo",
       "preset":  "github",
       "github":  "https://github.com/username/mobile-runner",
       "image":   "images/projects/project-3.jpg",
@@ -68,7 +68,7 @@
       "tags":    ["Unity", "iOS", "Android"]
     },
     {
-      "_comment": "Preset 'links-bar' — card has a button bar at the bottom. All 3 links are optional.",
+      "_comment": "Preset 'links-bar' - card has a button bar at the bottom. All 3 links are optional.",
       "preset":  "links-bar",
       "github":  "https://github.com/username/indussim",
       "page":    "https://indussim.example.com",

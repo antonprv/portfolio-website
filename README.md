@@ -39,7 +39,7 @@ portfolio/
 
 ## Customisation
 
-Everything is controlled from `config.json` — you shouldn't need to touch any other file.
+Everything is controlled from `config.json` - you shouldn't need to touch any other file.
 
 | What | Where in config.json |
 |---|---|
@@ -56,7 +56,7 @@ Each project entry has a `"preset"` field that controls its behaviour:
 
 | Preset | Behaviour |
 |---|---|
-| `"no-links"` | Display only — nothing is clickable. Use for NDA / private work. |
+| `"no-links"` | Display only - nothing is clickable. Use for NDA / private work. |
 | `"link"` | The whole card opens a custom URL. Set `"url"`. |
 | `"github"` | The whole card opens a GitHub repo. Set `"github"`. |
 | `"links-bar"` | Button strip at the bottom. Any of `"github"`, `"page"`, `"play"` are optional. |

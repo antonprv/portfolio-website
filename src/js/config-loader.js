@@ -1,5 +1,5 @@
 /* ============================================================
-   config-loader.js — Loads config.json and bootstraps the site.
+   config-loader.js - Loads config.json and bootstraps the site.
 
    Script load order (index.html):
      theme.js → config-loader.js → i18n.js → lang.js → scroll.js
@@ -107,19 +107,19 @@ function applyProfilePhoto({ photo, nameRu } = {}) {
    PROJECT CARDS
    ════════════════════════════════════════════════════════════
 
-   Four presets — choose via "preset" in config.json:
+   Four presets - choose via "preset" in config.json:
 
-   "no-links"   — Display-only card. No hover lift, nothing clickable.
+   "no-links"   - Display-only card. No hover lift, nothing clickable.
                   Use for NDA / unreleased / private projects.
 
-   "link"       — The entire card is one clickable link.
+   "link"       - The entire card is one clickable link.
                   Set "url" to any destination (itch.io, Steam, etc.).
 
-   "github"     — Same as "link" but specifically for a GitHub repo.
+   "github"     - Same as "link" but specifically for a GitHub repo.
                   Set "github" to the repo URL.
                   Shows the GitHub icon on the ↗ badge.
 
-   "links-bar"  — Card is not clickable itself.
+   "links-bar"  - Card is not clickable itself.
                   A button strip appears at the bottom.
                   Any combination of "github", "page", "play" is valid;
                   omit a key to hide that button.
@@ -151,7 +151,7 @@ function buildCard(p, index) {
 
   el.appendChild(buildThumbnail(p));
 
-  /* Arrow badge — only for single-link presets */
+  /* Arrow badge - only for single-link presets */
   if (isSingleLink) {
     const arrow = document.createElement('span');
     arrow.className      = 'project-arrow';
