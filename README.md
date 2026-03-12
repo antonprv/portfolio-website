@@ -57,19 +57,6 @@ portfolio/
 
 This project uses **GitHub Actions** to automatically deploy to GitHub Pages.
 
-### Setup Instructions:
-
-1. Go to your repository on GitHub
-2. Navigate to **Settings** → **Pages**
-3. Under **Build and deployment**:
-   - **Source**: Deploy from a branch
-   - **Branch**: Select `gh-pages` (created after first workflow run)
-4. Push changes to `main` branch — deployment happens automatically
-
-### Manual Trigger:
-
-Go to **Actions** → **Deploy to GitHub Pages** → **Run workflow**
-
 ---
 
 *Made with ☕ and attention to detail.*
