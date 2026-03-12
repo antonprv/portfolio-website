@@ -1,6 +1,7 @@
 # Personal Portfolio
 
 I've decided to make this repo public in case anyone would be curious or would like to make something similar.
+It currently has mock data, and will be updated in the future.
 
 The site is [currently live](https://antonprv.github.io/portfolio-website/).
 
