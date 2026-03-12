@@ -1,5 +1,5 @@
 /* ============================================================
-   main.js — App entry point & scroll reveal
+   main.js - App entry point & scroll reveal
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {

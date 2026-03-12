@@ -1,5 +1,5 @@
 /* ============================================================
-   scroll.js — Intersection Observer scroll-reveal
+   scroll.js - Intersection Observer scroll-reveal
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {

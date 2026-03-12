@@ -1,59 +1,74 @@
-# 👤 Personal Portfolio — Ivan Ivanov
+# Personal Portfolio
 
-> Senior Unity Developer · PC & Mobile Games · Industrial Simulations
-
-Live site: **[username.github.io](https://username.github.io)**
+I've decided to make this repo public in case anyone would be curious or would like to make something similar.
 
 ---
 
 ## Stack
 
-Pure HTML · CSS · Vanilla JS — no build tools, no dependencies, deploys instantly to GitHub Pages.
+Pure HTML · CSS · Vanilla JS.
 
 ## Structure
 
 ```
 portfolio/
-├── index.html          # Markup & entry point
-├── css/
-│   ├── variables.css   # Design tokens & global reset
-│   ├── animations.css  # Keyframes & scroll-reveal
-│   ├── layout.css      # Header, hero, avatar, links, footer
-│   └── projects.css    # Project grid & cards
-├── js/
-│   ├── i18n.js         # RU / EN translation strings
-│   ├── lang.js         # Language-switcher logic
-│   └── scroll.js       # Intersection Observer reveal
-└── photo.jpg           # Your profile photo (add manually)
+├── src/
+│   ├── index.html          # Markup & entry point
+│   ├── css/
+│   │   ├── variables.css   # Design tokens & global reset
+│   │   ├── animations.css  # Keyframes & scroll-reveal
+│   │   ├── layout.css      # Header, hero, avatar, links, footer
+│   │   └── projects.css    # Project grid & cards
+│   ├── js/
+│   │   ├── i18n.js         # RU / EN translation strings
+│   │   ├── lang.js         # Language-switcher logic
+│   │   └── scroll.js       # Intersection Observer reveal
+│   ├── images/
+│   │   ├── profile/        # Profile photo
+│   │   └── projects/       # Project screenshots
+│   └── fonts/              # Custom fonts
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # GitHub Actions deploy workflow
+└── README.md
 ```
 
 ## Customisation
 
 | What | Where |
 |---|---|
-| Name, bio, tagline | `index.html` → hero section + `js/i18n.js` |
-| Social links | `index.html` → `<nav class="links">` |
-| Projects | `index.html` → `.grid` section |
-| Colours | `css/variables.css` → `:root` |
-| Translations | `js/i18n.js` |
+| Name, bio, tagline | `src/index.html` → hero section + `src/js/i18n.js` |
+| Social links | `src/index.html` → `<nav class="links">` |
+| Projects | `src/index.html` → `.grid` section |
+| Colours | `src/css/variables.css` → `:root` |
+| Translations | `src/js/i18n.js` |
 
 ### Adding your photo
 
-1. Drop `photo.jpg` next to `index.html`
-2. In `index.html`, replace:
+1. Place your photo in `src/images/profile/`
+2. In `src/index.html`, update the image path:
    ```html
-   <div class="avatar-placeholder">🧑‍💻</div>
-   ```
-   with:
-   ```html
-   <img src="photo.jpg" alt="Ivan Ivanov" class="avatar" />
+   <img src="images/profile/photo.jpg" alt="Your Name" class="avatar" />
    ```
 
-## Deploy to GitHub Pages
+---
 
-1. Push this folder to a repo named `<your-username>.github.io`
-2. Go to **Settings → Pages → Source**: branch `main`, folder `/` (root)
-3. Your site will be live at `https://<your-username>.github.io`
+## 🚀 Deployment
+
+This project uses **GitHub Actions** to automatically deploy to GitHub Pages.
+
+### Setup Instructions:
+
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **Pages**
+3. Under **Build and deployment**:
+   - **Source**: Deploy from a branch
+   - **Branch**: Select `gh-pages` (created after first workflow run)
+4. Push changes to `main` branch — deployment happens automatically
+
+### Manual Trigger:
+
+Go to **Actions** → **Deploy to GitHub Pages** → **Run workflow**
 
 ---
 

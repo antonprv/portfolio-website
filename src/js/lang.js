@@ -1,5 +1,5 @@
 /* ============================================================
-   lang.js — Language switcher logic
+   lang.js - Language switcher logic
    ============================================================ */
 
 let currentLang = 'ru';
