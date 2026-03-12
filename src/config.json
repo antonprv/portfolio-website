@@ -7,8 +7,8 @@
   },
 
   "noise": {
-    "frequency": 0.75,
-    "octaves":   8
+    "frequency": 0.85,
+    "octaves":   4
   },
 
   "font": {
