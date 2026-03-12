@@ -2,15 +2,32 @@
   "_doc": "Portfolio config. Edit this file only - the site reads everything from here.",
 
   "theme": {
-    "accentDark":  "#4ccbad",
-    "accentLight": "#4c3eaf"
+    "accentDark":  "#847271",
+    "accentLight": "#a67c52"
   },
 
   "font": {
-    "family":   "TikTokSans",
-    "fallback": "sans-serif",
+    "_setup": "Choose ONE of the three setups below and remove the others.",
+
+    "family":   "MyFont",
+    "fallback": "Raleway, sans-serif",
+
+    "_setup_1_variable": "One file that contains all weights (variable font):",
     "files": [
-      { "path": "fonts/TikTokSans.woff2", "variable": true }
+      { "path": "fonts/MyFont.woff2", "variable": true }
+    ],
+
+    "_setup_2_static": "Separate file per weight (static fonts) - uncomment to use:",
+    "_files_static": [
+      { "path": "fonts/MyFont-Light.woff2",   "weight": "light"   },
+      { "path": "fonts/MyFont-Regular.woff2", "weight": "regular" },
+      { "path": "fonts/MyFont-Medium.woff2",  "weight": "medium"  },
+      { "path": "fonts/MyFont-Bold.woff2",    "weight": "bold"    }
+    ],
+
+    "_setup_3_manual": "One file, manually set weight range - uncomment to use:",
+    "_files_manual": [
+      { "path": "fonts/MyFont.woff2", "weight": "thin black" }
     ]
   },
 

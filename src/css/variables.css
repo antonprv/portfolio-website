@@ -26,11 +26,11 @@
   --accent2: #e8d5a3;
   --text:    #f0ece4;
   --muted:   #8a8070;
-  --border:  var(--border-dark,  rgba(132, 114, 113, 0.18));
-  --glow:    var(--glow-dark,    rgba(132, 114, 113, 0.12));
+  --border:  var(--border-dark,  color-mix(in srgb, var(--accent-dark) 18%, transparent));
+  --glow:    var(--glow-dark,    color-mix(in srgb, var(--accent-dark) 12%, transparent));
 
-  --gradient-top:    rgba(132, 114, 113, 0.15);
-  --gradient-bottom: rgba(132, 114, 113, 0.08);
+  --gradient-top:    color-mix(in srgb, var(--accent) 15%, transparent);
+  --gradient-bottom: color-mix(in srgb, var(--accent)  8%, transparent);
 }
 
 /* ─── LIGHT THEME ─── */
@@ -43,11 +43,11 @@
   --accent2: #8b6f3a;
   --text:    #1a1a1a;
   --muted:   #4a4a4a;
-  --border:  var(--border-light, rgba(166, 124, 82, 0.25));
-  --glow:    var(--glow-light,   rgba(166, 124, 82, 0.15));
+  --border:  var(--border-light, color-mix(in srgb, var(--accent-light) 25%, transparent));
+  --glow:    var(--glow-light,   color-mix(in srgb, var(--accent-light) 15%, transparent));
 
-  --gradient-top:    rgba(166, 124, 82, 0.18);
-  --gradient-bottom: rgba(166, 124, 82, 0.10);
+  --gradient-top:    color-mix(in srgb, var(--accent) 18%, transparent);
+  --gradient-bottom: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 html { scroll-behavior: smooth; }
@@ -55,7 +55,7 @@ html { scroll-behavior: smooth; }
 body {
   background:   var(--bg);
   color:        var(--text);
-  font-family:  'Raleway', sans-serif;
+  font-family:  inherit;  /* set by config-loader.js */
   font-weight:  300;
   line-height:  1.7;
   overflow-x:   hidden;

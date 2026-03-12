@@ -105,7 +105,7 @@
 }
 
 .project-info h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: inherit;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text);
@@ -139,7 +139,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(200, 169, 110, 0.15);
+  background: var(--glow);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -244,7 +244,7 @@
   width:           32px;
   height:          32px;
   border-radius:   50%;
-  background:      rgba(200, 169, 110, 0.15);
+  background:      var(--glow);
   border:          1px solid var(--border);
   display:         flex;
   align-items:     center;
