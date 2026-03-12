@@ -7,10 +7,11 @@
    Steps:
      1. Fetch config.json
      2. Apply accent colours as CSS custom properties
-     3. Inject custom font via @font-face (optional)
-     4. Set profile photo (with emoji fallback)
-     5. Render all project cards
-     6. Patch i18n strings from profile data
+     3. Apply noise texture parameters
+     4. Inject custom font via @font-face (optional)
+     5. Set profile photo (with emoji fallback)
+     6. Render all project cards
+     7. Patch i18n strings from profile data
    ============================================================ */
 
 (async function bootstrap() {
@@ -29,6 +30,7 @@
   window.__cfg = cfg;
 
   applyAccentColors(cfg.theme);
+  applyNoise(cfg.noise);
   if (cfg.font?.path || cfg.font?.files?.length) injectFont(cfg.font);
   applyProfilePhoto(cfg.profile);
   renderProjects(cfg.projects);
@@ -42,15 +44,28 @@
    ════════════════════════════════════════════════════════════ */
 function applyAccentColors({ accentDark, accentLight } = {}) {
   const root = document.documentElement.style;
-  if (accentDark) {
-    root.setProperty('--accent-dark',  accentDark);
-    root.setProperty('--border-dark',  hexToRgba(accentDark,  0.18));
-    root.setProperty('--glow-dark',    hexToRgba(accentDark,  0.12));
+
+  /* Set the base accent vars */
+  if (accentDark)  root.setProperty('--accent-dark',  accentDark);
+  if (accentLight) root.setProperty('--accent-light', accentLight);
+
+  /* Derive all dependent vars explicitly in JS so color-mix() in CSS
+     doesn't need to resolve them (avoids browser inconsistencies with
+     color-mix + CSS custom properties on inline styles). */
+  const dark  = accentDark  || getComputedStyle(document.documentElement).getPropertyValue('--accent-dark').trim();
+  const light = accentLight || getComputedStyle(document.documentElement).getPropertyValue('--accent-light').trim();
+
+  if (dark) {
+    root.setProperty('--border-dark',        hexToRgba(dark, 0.18));
+    root.setProperty('--glow-dark',          hexToRgba(dark, 0.12));
+    root.setProperty('--gradient-top-dark',  hexToRgba(dark, 0.15));
+    root.setProperty('--gradient-bot-dark',  hexToRgba(dark, 0.08));
   }
-  if (accentLight) {
-    root.setProperty('--accent-light', accentLight);
-    root.setProperty('--border-light', hexToRgba(accentLight, 0.25));
-    root.setProperty('--glow-light',   hexToRgba(accentLight, 0.15));
+  if (light) {
+    root.setProperty('--border-light',        hexToRgba(light, 0.25));
+    root.setProperty('--glow-light',          hexToRgba(light, 0.15));
+    root.setProperty('--gradient-top-light',  hexToRgba(light, 0.18));
+    root.setProperty('--gradient-bot-light',  hexToRgba(light, 0.10));
   }
 }
 
@@ -61,6 +76,27 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+
+
+/* ════════════════════════════════════════════════════════════
+   NOISE TEXTURE
+   Generates the grain SVG from config values and sets it as
+   --noise-svg on :root so body::after can use it.
+   ════════════════════════════════════════════════════════════ */
+function applyNoise({ frequency = 0.75, octaves = 8 } = {}) {
+  /* Build the SVG, URL-encode it, wrap as CSS url() */
+  const svg = [
+    `<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'>`,
+    `<filter id='n'>`,
+    `<feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='${octaves}' stitchTiles='stitch'/>`,
+    `</filter>`,
+    `<rect width='100%' height='100%' filter='url(#n)' opacity='0.04'/>`,
+    `</svg>`,
+  ].join('');
+
+  const encoded = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  document.documentElement.style.setProperty('--noise-svg', encoded);
+}
 
 /* ════════════════════════════════════════════════════════════
    CUSTOM FONT

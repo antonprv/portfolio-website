@@ -6,6 +6,11 @@
     "accentLight": "#4c3eaf"
   },
 
+  "noise": {
+    "frequency": 0.75,
+    "octaves":   8
+  },
+
   "font": {
     "family":   "TikTokSans",
     "fallback": "sans-serif",
