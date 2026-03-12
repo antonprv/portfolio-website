@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Антон Пируев — Портфолио</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Custom Font (optional) - place your font file in fonts/ folder -->
+  <!-- See layout.css @font-face declaration -->
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/projects.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       THEME SWITCHER
+  ════════════════════════════════════════ -->
+  <button class="theme-switcher" id="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+    <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+    <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+
+  <!-- ════════════════════════════════════════
+       LANG SWITCHER
+  ════════════════════════════════════════ -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <header>
+    <div class="hero">
+
+      <div class="avatar-wrap">
+        <!--
+          ════════════════════════════════════════════════════
+          PROFILE PHOTO
+          Place your photo in: images/profile/
+          Update the filename in the <img> tag below
+          Supported formats: .jpg, .png, .webp, .svg
+          ════════════════════════════════════════════════════
+        -->
+        <img src="images/profile/photo.jpg" alt="Антон Пируев" class="avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <!-- If no photo, uncomment the line below and comment out the <img> above: -->
+        <div class="avatar-placeholder" style="display:none;">🧑‍💻</div>
+      </div>
+
+      <div>
+        <p class="tagline t" id="tagline">Senior Unity разработчик</p>
+        <h1><span id="first-name">Антон</span> <span id="last-name">Пируев</span></h1>
+      </div>
+
+      <p class="bio t" id="bio">
+        Senior Unity разработчик. Создаю PC и мобильные игры, а также
+        промышленные симуляции — от прототипа до релиза. Пишу код, который
+        работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед
+        дедлайном.
+      </p>
+
+      <nav class="links" aria-label="Social links">
+        <a class="link-pill" href="https://github.com/username" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0C17.3 5.37 18.26 5.68 18.26 5.68c.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.15c0 .31.21.67.8.56C20.2 21.4 23.5 17.1 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+          GitHub
+        </a>
+        <a class="link-pill" href="https://t.me/username" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.89 8.26-2.04 9.6c-.15.67-.54.84-1.09.52l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.22-3.07 5.58-5.04c.24-.22-.05-.34-.38-.12L6.94 14.9l-2.96-.92c-.64-.2-.65-.64.14-.95l11.56-4.46c.53-.19 1 .13.81.89l.4.8z"/></svg>
+          Telegram
+        </a>
+        <a class="link-pill" href="mailto:ivan@example.com" aria-label="Email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Email
+        </a>
+        <a class="link-pill" href="https://linkedin.com/in/username" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════════════
+       PROJECTS
+  ════════════════════════════════════════ -->
+  <div class="divider reveal" role="separator">
+    <span class="divider-label t" id="projects-title">Проекты</span>
+  </div>
+
+  <section class="projects-section" aria-label="Projects">
+    <div class="section-intro reveal">
+      <p class="t" id="projects-sub">Некоторые из моих работ</p>
+    </div>
+
+    <div class="grid">
+
+      <!--
+        ════════════════════════════════════════════════════
+        PROJECT IMAGES
+        Place project screenshots in: images/projects/
+        Update src="" for each project
+        Recommended size: 640x360px (16:9)
+        Supported formats: .jpg, .png, .webp
+        ════════════════════════════════════════════════════
+      -->
+
+      <a class="project-card" href="https://github.com/username/project-1" target="_blank" rel="noopener">
+        <div class="project-image-wrapper">
+          <img src="images/projects/project-1.jpg" alt="Project Alpha" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb c1" style="display:none;">🎮</div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <div class="project-info">
+          <h3>Project Alpha</h3>
+          <p class="t"
+             data-ru="PC-игра с открытым миром и процедурной генерацией уровней на Unity 6."
+             data-en="Open-world PC game with procedural level generation built in Unity 6.">
+            PC-игра с открытым миром и процедурной генерацией уровней на Unity 6.
+          </p>
+          <span class="project-tag">Unity · C# · PC</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/username/project-2" target="_blank" rel="noopener">
+        <div class="project-image-wrapper">
+          <img src="images/projects/project-2.jpg" alt="Mobile Runner" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb c2" style="display:none;">📱</div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <div class="project-info">
+          <h3>Mobile Runner</h3>
+          <p class="t"
+             data-ru="Гиперказуальная мобильная игра с 500k+ загрузок и оптимизацией под слабые устройства."
+             data-en="Hyper-casual mobile game with 500k+ downloads, optimized for low-end devices.">
+            Гиперказуальная мобильная игра с 500k+ загрузок и оптимизацией под слабые устройства.
+          </p>
+          <span class="project-tag">Unity · iOS · Android</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/username/project-3" target="_blank" rel="noopener">
+        <div class="project-image-wrapper">
+          <img src="images/projects/project-3.jpg" alt="IndusSim" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb c3" style="display:none;">🏭</div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <div class="project-info">
+          <h3>IndusSim</h3>
+          <p class="t"
+             data-ru="Промышленная симуляция производственной линии для обучения операторов в VR."
+             data-en="Industrial production line simulation for operator training in VR.">
+            Промышленная симуляция производственной линии для обучения операторов в VR.
+          </p>
+          <span class="project-tag">Unity · VR · C#</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/username/project-4" target="_blank" rel="noopener">
+        <div class="project-image-wrapper">
+          <img src="images/projects/project-4.jpg" alt="FactoryViz" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb c4" style="display:none;">⚙️</div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <div class="project-info">
+          <h3>FactoryViz</h3>
+          <p class="t"
+             data-ru="3D-визуализация завода с интеграцией IoT-датчиков и цифровым двойником в реальном времени."
+             data-en="Real-time 3D factory visualization with IoT sensor integration and a digital twin.">
+            3D-визуализация завода с интеграцией IoT-датчиков и цифровым двойником в реальном времени.
+          </p>
+          <span class="project-tag">Unity · IoT · Digital Twin</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/username/project-5" target="_blank" rel="noopener">
+        <div class="project-image-wrapper">
+          <img src="images/projects/project-5.jpg" alt="Ocean Depths" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb c5" style="display:none;">🌊</div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <div class="project-info">
+          <h3>Ocean Depths</h3>
+          <p class="t"
+             data-ru="Мобильная RPG с подводным сеттингом, системой крафта и мультиплеером на Photon."
+             data-en="Mobile RPG with an underwater setting, crafting system, and Photon multiplayer.">
+            Мобильная RPG с подводным сеттингом, системой крафта и мультиплеером на Photon.
+          </p>
+          <span class="project-tag">Unity · Photon · Mobile</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/username/project-6" target="_blank" rel="noopener">
+        <div class="project-image-wrapper">
+          <img src="images/projects/project-6.jpg" alt="SafetyDrill VR" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="project-thumb c6" style="display:none;">🔬</div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <div class="project-info">
+          <h3>SafetyDrill VR</h3>
+          <p class="t"
+             data-ru="VR-симулятор аварийных ситуаций на производстве. Развёрнут на 12 предприятиях."
+             data-en="VR emergency drill simulator for industrial facilities. Deployed across 12 enterprises.">
+            VR-симулятор аварийных ситуаций на производстве. Развёрнут на 12 предприятиях.
+          </p>
+          <span class="project-tag">Unity · VR · HTC Vive</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <p class="t" id="footer-text">© 2026 Антон Пируев &nbsp;·&nbsp; Сделано с ☕ и вниманием к деталям</p>
+  </footer>
+
+
+  <!-- Scripts (order matters: theme → i18n data → lang logic → scroll) -->
+  <script src="js/theme.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/scroll.js"></script>
+
+</body>
+</html>
