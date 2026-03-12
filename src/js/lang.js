@@ -55,8 +55,13 @@ function setLang(lang) {
       if (el) el.textContent = i18n[lang][NAME_ID_TO_KEY[id]];
     });
 
-    // Update inline data-ru / data-en attributes
+    // Update inline data-ru / data-en attributes (includes project descs + link buttons)
     document.querySelectorAll('[data-ru]').forEach(el => {
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+
+    // Project card titles (h3 with data-ru / data-en set by config-loader)
+    document.querySelectorAll('.project-info h3[data-ru]').forEach(el => {
       el.textContent = el.getAttribute('data-' + lang);
     });
 

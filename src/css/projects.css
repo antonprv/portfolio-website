@@ -213,3 +213,94 @@
     font-size: 0.6rem;
   }
 }
+
+
+
+/* ════════════════════════════════════════════════════════════
+   CARD PRESETS
+   ════════════════════════════════════════════════════════════
+
+   "no-links"   — display-only, no hover lift, not clickable
+   "link"       — whole card is one <a> → any URL (↗ badge)
+   "github"     — whole card is one <a> → GitHub (GitHub icon badge)
+   "links-bar"  — card is a <div>; button strip at the bottom
+   ════════════════════════════════════════════════════════════ */
+
+/* ── no-links: suppress interactivity ── */
+.project-card[data-preset="no-links"] {
+  cursor: default;
+}
+.project-card[data-preset="no-links"]:hover {
+  transform:    none;
+  box-shadow:   none;
+  border-color: var(--border);
+}
+
+/* ── link / github: arrow badge ── */
+.project-arrow {
+  position:        absolute;
+  top:             1rem;
+  right:           1rem;
+  width:           32px;
+  height:          32px;
+  border-radius:   50%;
+  background:      rgba(200, 169, 110, 0.15);
+  border:          1px solid var(--border);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       0.9rem;
+  color:           var(--accent);
+  opacity:         0;
+  transform:       translateY(4px);
+  transition:      opacity .25s, transform .25s;
+}
+.project-card:hover .project-arrow {
+  opacity:   1;
+  transform: translateY(0);
+}
+
+/* ── links-bar: button strip ── */
+.project-link-footer {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         0.5rem;
+  padding:     0.85rem 1.4rem 1.1rem;
+  border-top:  1px solid var(--border);
+  margin-top:  0.2rem;
+}
+
+.project-link-btn {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.4rem;
+  padding:         0.4rem 0.95rem;
+  border-radius:   999px;
+  border:          1px solid var(--border);
+  font-family:     inherit;
+  font-size:       0.74rem;
+  font-weight:     500;
+  letter-spacing:  0.06em;
+  text-decoration: none;
+  color:           var(--muted);
+  background:      transparent;
+  cursor:          pointer;
+  white-space:     nowrap;
+  transition:      color .2s, border-color .2s, background .2s, transform .15s;
+}
+.project-link-btn:hover {
+  color:        var(--text);
+  border-color: var(--accent);
+  background:   var(--glow);
+  transform:    translateY(-1px);
+}
+
+/* Play button — accent-filled on hover */
+.project-link-btn--play {
+  color:        var(--accent);
+}
+.project-link-btn--play:hover {
+  color:        var(--bg);
+  background:   var(--accent);
+  border-color: var(--accent);
+}
