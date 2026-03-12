@@ -1,5 +1,5 @@
 /* ============================================================
-   config-loader.js — Loads config.json and bootstraps the site.
+   config-loader.js - Loads config.json and bootstraps the site.
 
    Script load order (index.html):
      theme.js → config-loader.js → i18n.js → lang.js → scroll.js
@@ -68,11 +68,11 @@ function hexToRgba(hex, alpha) {
 
    "font" in config.json supports three setups:
 
-   1. Variable font — one file, all weights:
+   1. Variable font - one file, all weights:
       "font": { "family": "MyFont", "fallback": "sans-serif",
                 "files": [{ "path": "fonts/MyFont.woff2", "variable": true }] }
 
-   2. Static files — one file per weight:
+   2. Static files - one file per weight:
       "font": { "family": "MyFont", "fallback": "sans-serif",
                 "files": [
                   { "path": "fonts/MyFont-Regular.woff2", "weight": 400 },
@@ -84,10 +84,10 @@ function hexToRgba(hex, alpha) {
                 "path": "fonts/MyFont.woff2", "variable": true }
 
    Per-file fields:
-     path      — relative path to the .woff2 file (required)
-     weight    — number or "min max" string, e.g. 400 or "100 900"
+     path      - relative path to the .woff2 file (required)
+     weight    - number or "min max" string, e.g. 400 or "100 900"
                  omit to auto-detect (variable) or default to "normal"
-     variable  — true/false; omit to auto-detect from filename
+     variable  - true/false; omit to auto-detect from filename
    ════════════════════════════════════════════════════════════ */
 
 function injectFont(fontCfg) {
@@ -107,7 +107,7 @@ function injectFont(fontCfg) {
   document.body.style.fontFamily = `'${family}', ${fallback || 'sans-serif'}`;
 }
 
-/* Named weight aliases — use these in config.json "weight" field.
+/* Named weight aliases - use these in config.json "weight" field.
    Numbers also work if you prefer. */
 const FONT_WEIGHT_NAMES = {
   thin:        100,
@@ -171,7 +171,7 @@ function resolveWeight(weight, filePath) {
   /* Plain number */
   if (isNumericWeight(raw)) return raw;
 
-  /* Nothing matched — warn and fall back */
+  /* Nothing matched - warn and fall back */
   console.warn(
     `[config-loader] Unknown font weight "${weight}" in ${label}. Falling back to "normal".\n` +
     `Supported names: ${Object.keys(FONT_WEIGHT_NAMES).join(', ')}\n` +
@@ -243,19 +243,19 @@ function applyProfilePhoto({ photo, nameRu } = {}) {
    PROJECT CARDS
    ════════════════════════════════════════════════════════════
 
-   Four presets — choose via "preset" in config.json:
+   Four presets - choose via "preset" in config.json:
 
-   "no-links"   — Display-only card. No hover lift, nothing clickable.
+   "no-links"   - Display-only card. No hover lift, nothing clickable.
                   Use for NDA / unreleased / private projects.
 
-   "link"       — The entire card is one clickable link.
+   "link"       - The entire card is one clickable link.
                   Set "url" to any destination (itch.io, Steam, etc.).
 
-   "github"     — Same as "link" but specifically for a GitHub repo.
+   "github"     - Same as "link" but specifically for a GitHub repo.
                   Set "github" to the repo URL.
                   Shows the GitHub icon on the ↗ badge.
 
-   "links-bar"  — Card is not clickable itself.
+   "links-bar"  - Card is not clickable itself.
                   A button strip appears at the bottom.
                   Any combination of "github", "page", "play" is valid;
                   omit a key to hide that button.
@@ -287,7 +287,7 @@ function buildCard(p, index) {
 
   el.appendChild(buildThumbnail(p));
 
-  /* Arrow badge — only for single-link presets */
+  /* Arrow badge - only for single-link presets */
   if (isSingleLink) {
     const arrow = document.createElement('span');
     arrow.className      = 'project-arrow';
@@ -348,7 +348,7 @@ function buildInfo(p) {
   if (Array.isArray(p.tags) && p.tags.length) {
     const tag = document.createElement('span');
     tag.className   = 'project-tag';
-    tag.textContent = p.tags.join(' · ');
+    tag.textContent = p.tags.join(' - ');
     info.appendChild(tag);
   }
 
@@ -416,7 +416,7 @@ function patchI18n(profile) {
       lastName:       restRu.join(' '),
       tagline:        taglineRu || i18n.ru.tagline,
       bio:            bioRu     || i18n.ru.bio,
-      'footer-text':  `© ${new Date().getFullYear()} ${nameRu}\u00a0·\u00a0 Сделано с ☕ и вниманием к деталям`,
+      'footer-text':  `© ${new Date().getFullYear()} ${nameRu}\u00a0-\u00a0 Сделано с ☕ и вниманием к деталям`,
       pageTitle:      `${nameRu} - Портфолио`,
     });
 
@@ -425,7 +425,7 @@ function patchI18n(profile) {
       lastName:       restEn.join(' '),
       tagline:        taglineEn || i18n.en.tagline,
       bio:            bioEn     || i18n.en.bio,
-      'footer-text':  `© ${new Date().getFullYear()} ${nameEn}\u00a0·\u00a0 Made with ☕ and attention to detail`,
+      'footer-text':  `© ${new Date().getFullYear()} ${nameEn}\u00a0-\u00a0 Made with ☕ and attention to detail`,
       pageTitle:      `${nameEn} - Portfolio`,
     });
 

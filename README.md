@@ -9,13 +9,13 @@ The site is [currently live](https://antonprv.github.io/portfolio-website/).
 
 ## Stack
 
-Pure HTML · CSS · Vanilla JS.
+Pure HTML - CSS - Vanilla JS.
 
 ## Structure
 
 ```
 portfolio/
-├── config.json             # ★ Single config file — edit this to customise everything
+├── config.json             # Single config file - edit this to customise everything
 ├── index.html              # Markup shell (content is injected from config.json)
 ├── css/
 │   ├── variables.css       # Design tokens & global reset
@@ -39,7 +39,7 @@ portfolio/
 
 ## Customisation
 
-Everything is controlled from `config.json` — you shouldn't need to touch any other file.
+Everything is controlled from `config.json` - you shouldn't need to touch any other file.
 
 | What | Where in config.json |
 |---|---|
@@ -56,16 +56,16 @@ Each project entry has a `"preset"` field that controls its behaviour:
 
 | Preset | Behaviour |
 |---|---|
-| `"no-links"` | Display only — nothing is clickable. Use for NDA / private work. |
+| `"no-links"` | Display only - nothing is clickable. Use for NDA / private work. |
 | `"link"` | The whole card opens a custom URL. Set `"url"`. |
 | `"github"` | The whole card opens a GitHub repo. Set `"github"`. |
 | `"links-bar"` | Button strip at the bottom. Any of `"github"`, `"page"`, `"play"` are optional. |
 
 ### Custom font setups
 
-Use the `"files"` array — it supports all three setups, which can even be mixed:
+Use the `"files"` array - it supports all three setups, which can even be mixed:
 
-**1. Variable font** — one file, all weights:
+**1. Variable font** - one file, all weights:
 ```json
 "font": {
   "family": "MyFont", "fallback": "sans-serif",
@@ -75,7 +75,7 @@ Use the `"files"` array — it supports all three setups, which can even be mixe
 }
 ```
 
-**2. Static files** — one file per weight:
+**2. Static files** - one file per weight:
 ```json
 "font": {
   "family": "MyFont", "fallback": "sans-serif",
@@ -87,7 +87,7 @@ Use the `"files"` array — it supports all three setups, which can even be mixe
 }
 ```
 
-**3. Manual weight range** — one file, explicit range:
+**3. Manual weight range** - one file, explicit range:
 ```json
 "font": {
   "family": "MyFont", "fallback": "sans-serif",
