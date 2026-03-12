@@ -3,6 +3,7 @@
 I've decided to make this repo public in case anyone would be curious or would like to make something similar.
 
 The site is [currently live](https://antonprv.github.io/portfolio-website/).
+
 ---
 
 ## Stack
