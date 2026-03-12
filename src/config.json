@@ -2,13 +2,8 @@
   "_doc": "Portfolio config. Edit this file only - the site reads everything from here.",
 
   "theme": {
-    "accentDark":  "#847271",
-    "accentLight": "#a67c52"
-  },
-
-  "noise": {
-    "frequency": 0.9,
-    "octaves":   8
+    "accentDark":  "#4ccbad",
+    "accentLight": "#4c3eaf"
   },
 
   "noise": {
