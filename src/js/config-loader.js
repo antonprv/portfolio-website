@@ -1,5 +1,5 @@
 /* ============================================================
-   config-loader.js - Loads config.json and bootstraps the site.
+   config-loader.js — Loads config.json and bootstraps the site.
 
    Script load order (index.html):
      theme.js → config-loader.js → i18n.js → lang.js → scroll.js
@@ -29,7 +29,7 @@
   window.__cfg = cfg;
 
   applyAccentColors(cfg.theme);
-  if (cfg.font?.path) injectFont(cfg.font);
+  if (cfg.font?.path || cfg.font?.files?.length) injectFont(cfg.font);
   applyProfilePhoto(cfg.profile);
   renderProjects(cfg.projects);
   patchI18n(cfg.profile);
@@ -64,20 +64,156 @@ function hexToRgba(hex, alpha) {
 
 /* ════════════════════════════════════════════════════════════
    CUSTOM FONT
+   ════════════════════════════════════════════════════════════
+
+   "font" in config.json supports three setups:
+
+   1. Variable font — one file, all weights:
+      "font": { "family": "MyFont", "fallback": "sans-serif",
+                "files": [{ "path": "fonts/MyFont.woff2", "variable": true }] }
+
+   2. Static files — one file per weight:
+      "font": { "family": "MyFont", "fallback": "sans-serif",
+                "files": [
+                  { "path": "fonts/MyFont-Regular.woff2", "weight": 400 },
+                  { "path": "fonts/MyFont-Bold.woff2",    "weight": 700 }
+                ] }
+
+   3. Legacy shorthand (single file, backward-compatible):
+      "font": { "family": "MyFont", "fallback": "sans-serif",
+                "path": "fonts/MyFont.woff2", "variable": true }
+
+   Per-file fields:
+     path      — relative path to the .woff2 file (required)
+     weight    — number or "min max" string, e.g. 400 or "100 900"
+                 omit to auto-detect (variable) or default to "normal"
+     variable  — true/false; omit to auto-detect from filename
    ════════════════════════════════════════════════════════════ */
-function injectFont({ path, family, fallback }) {
+
+function injectFont(fontCfg) {
+  const { family, fallback } = fontCfg;
+
+  /* Normalise to an array of file descriptors */
+  const files = Array.isArray(fontCfg.files)
+    ? fontCfg.files
+    : [{ path: fontCfg.path, weight: fontCfg.weight, variable: fontCfg.variable }];
+
+  const styleRules = files.map(file => buildFontFace(family, file)).join('\n');
+
   const style = document.createElement('style');
-  style.textContent = `
-    @font-face {
-      font-family: '${family}';
-      src: url('${path}') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-  `;
+  style.textContent = styleRules;
   document.head.appendChild(style);
+
   document.body.style.fontFamily = `'${family}', ${fallback || 'sans-serif'}`;
+}
+
+/* Named weight aliases — use these in config.json "weight" field.
+   Numbers also work if you prefer. */
+const FONT_WEIGHT_NAMES = {
+  thin:        100,
+  hairline:    100,
+  extralight:  200,
+  'extra-light': 200,
+  ultralight:  200,
+  light:       300,
+  regular:     400,
+  normal:      400,
+  book:        400,
+  medium:      500,
+  semibold:    600,
+  'semi-bold': 600,
+  demibold:    600,
+  bold:        700,
+  extrabold:   800,
+  'extra-bold': 800,
+  ultrabold:   800,
+  black:       900,
+  heavy:       900,
+  ultrablack:  950,
+};
+
+/**
+ * Resolve a weight value from config to a valid CSS font-weight string.
+ * Accepts: named string ("bold"), number (700), range string ("100 900"),
+ *          or two-word range ("thin black" → "100 900").
+ * Returns null if weight is undefined, or logs a warning and falls back
+ * to "normal" if the value can't be recognised.
+ */
+function resolveWeight(weight, filePath) {
+  if (weight === undefined) return null;
+
+  const raw   = String(weight).trim().toLowerCase();
+  const label = filePath ? `"${filePath}"` : 'font file';
+
+  /* Already a numeric range: "100 900" */
+  if (/^\d+\s+\d+$/.test(raw)) return raw;
+
+  /* Two named values: "light bold" → "300 700" */
+  const parts = raw.split(/\s+/);
+  if (parts.length === 2) {
+    const a = FONT_WEIGHT_NAMES[parts[0]] ?? (isNumericWeight(parts[0]) ? Number(parts[0]) : null);
+    const b = FONT_WEIGHT_NAMES[parts[1]] ?? (isNumericWeight(parts[1]) ? Number(parts[1]) : null);
+
+    if (a !== null && b !== null) return `${a} ${b}`;
+
+    const bad = [parts[0], parts[1]].filter(p => !FONT_WEIGHT_NAMES[p] && !isNumericWeight(p));
+    console.warn(
+      `[config-loader] Unknown font weight name(s) ${bad.map(p => `"${p}"`).join(', ')} ` +
+      `in ${label}. Falling back to "normal".\n` +
+      `Supported names: ${Object.keys(FONT_WEIGHT_NAMES).join(', ')}`
+    );
+    return 'normal';
+  }
+
+  /* Single named value: "bold" → "700" */
+  if (FONT_WEIGHT_NAMES[raw] !== undefined) return String(FONT_WEIGHT_NAMES[raw]);
+
+  /* Plain number */
+  if (isNumericWeight(raw)) return raw;
+
+  /* Nothing matched — warn and fall back */
+  console.warn(
+    `[config-loader] Unknown font weight "${weight}" in ${label}. Falling back to "normal".\n` +
+    `Supported names: ${Object.keys(FONT_WEIGHT_NAMES).join(', ')}\n` +
+    `Or use a number (100–900) or a range like "300 700".`
+  );
+  return 'normal';
+}
+
+/** True if the string is a plain CSS font-weight number (100–900). */
+function isNumericWeight(str) {
+  const n = Number(str);
+  return /^\d+$/.test(str) && n >= 1 && n <= 1000;
+}
+
+/**
+ * Build a single @font-face rule for one file descriptor.
+ * @param {string} family
+ * @param {{ path: string, weight?: number|string, variable?: boolean }} file
+ */
+function buildFontFace(family, { path, weight, variable }) {
+  /* Detect variable font if not explicitly set */
+  const isVariable = variable !== undefined
+    ? Boolean(variable)
+    : /variable|-vf|[\s_\-]var[\s_.\-]|VF\./i.test(path);
+
+  /* Resolve font-weight:
+       named / numeric value → resolveWeight()
+       variable font         → full range "100 900"
+       static font           → "normal"             */
+  const resolved  = resolveWeight(weight, path);
+  const fontWeight = resolved ?? (isVariable ? '100 900' : 'normal');
+
+  const format = isVariable ? 'woff2-variations' : 'woff2';
+
+  return `
+  @font-face {
+    font-family: '${family}';
+    src: url('${path}') format('${format}');
+    font-weight: ${fontWeight};
+    font-style: normal;
+    font-display: swap;
+  }`;
 }
 
 
@@ -107,19 +243,19 @@ function applyProfilePhoto({ photo, nameRu } = {}) {
    PROJECT CARDS
    ════════════════════════════════════════════════════════════
 
-   Four presets - choose via "preset" in config.json:
+   Four presets — choose via "preset" in config.json:
 
-   "no-links"   - Display-only card. No hover lift, nothing clickable.
+   "no-links"   — Display-only card. No hover lift, nothing clickable.
                   Use for NDA / unreleased / private projects.
 
-   "link"       - The entire card is one clickable link.
+   "link"       — The entire card is one clickable link.
                   Set "url" to any destination (itch.io, Steam, etc.).
 
-   "github"     - Same as "link" but specifically for a GitHub repo.
+   "github"     — Same as "link" but specifically for a GitHub repo.
                   Set "github" to the repo URL.
                   Shows the GitHub icon on the ↗ badge.
 
-   "links-bar"  - Card is not clickable itself.
+   "links-bar"  — Card is not clickable itself.
                   A button strip appears at the bottom.
                   Any combination of "github", "page", "play" is valid;
                   omit a key to hide that button.
@@ -151,7 +287,7 @@ function buildCard(p, index) {
 
   el.appendChild(buildThumbnail(p));
 
-  /* Arrow badge - only for single-link presets */
+  /* Arrow badge — only for single-link presets */
   if (isSingleLink) {
     const arrow = document.createElement('span');
     arrow.className      = 'project-arrow';

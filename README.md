@@ -15,7 +15,7 @@ Pure HTML · CSS · Vanilla JS.
 
 ```
 portfolio/
-├── config.json             # Single config file - edit this to customise everything
+├── config.json             # ★ Single config file — edit this to customise everything
 ├── index.html              # Markup shell (content is injected from config.json)
 ├── css/
 │   ├── variables.css       # Design tokens & global reset
@@ -39,12 +39,12 @@ portfolio/
 
 ## Customisation
 
-Everything is controlled from `config.json` - you shouldn't need to touch any other file.
+Everything is controlled from `config.json` — you shouldn't need to touch any other file.
 
 | What | Where in config.json |
 |---|---|
 | Accent colours (light & dark theme) | `theme.accentDark` / `theme.accentLight` |
-| Custom font | `font.path`, `font.family`, `font.fallback` |
+| Custom font | `font.path`, `font.family`, `font.fallback`, `font.variable` |
 | Profile photo | `profile.photo` |
 | Name, tagline, bio | `profile.nameRu/En`, `profile.taglineRu/En`, `profile.bioRu/En` |
 | Social links | `profile.links` |
@@ -56,10 +56,72 @@ Each project entry has a `"preset"` field that controls its behaviour:
 
 | Preset | Behaviour |
 |---|---|
-| `"no-links"` | Display only - nothing is clickable. Use for NDA / private work. |
+| `"no-links"` | Display only — nothing is clickable. Use for NDA / private work. |
 | `"link"` | The whole card opens a custom URL. Set `"url"`. |
 | `"github"` | The whole card opens a GitHub repo. Set `"github"`. |
 | `"links-bar"` | Button strip at the bottom. Any of `"github"`, `"page"`, `"play"` are optional. |
+
+### Custom font setups
+
+Use the `"files"` array — it supports all three setups, which can even be mixed:
+
+**1. Variable font** — one file, all weights:
+```json
+"font": {
+  "family": "MyFont", "fallback": "sans-serif",
+  "files": [
+    { "path": "fonts/MyFont.woff2", "variable": true }
+  ]
+}
+```
+
+**2. Static files** — one file per weight:
+```json
+"font": {
+  "family": "MyFont", "fallback": "sans-serif",
+  "files": [
+    { "path": "fonts/MyFont-Light.woff2",   "weight": "light"   },
+    { "path": "fonts/MyFont-Regular.woff2", "weight": "regular" },
+    { "path": "fonts/MyFont-Bold.woff2",    "weight": "bold"    }
+  ]
+}
+```
+
+**3. Manual weight range** — one file, explicit range:
+```json
+"font": {
+  "family": "MyFont", "fallback": "sans-serif",
+  "files": [
+    { "path": "fonts/MyFont.woff2", "weight": "thin black" }
+  ]
+}
+```
+
+Per-file fields:
+
+| Field | Description |
+|---|---|
+| `path` | Relative path to the `.woff2` file (required) |
+| `weight` | Named word, number, or range. See table below. Omit to auto-resolve. |
+| `variable` | `true` / `false`. Omit to auto-detect from filename. |
+
+**Supported `weight` values:**
+
+| Named | Numeric | CSS value |
+|---|---|---|
+| `thin`, `hairline` | `100` | 100 |
+| `extralight`, `ultralight` | `200` | 200 |
+| `light` | `300` | 300 |
+| `regular`, `normal`, `book` | `400` | 400 |
+| `medium` | `500` | 500 |
+| `semibold`, `demibold` | `600` | 600 |
+| `bold` | `700` | 700 |
+| `extrabold`, `ultrabold` | `800` | 800 |
+| `black`, `heavy` | `900` | 900 |
+
+For a range, write two words: `"light bold"` → `300 700`, `"thin black"` → `100 900`.
+
+Auto-detection of variable fonts looks for `Variable`, `-VF`, or `var` in the filename.
 
 ### Adding your photo
 

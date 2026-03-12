@@ -220,10 +220,10 @@
    CARD PRESETS
    ════════════════════════════════════════════════════════════
 
-   "no-links"   - display-only, no hover lift, not clickable
-   "link"       - whole card is one <a> → any URL (↗ badge)
-   "github"     - whole card is one <a> → GitHub (GitHub icon badge)
-   "links-bar"  - card is a <div>; button strip at the bottom
+   "no-links"   — display-only, no hover lift, not clickable
+   "link"       — whole card is one <a> → any URL (↗ badge)
+   "github"     — whole card is one <a> → GitHub (GitHub icon badge)
+   "links-bar"  — card is a <div>; button strip at the bottom
    ════════════════════════════════════════════════════════════ */
 
 /* ── no-links: suppress interactivity ── */
@@ -295,7 +295,7 @@
   transform:    translateY(-1px);
 }
 
-/* Play button - accent-filled on hover */
+/* Play button — accent-filled on hover */
 .project-link-btn--play {
   color:        var(--accent);
 }
