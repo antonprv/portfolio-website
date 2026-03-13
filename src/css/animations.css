@@ -52,3 +52,12 @@
     right: 1rem;
   }
 }
+
+/* ── Page entry fade-in (project detail page) ── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.project-detail {
+  animation: pageFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

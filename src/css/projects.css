@@ -226,15 +226,7 @@
    "links-bar"  - card is a <div>; button strip at the bottom
    ════════════════════════════════════════════════════════════ */
 
-/* ── no-links: suppress interactivity ── */
-.project-card[data-preset="no-links"] {
-  cursor: default;
-}
-.project-card[data-preset="no-links"]:hover {
-  transform:    none;
-  box-shadow:   none;
-  border-color: var(--border);
-}
+/* ── no-links: still navigates to detail page, looks same as other cards ── */
 
 /* ── link / github: arrow badge ── */
 .project-arrow {
@@ -303,4 +295,57 @@
   color:        var(--bg);
   background:   var(--accent);
   border-color: var(--accent);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   TAG FILTER BAR
+   ════════════════════════════════════════════════════════════ */
+.tag-filter-bar {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding:         0.38rem 1rem;
+  border-radius:   999px;
+  border:          1px solid var(--border);
+  background:      transparent;
+  color:           var(--muted);
+  font-family:     inherit;
+  font-size:       0.75rem;
+  font-weight:     500;
+  letter-spacing:  0.07em;
+  cursor:          pointer;
+  transition:      color .2s, border-color .2s, background .2s, transform .15s;
+  white-space:     nowrap;
+}
+.filter-btn:hover {
+  color:        var(--text);
+  border-color: var(--accent);
+  background:   var(--glow);
+}
+.filter-btn.active {
+  color:        var(--bg);
+  background:   var(--accent);
+  border-color: var(--accent);
+}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE TRANSITION OVERLAY
+   ════════════════════════════════════════════════════════════ */
+.page-transition {
+  position:       fixed;
+  inset:          0;
+  background:     var(--bg);
+  z-index:        10000;
+  pointer-events: none;
+  opacity:        0;
+  transition:     opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.page-transition.active {
+  opacity:        1;
+  pointer-events: all;
 }

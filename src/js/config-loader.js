@@ -83,14 +83,17 @@ function hexToRgba(hex, alpha) {
    Generates the grain SVG from config values and sets it as
    --noise-svg on :root so body::after can use it.
    ════════════════════════════════════════════════════════════ */
-function applyNoise({ frequency = 0.75, octaves = 8 } = {}) {
-  /* Build the SVG, URL-encode it, wrap as CSS url() */
+function applyNoise({ frequency = 0.65, octaves = 1 } = {}) {
+  /* type="turbulence" + feColorMatrix desaturate → dense, uniform grain
+     similar to analog film/TV static. Much closer to real photographic noise
+     than fractalNoise which produces visible low-frequency blobs. */
   const svg = [
     `<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'>`,
-    `<filter id='n'>`,
-    `<feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='${octaves}' stitchTiles='stitch'/>`,
+    `<filter id='n' color-interpolation-filters='linearRGB'>`,
+    `<feTurbulence type='turbulence' baseFrequency='${frequency}' numOctaves='${octaves}' stitchTiles='stitch'/>`,
+    `<feColorMatrix type='saturate' values='0'/>`,
     `</filter>`,
-    `<rect width='100%' height='100%' filter='url(#n)' opacity='0.04'/>`,
+    `<rect width='100%' height='100%' filter='url(#n)' opacity='0.06'/>`,
     `</svg>`,
   ].join('');
 
@@ -298,47 +301,116 @@ function applyProfilePhoto({ photo, nameRu } = {}) {
    ════════════════════════════════════════════════════════════ */
 
 function renderProjects(projects) {
-  const grid = document.getElementById('projects-grid');
+  const section = document.querySelector('.projects-section');
+  const grid    = document.getElementById('projects-grid');
   if (!grid || !Array.isArray(projects)) return;
+
+  /* ── Collect all unique tags ── */
+  const allTags = [...new Set(projects.flatMap(p => p.tags || []))];
+
+  /* ── Render tag filter bar ── */
+  if (allTags.length && section) {
+    const existing = document.getElementById('tag-filter-bar');
+    if (existing) existing.remove();
+
+    const bar = document.createElement('div');
+    bar.id = 'tag-filter-bar';
+    bar.className = 'tag-filter-bar';
+
+    /* "All" button */
+    const allBtn = makeFilterBtn('all', true);
+    bar.appendChild(allBtn);
+
+    allTags.forEach(tag => {
+      bar.appendChild(makeFilterBtn(tag, false));
+    });
+
+    /* Insert before the grid */
+    grid.parentNode.insertBefore(bar, grid);
+
+    /* Filter logic */
+    let active = 'all';
+    bar.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      const tag = btn.dataset.tag;
+      if (tag === active) return;
+      active = tag;
+      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.tag === tag));
+      grid.querySelectorAll('.project-card').forEach(card => {
+        const show = tag === 'all' || card.dataset.tags?.split(',').includes(tag);
+        card.style.transition = 'opacity .25s, transform .25s';
+        card.style.opacity    = show ? '' : '0.2';
+        card.style.transform  = show ? '' : 'scale(0.97)';
+        card.style.pointerEvents = show ? '' : 'none';
+      });
+    });
+  }
+
+  /* ── Render cards ── */
   grid.innerHTML = '';
   projects.forEach((p, i) => grid.appendChild(buildCard(p, i)));
+}
+
+function makeFilterBtn(tag, isActive) {
+  const btn = document.createElement('button');
+  btn.className = `filter-btn${isActive ? ' active' : ''}`;
+  btn.dataset.tag = tag;
+  btn.textContent = tag === 'all' ? 'Все' : tag;
+  return btn;
 }
 
 /* ── Card builder ── */
 function buildCard(p, index) {
   const preset = p.preset || 'no-links';
 
-  /* Root element: <a> for single-link presets, <div> otherwise */
-  const isSingleLink = preset === 'link' || preset === 'github';
-  const el = document.createElement(isSingleLink ? 'a' : 'div');
-  el.className = 'project-card';
-  el.dataset.preset = preset;
-  el.style.animationDelay = `${0.05 + index * 0.05}s`;
+  /* All cards are now <div> — clicking navigates to detail page */
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.dataset.preset = preset;
+  card.dataset.tags   = (p.tags || []).join(',');
+  card.style.animationDelay = `${0.05 + index * 0.05}s`;
 
-  if (isSingleLink) {
-    el.href   = preset === 'github' ? (p.github || '#') : (p.url || '#');
-    el.target = '_blank';
-    el.rel    = 'noopener';
+  /* Navigate to detail page on card click */
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', e => {
+    /* Don't navigate if clicking a link button */
+    if (e.target.closest('.project-link-footer')) return;
+    navigateToProject(index);
+  });
+
+  card.appendChild(buildThumbnail(p));
+
+  /* ↗ badge — always shown (indicates detail page) */
+  const arrow = document.createElement('span');
+  arrow.className = 'project-arrow';
+  arrow.setAttribute('aria-hidden', 'true');
+  arrow.textContent = '↗';
+  card.appendChild(arrow);
+
+  card.appendChild(buildInfo(p));
+
+  /* Link buttons — shown for all presets that have links */
+  const hasLinks = p.github || p.url || p.page || p.play;
+  if (hasLinks) card.appendChild(buildLinksBar(p));
+
+  return card;
+}
+
+/* ── Smooth page transition to detail ── */
+function navigateToProject(index) {
+  /* Inject overlay into page */
+  let overlay = document.getElementById('page-transition');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'page-transition';
+    overlay.className = 'page-transition';
+    document.body.appendChild(overlay);
   }
-
-  el.appendChild(buildThumbnail(p));
-
-  /* Arrow badge - only for single-link presets */
-  if (isSingleLink) {
-    const arrow = document.createElement('span');
-    arrow.className      = 'project-arrow';
-    arrow.setAttribute('aria-hidden', 'true');
-    arrow.innerHTML = preset === 'github' ? SVG_GITHUB_SMALL : '↗';
-    el.appendChild(arrow);
-  }
-
-  el.appendChild(buildInfo(p));
-
-  if (preset === 'links-bar') {
-    el.appendChild(buildLinksBar(p));
-  }
-
-  return el;
+  overlay.classList.add('active');
+  setTimeout(() => {
+    window.location.href = `project.html?id=${index}`;
+  }, 320);
 }
 
 /* ── Thumbnail ── */
@@ -391,25 +463,28 @@ function buildInfo(p) {
   return info;
 }
 
-/* ── Links bar (preset "links-bar") ── */
+/* ── Links bar — rendered for any card that has at least one link ── */
 function buildLinksBar(p) {
   const bar = document.createElement('div');
   bar.className = 'project-link-footer';
 
   const buttons = [
-    { key: 'github', href: p.github, labelRu: 'GitHub',   labelEn: 'GitHub',   icon: SVG_GITHUB_SMALL, cls: '' },
-    { key: 'page',   href: p.page,   labelRu: 'Страница', labelEn: 'Page',      icon: SVG_LINK,         cls: '' },
-    { key: 'play',   href: p.play,   labelRu: 'Играть',   labelEn: 'Play',      icon: SVG_PLAY,         cls: 'project-link-btn--play' },
+    { href: p.github, labelRu: 'GitHub',   labelEn: 'GitHub',  icon: SVG_GITHUB_SMALL, cls: '' },
+    { href: p.url,    labelRu: 'Открыть',  labelEn: 'Open',    icon: SVG_LINK,         cls: '' },
+    { href: p.page,   labelRu: 'Страница', labelEn: 'Page',    icon: SVG_LINK,         cls: '' },
+    { href: p.play,   labelRu: 'Играть',   labelEn: 'Play',    icon: SVG_PLAY,         cls: 'project-link-btn--play' },
   ];
 
-  buttons.forEach(({ key, href, labelRu, labelEn, icon, cls }) => {
-    if (!href) return; /* skip buttons without a URL */
+  buttons.forEach(({ href, labelRu, labelEn, icon, cls }) => {
+    if (!href) return;
 
     const btn = document.createElement('a');
     btn.href      = href;
     btn.target    = '_blank';
     btn.rel       = 'noopener';
     btn.className = `project-link-btn${cls ? ' ' + cls : ''}`;
+    /* Stop click from bubbling to card's navigate handler */
+    btn.addEventListener('click', e => e.stopPropagation());
 
     const label = document.createElement('span');
     label.className   = 't';

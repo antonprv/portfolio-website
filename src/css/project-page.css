@@ -1,0 +1,267 @@
+/* ============================================================
+   project-page.css — Individual project detail page
+   ============================================================ */
+
+/* ── Page-transition overlay ── */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.page-transition.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Back button ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s, transform .2s;
+  margin-bottom: 2.5rem;
+}
+.back-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--glow);
+  transform: translateX(-3px);
+}
+
+/* ── Project detail layout ── */
+.project-detail {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 5rem 2rem 8rem;
+}
+
+.project-detail-header {
+  margin-bottom: 2.5rem;
+}
+
+.project-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.project-detail-emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.project-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project-detail h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.project-detail-desc {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 640px;
+  margin-bottom: 2rem;
+}
+
+/* ── Action buttons ── */
+.project-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 3rem;
+}
+
+.detail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s, transform .15s;
+  white-space: nowrap;
+}
+.detail-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--glow);
+  transform: translateY(-2px);
+}
+.detail-btn--play {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.detail-btn--play:hover {
+  color: var(--bg);
+  background: var(--accent);
+}
+
+/* ── Hero image ── */
+.project-detail-hero {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 3rem;
+  position: relative;
+  background: var(--card);
+}
+.project-detail-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity .4s ease;
+}
+.project-detail-hero-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+/* ── Long description ── */
+.project-detail-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  white-space: pre-wrap;
+}
+
+/* ── Screenshots gallery ── */
+.project-screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.project-screenshot {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 16 / 9;
+  background: var(--card);
+  cursor: zoom-in;
+  transition: transform .3s cubic-bezier(0.22,1,0.36,1), border-color .2s;
+}
+.project-screenshot:hover {
+  transform: scale(1.02);
+  border-color: var(--accent);
+}
+.project-screenshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Lightbox ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  transform: scale(0.95);
+  transition: transform .25s cubic-bezier(0.22,1,0.36,1);
+}
+.lightbox.open img {
+  transform: scale(1);
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  line-height: 1;
+  transition: opacity .15s;
+}
+.lightbox-close:hover { opacity: 1; }
+
+/* ── NDA notice ── */
+.nda-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .project-detail {
+    padding: 3rem 1.2rem 5rem;
+  }
+  .project-detail h1 {
+    font-size: 1.6rem;
+  }
+  .project-screenshots {
+    grid-template-columns: 1fr;
+  }
+}
