@@ -1,132 +1,189 @@
 {
   "_doc": "Portfolio config. Edit this file only - the site reads everything from here.",
-
   "theme": {
-    "accentDark":  "#847271",
+    "accentDark": "#847271",
     "accentLight": "#a67c52"
   },
-
   "font": {
     "_setup": "Choose ONE of the three setups below and remove the others.",
-
-    "family":   "MyFont",
+    "family": "MyFont",
     "fallback": "Raleway, sans-serif",
-
     "_setup_1_variable": "One file that contains all weights (variable font):",
     "files": [
-      { "path": "fonts/MyFont.woff2", "variable": true }
+      {
+        "path": "fonts/MyFont.woff2",
+        "variable": true
+      }
     ],
-
     "_setup_2_static": "Separate file per weight (static fonts) - uncomment to use:",
     "_files_static": [
-      { "path": "fonts/MyFont-Light.woff2",   "weight": "light"   },
-      { "path": "fonts/MyFont-Regular.woff2", "weight": "regular" },
-      { "path": "fonts/MyFont-Medium.woff2",  "weight": "medium"  },
-      { "path": "fonts/MyFont-Bold.woff2",    "weight": "bold"    }
+      {
+        "path": "fonts/MyFont-Light.woff2",
+        "weight": "light"
+      },
+      {
+        "path": "fonts/MyFont-Regular.woff2",
+        "weight": "regular"
+      },
+      {
+        "path": "fonts/MyFont-Medium.woff2",
+        "weight": "medium"
+      },
+      {
+        "path": "fonts/MyFont-Bold.woff2",
+        "weight": "bold"
+      }
     ],
-
     "_setup_3_manual": "One file, manually set weight range - uncomment to use:",
     "_files_manual": [
-      { "path": "fonts/MyFont.woff2", "weight": "thin black" }
+      {
+        "path": "fonts/MyFont.woff2",
+        "weight": "thin black"
+      }
     ]
   },
-
   "profile": {
-    "photo":     "images/profile/photo.jpg",
-    "nameRu":    "Антон Пируев",
-    "nameEn":    "Anton Piruev",
+    "photo": "images/profile/photo.jpg",
+    "nameRu": "Антон Пируев",
+    "nameEn": "Anton Piruev",
     "taglineRu": "Senior Unity разработчик",
     "taglineEn": "Senior Unity Developer",
-    "bioRu":     "Senior Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
-    "bioEn":     "Senior Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
+    "bioRu": "Senior Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
+    "bioEn": "Senior Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
     "links": {
-      "github":   "https://github.com/username",
+      "github": "https://github.com/username",
       "telegram": "https://t.me/username",
-      "email":    "mailto:anton@example.com",
+      "email": "mailto:anton@example.com",
       "linkedin": "https://linkedin.com/in/username"
     }
   },
-
   "projects": [
     {
       "_comment": "Preset 'no-links' - display only, nothing is clickable",
-      "preset":  "no-links",
-      "image":   "images/projects/project-1.jpg",
-      "emoji":   "🔬",
-      "color":   "c1",
-      "nameRu":  "SafetyDrill VR",
-      "nameEn":  "SafetyDrill VR",
-      "descRu":  "VR-симулятор аварийных ситуаций на производстве. NDA - ссылки недоступны.",
-      "descEn":  "VR emergency drill simulator for industrial facilities. NDA - links unavailable.",
-      "tags":    ["Unity", "VR", "HTC Vive"]
+      "preset": "no-links",
+      "image": "images/projects/project-1.jpg",
+      "emoji": "🔬",
+      "color": "c1",
+      "nameRu": "SafetyDrill VR",
+      "nameEn": "SafetyDrill VR",
+      "descRu": "VR-симулятор аварийных ситуаций на производстве. NDA - ссылки недоступны.",
+      "descEn": "VR emergency drill simulator for industrial facilities. NDA - links unavailable.",
+      "tags": [
+        "Unity",
+        "VR",
+        "HTC Vive"
+      ],
+      "screenshots": [
+        "images/projects/screenshot-1.jpg",
+        {
+          "type": "image",
+          "src": "images/projects/screenshot-2.jpg",
+          "caption": "Опциональная подпись"
+        },
+        {
+          "type": "video",
+          "src": "videos/gameplay.mp4",
+          "poster": "images/projects/video-poster.jpg"
+        },
+        {
+          "type": "embed",
+          "src": "https://rutube.ru/play/embed/ВАШ_ID/",
+          "poster": "images/projects/rutube-poster.jpg"
+        },
+        {
+          "embed": "<iframe src=\"https://rutube.ru/play/embed/ВАШ_ID/\"></iframe>"
+        }
+      ],
+      "detailsRu": "Галерея поддерживает четыре формата медиа:\n1. Строка — путь к изображению\n2. { type: 'image', src, caption } — изображение с подписью\n3. { type: 'video', src, poster } — видеофайл\n4. { type: 'embed', src, poster } — iframe-эмбед (Rutube, YouTube, Vimeo)\n   или { embed: '<iframe ...>' } — вставить код эмбеда напрямую",
+      "detailsEn": "Screenshots support two formats: a string path to an image, or an object { type: 'video', src: '...', poster: '...' } for video."
     },
     {
       "_comment": "Preset 'link' - whole card opens a custom URL (any site, itch.io, steam, etc.)",
-      "preset":  "link",
-      "url":     "https://username.itch.io/my-game",
-      "image":   "images/projects/project-2.jpg",
-      "emoji":   "🎮",
-      "color":   "c2",
-      "nameRu":  "Project Alpha",
-      "nameEn":  "Project Alpha",
-      "descRu":  "PC-игра с открытым миром и процедурной генерацией уровней на Unity 6.",
-      "descEn":  "Open-world PC game with procedural level generation built in Unity 6.",
-      "tags":    ["Unity", "C#", "PC"]
+      "preset": "link",
+      "url": "https://username.itch.io/my-game",
+      "image": "images/projects/project-2.jpg",
+      "emoji": "🎮",
+      "color": "c2",
+      "nameRu": "Project Alpha",
+      "nameEn": "Project Alpha",
+      "descRu": "PC-игра с открытым миром и процедурной генерацией уровней на Unity 6.",
+      "descEn": "Open-world PC game with procedural level generation built in Unity 6.",
+      "tags": [
+        "Unity",
+        "C#",
+        "PC"
+      ]
     },
     {
       "_comment": "Preset 'github' - whole card opens GitHub repo",
-      "preset":  "github",
-      "github":  "https://github.com/username/mobile-runner",
-      "image":   "images/projects/project-3.jpg",
-      "emoji":   "📱",
-      "color":   "c3",
-      "nameRu":  "Mobile Runner",
-      "nameEn":  "Mobile Runner",
-      "descRu":  "Гиперказуальная мобильная игра с 500k+ загрузок и оптимизацией под слабые устройства.",
-      "descEn":  "Hyper-casual mobile game with 500k+ downloads, optimized for low-end devices.",
-      "tags":    ["Unity", "iOS", "Android"]
+      "preset": "github",
+      "github": "https://github.com/username/mobile-runner",
+      "image": "images/projects/project-3.jpg",
+      "emoji": "📱",
+      "color": "c3",
+      "nameRu": "Mobile Runner",
+      "nameEn": "Mobile Runner",
+      "descRu": "Гиперказуальная мобильная игра с 500k+ загрузок и оптимизацией под слабые устройства.",
+      "descEn": "Hyper-casual mobile game with 500k+ downloads, optimized for low-end devices.",
+      "tags": [
+        "Unity",
+        "iOS",
+        "Android"
+      ]
     },
     {
       "_comment": "Preset 'links-bar' - card has a button bar at the bottom. All 3 links are optional.",
-      "preset":  "links-bar",
-      "github":  "https://github.com/username/indussim",
-      "page":    "https://indussim.example.com",
-      "play":    "https://username.itch.io/indussim",
-      "image":   "images/projects/project-4.jpg",
-      "emoji":   "🏭",
-      "color":   "c4",
-      "nameRu":  "IndusSim",
-      "nameEn":  "IndusSim",
-      "descRu":  "Промышленная симуляция производственной линии для обучения операторов в VR.",
-      "descEn":  "Industrial production line simulation for operator training in VR.",
-      "tags":    ["Unity", "VR", "C#"]
+      "preset": "links-bar",
+      "github": "https://github.com/username/indussim",
+      "page": "https://indussim.example.com",
+      "play": "https://username.itch.io/indussim",
+      "image": "images/projects/project-4.jpg",
+      "emoji": "🏭",
+      "color": "c4",
+      "nameRu": "IndusSim",
+      "nameEn": "IndusSim",
+      "descRu": "Промышленная симуляция производственной линии для обучения операторов в VR.",
+      "descEn": "Industrial production line simulation for operator training in VR.",
+      "tags": [
+        "Unity",
+        "VR",
+        "C#"
+      ]
     },
     {
       "_comment": "links-bar with only github + play (no page link)",
-      "preset":  "links-bar",
-      "github":  "https://github.com/username/ocean-depths",
-      "play":    "https://play.google.com/store/apps/details?id=com.username.oceandepths",
-      "image":   "images/projects/project-5.jpg",
-      "emoji":   "🌊",
-      "color":   "c5",
-      "nameRu":  "Ocean Depths",
-      "nameEn":  "Ocean Depths",
-      "descRu":  "Мобильная RPG с подводным сеттингом, системой крафта и мультиплеером на Photon.",
-      "descEn":  "Mobile RPG with an underwater setting, crafting system, and Photon multiplayer.",
-      "tags":    ["Unity", "Photon", "Mobile"]
+      "preset": "links-bar",
+      "github": "https://github.com/username/ocean-depths",
+      "play": "https://play.google.com/store/apps/details?id=com.username.oceandepths",
+      "image": "images/projects/project-5.jpg",
+      "emoji": "🌊",
+      "color": "c5",
+      "nameRu": "Ocean Depths",
+      "nameEn": "Ocean Depths",
+      "descRu": "Мобильная RPG с подводным сеттингом, системой крафта и мультиплеером на Photon.",
+      "descEn": "Mobile RPG with an underwater setting, crafting system, and Photon multiplayer.",
+      "tags": [
+        "Unity",
+        "Photon",
+        "Mobile"
+      ]
     },
     {
       "_comment": "links-bar with only page link (no github, no play)",
-      "preset":  "links-bar",
-      "page":    "https://factoryviz.example.com",
-      "image":   "images/projects/project-6.jpg",
-      "emoji":   "⚙️",
-      "color":   "c6",
-      "nameRu":  "FactoryViz",
-      "nameEn":  "FactoryViz",
-      "descRu":  "3D-визуализация завода с интеграцией IoT-датчиков и цифровым двойником в реальном времени.",
-      "descEn":  "Real-time 3D factory visualization with IoT sensor integration and a digital twin.",
-      "tags":    ["Unity", "IoT", "Digital Twin"]
+      "preset": "links-bar",
+      "page": "https://factoryviz.example.com",
+      "image": "images/projects/project-6.jpg",
+      "emoji": "⚙️",
+      "color": "c6",
+      "nameRu": "FactoryViz",
+      "nameEn": "FactoryViz",
+      "descRu": "3D-визуализация завода с интеграцией IoT-датчиков и цифровым двойником в реальном времени.",
+      "descEn": "Real-time 3D factory visualization with IoT sensor integration and a digital twin.",
+      "tags": [
+        "Unity",
+        "IoT",
+        "Digital Twin"
+      ]
     }
   ]
 }

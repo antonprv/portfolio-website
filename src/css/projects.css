@@ -45,6 +45,7 @@
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.3s,
     border-color 0.3s;
+  will-change: transform, opacity;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -136,29 +137,34 @@
   font-weight: 500;
 }
 
-/* ── Arrow badge ── */
+/* ── "Подробнее" badge ── */
 .project-arrow {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  top: 0.85rem;
+  right: 0.85rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
   background: var(--glow);
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.25s, transform 0.25s;
+  transform: translateY(-4px) scale(0.92);
+  transition: opacity 0.22s, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
   color: var(--accent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
 }
 
 .project-card:hover .project-arrow {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 
@@ -233,29 +239,7 @@
 
 /* ── no-links: still navigates to detail page, looks same as other cards ── */
 
-/* ── link / github: arrow badge ── */
-.project-arrow {
-  position:        absolute;
-  top:             1rem;
-  right:           1rem;
-  width:           32px;
-  height:          32px;
-  border-radius:   50%;
-  background:      var(--glow);
-  border:          1px solid var(--border);
-  display:         flex;
-  align-items:     center;
-  justify-content: center;
-  font-size:       0.9rem;
-  color:           var(--accent);
-  opacity:         0;
-  transform:       translateY(4px);
-  transition:      opacity .25s, transform .25s;
-}
-.project-card:hover .project-arrow {
-  opacity:   1;
-  transform: translateY(0);
-}
+/* ── arrow badge (duplicate rule removed — defined above) ── */
 
 /* ── links-bar: button strip ── */
 .project-link-footer {

@@ -377,11 +377,10 @@ function buildCard(p, index) {
 
   card.appendChild(buildThumbnail(p));
 
-  /* ↗ badge — always shown (indicates detail page) */
+  /* "Подробнее" badge */
   const arrow = document.createElement('span');
   arrow.className = 'project-arrow';
-  arrow.setAttribute('aria-hidden', 'true');
-  arrow.textContent = '↗';
+  arrow.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg><span class="t" data-ru="Подробнее" data-en="Details">Подробнее</span>`;
   card.appendChild(arrow);
 
   card.appendChild(buildInfo(p));
@@ -393,7 +392,7 @@ function buildCard(p, index) {
   return card;
 }
 
-/* ── Tag filter with FLIP animation ── */
+/* ── Tag filter ── */
 function filterCards(grid, tag) {
   const cards = [...grid.querySelectorAll('.project-card')];
 
@@ -402,33 +401,48 @@ function filterCards(grid, tag) {
     return tag === 'all' || tags.includes(tag);
   });
 
-  /* FLIP — snapshot positions before reflow */
-  const before = cards.map(card => card.getBoundingClientRect());
+  /* Cancel stale animations */
+  cards.forEach(card => card.getAnimations().forEach(a => a.cancel()));
 
-  /* Toggle display:none — grid reflows immediately.
-     Shown cards need explicit 'flex' because '' would pick up CSS display:flex
-     anyway — but being explicit avoids any animation-frame race. */
-  cards.forEach((card, i) => {
-    card.style.display = willShow[i] ? 'flex' : 'none';
-  });
+  /* Phase 1 — fade OUT cards being hidden (they still occupy space) */
+  const hiding = cards.filter((_, i) => !willShow[i]);
+  const showing = cards.filter((_, i) => willShow[i]);
 
-  /* Animate each visible card from its old position */
-  cards.forEach((card, i) => {
-    if (!willShow[i]) return;
-    const after = card.getBoundingClientRect();
-    const dx = before[i].left - after.left;
-    const dy = before[i].top  - after.top;
-    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) {
-      card.animate([{ opacity: 0.3 }, { opacity: 1 }],
-        { duration: 240, easing: 'ease', fill: 'none' });
-      return;
-    }
-    card.animate(
-      [{ transform: `translate(${dx}px, ${dy}px)`, opacity: 0.3 },
-       { transform: 'none',                         opacity: 1   }],
-      { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'none' }
-    );
-  });
+  const FADE_OUT = 160;  /* ms */
+  const FADE_IN  = 220;  /* ms */
+
+  if (hiding.length) {
+    hiding.forEach(card => {
+      card.animate([{ opacity: 1 }, { opacity: 0 }],
+        { duration: FADE_OUT, easing: 'ease', fill: 'forwards' });
+    });
+  }
+
+  /* Phase 2 — after hiding cards fade out, remove them from flow and fade in the rest */
+  setTimeout(() => {
+    /* Cancel forwards-fill so display:none takes over cleanly */
+    hiding.forEach(card => {
+      card.getAnimations().forEach(a => a.cancel());
+      card.style.display = 'none';
+    });
+
+    /* Make sure shown cards are visible */
+    showing.forEach(card => {
+      card.style.display = 'flex';
+    });
+
+    /* Fade in shown cards with a gentle stagger */
+    showing.forEach((card, i) => {
+      card.animate(
+        [{ opacity: 0, transform: 'translateY(8px)' },
+         { opacity: 1, transform: 'none' }],
+        { duration: FADE_IN,
+          delay: i * 25,
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          fill: 'none' }
+      );
+    });
+  }, hiding.length ? FADE_OUT : 0);
 }
 
 /* ── Smooth page transition to detail ── */

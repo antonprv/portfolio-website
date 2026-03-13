@@ -21,7 +21,6 @@
       }
     ]
   },
-  
   "profile": {
     "photo": "images/profile/photo.jpg",
     "nameRu": "Антон Пируев",
@@ -37,7 +36,6 @@
       "linkedin": "https://linkedin.com/in/username"
     }
   },
-  
   "projects": [
     {
       "_comment": "Preset 'no-links' - display only, nothing is clickable",
@@ -56,7 +54,24 @@
       ],
       "detailsRu": "Подробное описание проекта на русском языке. Расскажите здесь об использованных технологиях, сложностях, решениях и результатах. Этот текст отображается на странице проекта.",
       "detailsEn": "Detailed project description in English. Describe the technologies used, challenges faced, solutions found, and results achieved. This text appears on the project page.",
-      "screenshots": []
+      "screenshots": [
+        {
+          "type": "image",
+          "src": "images/projects/screen1.jpg",
+          "caption": "Главный экран симулятора"
+        },
+        {
+          "type": "image",
+          "src": "images/projects/screen2.jpg",
+          "caption": "Процесс обучения"
+        },
+        {
+          "type": "video",
+          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "poster": "images/projects/screen1.jpg",
+          "caption": "Геймплейный трейлер"
+        }
+      ]
     },
     {
       "_comment": "Preset 'link' - whole card opens a custom URL (any site, itch.io, steam, etc.)",
@@ -76,7 +91,10 @@
       ],
       "detailsRu": "Гиперказуальная мобильная игра, разработанная с нуля за 3 месяца. Особое внимание уделено производительности на устройствах начального уровня: оптимизированные шейдеры, батчинг спрайтов, адаптивный LOD.",
       "detailsEn": "Hyper-casual mobile game developed from scratch in 3 months. Special focus on performance for low-end devices: optimized shaders, sprite batching, adaptive LOD.",
-      "screenshots": []
+      "screenshots": [
+        "images/projects/alpha1.jpg",
+        "images/projects/alpha2.jpg"
+      ]
     },
     {
       "_comment": "Preset 'github' - whole card opens GitHub repo",

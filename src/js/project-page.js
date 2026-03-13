@@ -207,36 +207,196 @@ function buildScreenshots(p) {
   const shots = p.screenshots;
   if (!Array.isArray(shots) || !shots.length) return null;
 
-  const section = el('div', 'project-screenshots reveal');
+  const hasMultiple = shots.length > 1;
+  const gallery     = el('div', `project-gallery reveal${hasMultiple ? '' : ' gallery-single'}`);
 
-  shots.forEach(src => {
-    const wrap = el('div', 'project-screenshot');
-    const img  = document.createElement('img');
-    img.src = src;
-    img.alt = '';
-    img.loading = 'lazy';
-    img.addEventListener('click', () => openLightbox(src));
-    wrap.appendChild(img);
-    section.appendChild(wrap);
+  /* Thumbs go FIRST (left column), featured second (right) */
+  const thumbStrip = el('div', 'gallery-thumbs');
+  const featured   = el('div', 'gallery-featured');
+
+  if (hasMultiple) gallery.appendChild(thumbStrip);
+  gallery.appendChild(featured);
+
+  let activeIdx = 0;
+  let isTransitioning = false;
+
+  function renderFeatured(idx, instant) {
+    if (isTransitioning && !instant) return;
+    activeIdx = idx;
+
+    /* Pause video / stop embed audio before switching */
+    const prevVideo = featured.querySelector('video');
+    if (prevVideo) prevVideo.pause();
+    const prevIframe = featured.querySelector('iframe');
+    if (prevIframe) { prevIframe.src = prevIframe.src; } /* reload stops audio */
+
+    const item = normalizeMedia(shots[idx]);
+
+    const buildContent = () => {
+      featured.innerHTML = '';
+
+      if (item.type === 'embed') {
+        /* Responsive iframe embed (Rutube, YouTube, Vimeo, etc.) */
+        const wrap = el('div', 'gallery-embed-wrap');
+        const iframe = document.createElement('iframe');
+        iframe.src   = item.src;
+        iframe.allow = 'clipboard-write; autoplay; fullscreen';
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('webkitallowfullscreen', '');
+        iframe.setAttribute('mozallowfullscreen', '');
+        iframe.setAttribute('frameborder', '0');
+        iframe.className = 'gallery-embed';
+        wrap.appendChild(iframe);
+        featured.appendChild(wrap);
+        /* No zoom hint for embeds */
+      } else if (item.type === 'video') {
+        const video = document.createElement('video');
+        video.src      = item.src;
+        video.poster   = item.poster || '';
+        video.controls = true;
+        video.className = 'gallery-video';
+        video.setAttribute('playsinline', '');
+        featured.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src       = item.src;
+        img.alt       = item.caption || '';
+        img.loading   = 'eager';
+        img.className = 'gallery-featured-img';
+        img.addEventListener('click', () => openLightbox(item.src, 'image'));
+        featured.appendChild(img);
+
+        const zoom = el('div', 'gallery-zoom-hint');
+        zoom.textContent = '⤢';
+        featured.appendChild(zoom);
+      }
+
+      /* Caption */
+      if (item.caption) {
+        const cap = el('div', 'gallery-caption');
+        cap.textContent = item.caption;
+        featured.appendChild(cap);
+      }
+
+      /* Crossfade in */
+      featured.animate([{ opacity: 0 }, { opacity: 1 }],
+        { duration: 200, easing: 'ease', fill: 'none' });
+    };
+
+    if (instant) {
+      buildContent();
+    } else {
+      isTransitioning = true;
+      featured.animate([{ opacity: 1 }, { opacity: 0 }],
+        { duration: 150, easing: 'ease', fill: 'forwards' })
+        .onfinish = () => {
+          featured.getAnimations().forEach(a => a.cancel());
+          buildContent();
+          isTransitioning = false;
+        };
+    }
+
+    /* Update thumb highlights */
+    thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+  }
+
+  /* Build thumbnails */
+  shots.forEach((shot, idx) => {
+    const item  = normalizeMedia(shot);
+    const thumb = el('div', `gallery-thumb${idx === 0 ? ' active' : ''}`);
+
+    if (item.type === 'embed' || item.type === 'video') {
+      if (item.poster) {
+        const img = document.createElement('img');
+        img.src = item.poster;
+        img.alt = '';
+        thumb.appendChild(img);
+      } else {
+        thumb.classList.add('gallery-thumb--video-fallback');
+      }
+      const playIcon = el('div', 'gallery-thumb-play');
+      playIcon.innerHTML = item.type === 'embed' ? SVG_EMBED_THUMB : SVG_PLAY_THUMB;
+      thumb.appendChild(playIcon);
+    } else {
+      const img = document.createElement('img');
+      img.src     = item.src;
+      img.alt     = '';
+      img.loading = 'lazy';
+      thumb.appendChild(img);
+    }
+
+    thumb.addEventListener('click', () => renderFeatured(idx));
+    thumbStrip.appendChild(thumb);
   });
 
-  return section;
+  /* Keyboard nav */
+  gallery.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown')
+      renderFeatured((activeIdx + 1) % shots.length);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp')
+      renderFeatured((activeIdx - 1 + shots.length) % shots.length);
+  });
+  gallery.setAttribute('tabindex', '0');
+  gallery.setAttribute('aria-label', 'Project gallery');
+
+  renderFeatured(0, true);
+  return gallery;
 }
 
-/* ── Lightbox ── */
+/* Normalize a screenshot entry to { type, src, embed, poster, caption }
+   Supported formats in config.json:
+     "path/to/image.jpg"                         → image
+     "path/to/video.mp4"                         → video (auto-detected)
+     { "type": "image",  "src": "...",  "caption": "..." }
+     { "type": "video",  "src": "...",  "poster": "...", "caption": "..." }
+     { "type": "embed",  "src": "https://rutube.ru/play/embed/ID/", "poster": "..." }
+     { "embed": "<iframe ...></iframe>" }         → auto-extract src from code */
+function normalizeMedia(item) {
+  if (typeof item === 'string') {
+    const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item);
+    return { type: isVideo ? 'video' : 'image', src: item };
+  }
+
+  /* If raw iframe HTML was pasted, extract the src URL */
+  if (item.embed) {
+    const match = item.embed.match(/src=["']([^"']+)["']/);
+    return {
+      type:    'embed',
+      src:     match ? match[1] : '',
+      poster:  item.poster || '',
+      caption: item.caption || '',
+    };
+  }
+
+  const rawSrc = item.src || item.url || '';
+  const type = item.type || (/\.(mp4|webm|ogg|mov)$/i.test(rawSrc) ? 'video' : 'image');
+
+  return {
+    type,
+    src:     rawSrc,
+    poster:  item.poster || '',
+    caption: item.caption || '',
+  };
+}
+
+/* ── Lightbox (image zoom only — videos play inline) ── */
 function initLightbox() {
   const lb    = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
   const close = document.getElementById('lightbox-close');
 
-  const closeLb = () => lb.classList.remove('open');
+  const closeLb = () => { lb.classList.remove('open'); lbImg.src = ''; };
   close.addEventListener('click', closeLb);
   lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
-  window.openLightbox = src => {
-    lbImg.src = src;
-    lb.classList.add('open');
+  window.openLightbox = (src, type) => {
+    if (type === 'image') {
+      lbImg.src = src;
+      lb.classList.add('open');
+    }
   };
 }
 
@@ -313,6 +473,8 @@ function hexToRgba(hex, alpha) {
 }
 
 /* ── SVG icons ── */
+const SVG_EMBED_THUMB = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><polygon points="9,8 16,10 9,12" fill="white" stroke="none"/></svg>`;
+const SVG_PLAY_THUMB = `<svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>`;
 const SVG_ARROW_LEFT = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>`;
 const SVG_GITHUB     = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0C17.3 5.37 18.26 5.68 18.26 5.68c.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.15c0 .31.21.67.8.56C20.2 21.4 23.5 17.1 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>`;
 const SVG_PLAY       = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>`;
