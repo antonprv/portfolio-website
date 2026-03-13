@@ -174,34 +174,20 @@ function buildActions(p, lang) {
 }
 
 /* ── Hero image ── */
-function buildHeroImage(p) {
-  if (!p.image && !p.emoji) return null;
-
-  const wrap = el('div', 'project-detail-hero reveal');
-
-  if (p.image) {
-    const img = document.createElement('img');
-    img.alt = p.nameRu || '';
-    img.src = p.image;
-    img.onerror = () => {
-      img.style.display = 'none';
-      fallback.style.display = 'flex';
-    };
-    wrap.appendChild(img);
-  }
-
-  const fallback = el('div', `project-detail-hero-fallback ${p.color || 'c1'}`);
-  fallback.textContent = p.emoji || '🎮';
-  if (p.image) fallback.style.display = 'none';
-  wrap.appendChild(fallback);
-
-  return wrap;
-}
+/* buildHeroImage removed — gallery is used instead */
 
 /* ── Screenshots grid ── */
 function buildScreenshots(p) {
   const shots = p.screenshots;
-  if (!Array.isArray(shots) || !shots.length) return null;
+  /* No screenshots — render a single emoji/color tile as the gallery */
+  if (!Array.isArray(shots) || !shots.length) {
+    shots = [{
+      type:    '_fallback',
+      emoji:   p.emoji  || '🎮',
+      color:   p.color  || 'c1',
+      image:   p.image  || '',
+    }];
+  }
 
   const hasMultiple = shots.length > 1;
   const gallery     = el('div', `project-gallery reveal${hasMultiple ? '' : ' gallery-single'}`);
@@ -255,6 +241,13 @@ function buildScreenshots(p) {
         video.className = 'gallery-video';
         video.setAttribute('playsinline', '');
         featured.appendChild(video);
+      } else if (item.type === '_fallback') {
+        /* No media provided — show colored emoji tile */
+        const tile = el('div', `project-detail-hero-fallback ${item.color}`);
+        tile.textContent = item.emoji;
+        tile.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4rem;';
+        featured.appendChild(tile);
+        featured.style.cursor = 'default';
       } else {
         const img = document.createElement('img');
         img.src       = item.src;
@@ -356,6 +349,7 @@ function normalizeMedia(item) {
     const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item);
     return { type: isVideo ? 'video' : 'image', src: item };
   }
+  if (item.type === '_fallback') return item;  /* pass through unchanged */
 
   /* If raw iframe HTML was pasted, extract the src URL */
   if (item.embed) {
