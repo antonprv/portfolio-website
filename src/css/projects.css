@@ -36,7 +36,8 @@
   border: 1px solid var(--border);
   cursor: pointer;
   text-decoration: none;
-  display: block;
+  display: flex;
+  flex-direction: column;   /* stack: image → info → buttons */
   background: var(--card);
   transition:
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -103,6 +104,7 @@
 /* ── Card body ── */
 .project-info {
   padding: 1.2rem 1.4rem 1.4rem;
+  flex: 1;          /* push links-bar to bottom */
 }
 
 .project-info h3 {
@@ -302,32 +304,7 @@
 /* ════════════════════════════════════════════════════════════
    CARD WRAP — collapses hidden cards out of grid flow
    ════════════════════════════════════════════════════════════ */
-.card-wrap {
-  /* When visible: normal grid cell */
-  overflow:   hidden;
-  transition:
-    opacity        0.22s cubic-bezier(0.4, 0, 0.2, 1),
-    transform      0.22s cubic-bezier(0.4, 0, 0.2, 1),
-    max-height     0.28s cubic-bezier(0.4, 0, 0.2, 1) 0.02s,
-    margin-bottom  0.28s cubic-bezier(0.4, 0, 0.2, 1) 0.02s;
-  max-height: 1000px;
-  opacity:    1;
-  transform:  scale(1);
-}
-
-.card-wrap--hidden {
-  max-height:    0 !important;
-  opacity:       0;
-  transform:     scale(0.94);
-  pointer-events: none;
-  /* collapse transitions go faster (hide first, then shrink) */
-  transition:
-    opacity        0.18s cubic-bezier(0.4, 0, 0.2, 1),
-    transform      0.18s cubic-bezier(0.4, 0, 0.2, 1),
-    max-height     0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.08s,
-    margin-bottom  0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.08s;
-  margin-bottom:  0;
-}
+/* card-wrap removed — filter works directly on .project-card */
 
 /* ════════════════════════════════════════════════════════════
    TAG FILTER BAR

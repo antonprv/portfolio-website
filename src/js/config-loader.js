@@ -343,15 +343,9 @@ function renderProjects(projects) {
     });
   }
 
-  /* ── Render cards inside .card-wrap for FLIP filtering ── */
+  /* ── Render cards ── */
   grid.innerHTML = '';
-  projects.forEach((p, i) => {
-    const wrap = document.createElement('div');
-    wrap.className   = 'card-wrap';
-    wrap.dataset.tags = (p.tags || []).join(',');
-    wrap.appendChild(buildCard(p, i));
-    grid.appendChild(wrap);
-  });
+  projects.forEach((p, i) => grid.appendChild(buildCard(p, i)));
 }
 
 function makeFilterBtn(tag, isActive) {
@@ -401,30 +395,36 @@ function buildCard(p, index) {
 
 /* ── Tag filter with FLIP animation ── */
 function filterCards(grid, tag) {
-  const wrappers = [...grid.querySelectorAll('.card-wrap')];
+  const cards = [...grid.querySelectorAll('.project-card')];
 
-  /* 1. Record positions BEFORE change (FLIP: First) */
-  const before = wrappers.map(w => w.getBoundingClientRect());
-
-  /* 2. Apply visibility — hidden wrappers collapse via CSS */
-  wrappers.forEach(w => {
-    const tags   = w.dataset.tags?.split(',') ?? [];
-    const show   = tag === 'all' || tags.includes(tag);
-    w.classList.toggle('card-wrap--hidden', !show);
+  const willShow = cards.map(card => {
+    const tags = card.dataset.tags?.split(',').filter(Boolean) ?? [];
+    return tag === 'all' || tags.includes(tag);
   });
 
-  /* 3. Record positions AFTER change (FLIP: Last) */
-  const after = wrappers.map(w => w.getBoundingClientRect());
+  /* FLIP — snapshot positions before reflow */
+  const before = cards.map(card => card.getBoundingClientRect());
 
-  /* 4. Invert + Play: animate visible cards from old → new position */
-  wrappers.forEach((w, i) => {
-    if (w.classList.contains('card-wrap--hidden')) return;
-    const dx = before[i].left - after[i].left;
-    const dy = before[i].top  - after[i].top;
-    if (dx === 0 && dy === 0) return;
-    w.animate(
-      [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
-      { duration: 300, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'none' }
+  /* Toggle display:none — grid reflows immediately */
+  cards.forEach((card, i) => {
+    card.style.display = willShow[i] ? '' : 'none';
+  });
+
+  /* Animate each visible card from its old position */
+  cards.forEach((card, i) => {
+    if (!willShow[i]) return;
+    const after = card.getBoundingClientRect();
+    const dx = before[i].left - after.left;
+    const dy = before[i].top  - after.top;
+    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) {
+      card.animate([{ opacity: 0.3 }, { opacity: 1 }],
+        { duration: 240, easing: 'ease', fill: 'none' });
+      return;
+    }
+    card.animate(
+      [{ transform: `translate(${dx}px, ${dy}px)`, opacity: 0.3 },
+       { transform: 'none',                         opacity: 1   }],
+      { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'none' }
     );
   });
 }
