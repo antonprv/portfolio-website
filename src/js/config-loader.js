@@ -336,20 +336,22 @@ function renderProjects(projects) {
       const tag = btn.dataset.tag;
       if (tag === active) return;
       active = tag;
-      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.tag === tag));
-      grid.querySelectorAll('.project-card').forEach(card => {
-        const show = tag === 'all' || card.dataset.tags?.split(',').includes(tag);
-        card.style.transition = 'opacity .25s, transform .25s';
-        card.style.opacity    = show ? '' : '0.2';
-        card.style.transform  = show ? '' : 'scale(0.97)';
-        card.style.pointerEvents = show ? '' : 'none';
-      });
+      bar.querySelectorAll('.filter-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.tag === tag)
+      );
+      filterCards(grid, tag);
     });
   }
 
-  /* ── Render cards ── */
+  /* ── Render cards inside .card-wrap for FLIP filtering ── */
   grid.innerHTML = '';
-  projects.forEach((p, i) => grid.appendChild(buildCard(p, i)));
+  projects.forEach((p, i) => {
+    const wrap = document.createElement('div');
+    wrap.className   = 'card-wrap';
+    wrap.dataset.tags = (p.tags || []).join(',');
+    wrap.appendChild(buildCard(p, i));
+    grid.appendChild(wrap);
+  });
 }
 
 function makeFilterBtn(tag, isActive) {
@@ -395,6 +397,36 @@ function buildCard(p, index) {
   if (hasLinks) card.appendChild(buildLinksBar(p));
 
   return card;
+}
+
+/* ── Tag filter with FLIP animation ── */
+function filterCards(grid, tag) {
+  const wrappers = [...grid.querySelectorAll('.card-wrap')];
+
+  /* 1. Record positions BEFORE change (FLIP: First) */
+  const before = wrappers.map(w => w.getBoundingClientRect());
+
+  /* 2. Apply visibility — hidden wrappers collapse via CSS */
+  wrappers.forEach(w => {
+    const tags   = w.dataset.tags?.split(',') ?? [];
+    const show   = tag === 'all' || tags.includes(tag);
+    w.classList.toggle('card-wrap--hidden', !show);
+  });
+
+  /* 3. Record positions AFTER change (FLIP: Last) */
+  const after = wrappers.map(w => w.getBoundingClientRect());
+
+  /* 4. Invert + Play: animate visible cards from old → new position */
+  wrappers.forEach((w, i) => {
+    if (w.classList.contains('card-wrap--hidden')) return;
+    const dx = before[i].left - after[i].left;
+    const dy = before[i].top  - after[i].top;
+    if (dx === 0 && dy === 0) return;
+    w.animate(
+      [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
+      { duration: 300, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'none' }
+    );
+  });
 }
 
 /* ── Smooth page transition to detail ── */
