@@ -24,8 +24,9 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: 1fr;
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* ── Card ── */
@@ -38,6 +39,7 @@
   text-decoration: none;
   display: flex;
   flex-direction: column;   /* stack: image → info → buttons */
+  height: 100%;             /* fill grid cell so all cards same height */
   background: var(--card);
   transition:
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),

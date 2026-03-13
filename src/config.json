@@ -21,6 +21,7 @@
       }
     ]
   },
+  
   "profile": {
     "photo": "images/profile/photo.jpg",
     "nameRu": "Антон Пируев",
@@ -36,6 +37,7 @@
       "linkedin": "https://linkedin.com/in/username"
     }
   },
+  
   "projects": [
     {
       "_comment": "Preset 'no-links' - display only, nothing is clickable",

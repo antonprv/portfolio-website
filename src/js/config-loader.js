@@ -405,9 +405,11 @@ function filterCards(grid, tag) {
   /* FLIP — snapshot positions before reflow */
   const before = cards.map(card => card.getBoundingClientRect());
 
-  /* Toggle display:none — grid reflows immediately */
+  /* Toggle display:none — grid reflows immediately.
+     Shown cards need explicit 'flex' because '' would pick up CSS display:flex
+     anyway — but being explicit avoids any animation-frame race. */
   cards.forEach((card, i) => {
-    card.style.display = willShow[i] ? '' : 'none';
+    card.style.display = willShow[i] ? 'flex' : 'none';
   });
 
   /* Animate each visible card from its old position */
