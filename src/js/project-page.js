@@ -111,8 +111,8 @@ function renderPage(p, lang, profile) {
   const actions = buildActions(p, lang);
   if (actions.children.length) header.appendChild(actions);
 
-  /* ── Hero image ── */
-  const hero = buildHeroImage(p);
+  /* ── Gallery (replaces standalone hero image) ── */
+  const shots = buildScreenshots(p);
 
   /* ── Long description ── */
   const body = el('div', 'project-detail-body t reveal');
@@ -120,16 +120,12 @@ function renderPage(p, lang, profile) {
   body.dataset.en = p.detailsEn || '';
   body.textContent = details() || '';
 
-  /* ── Screenshots ── */
-  const shots = buildScreenshots(p);
-
-  /* ── Assemble ── */
+  /* ── Assemble: back → header → gallery → description ── */
   const detail = el('div', 'project-detail');
   detail.appendChild(back);
   detail.appendChild(header);
-  if (hero) detail.appendChild(hero);
-  if (body.textContent.trim()) detail.appendChild(body);
   if (shots) detail.appendChild(shots);
+  if (body.textContent.trim()) detail.appendChild(body);
 
   root.appendChild(detail);
 
@@ -212,9 +208,11 @@ function buildScreenshots(p) {
 
   /* Thumbs go FIRST (left column), featured second (right) */
   const thumbStrip = el('div', 'gallery-thumbs');
+  if (hasMultiple) thumbStrip.style.display = '';
+  else             thumbStrip.style.display = 'none';
   const featured   = el('div', 'gallery-featured');
 
-  if (hasMultiple) gallery.appendChild(thumbStrip);
+  gallery.appendChild(thumbStrip);
   gallery.appendChild(featured);
 
   let activeIdx = 0;
