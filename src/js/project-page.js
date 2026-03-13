@@ -36,6 +36,24 @@
   /* ── Determine current language ── */
   const lang = () => (typeof currentLang !== 'undefined' ? currentLang : 'ru');
 
+  /* ── Fade in: remove the transition overlay that was set by navigateToProject ── */
+  const overlay = document.getElementById('page-transition');
+  if (overlay) {
+    /* Small delay so the page has painted before fading in */
+    requestAnimationFrame(() => {
+      overlay.style.transition = 'opacity 0.3s ease';
+      overlay.classList.remove('active');
+      /* Clean up inline transition style after animation */
+      setTimeout(() => { overlay.style.transition = ''; }, 350);
+    });
+  }
+
+  /* ── Fix black screen on browser Back (bfcache restores active overlay) ── */
+  window.addEventListener('pageshow', () => {
+    const ov = document.getElementById('page-transition');
+    if (ov) ov.classList.remove('active');
+  });
+
   /* ── Render ── */
   renderPage(project, lang, cfg.profile);
 
@@ -178,7 +196,7 @@ function buildActions(p, lang) {
 
 /* ── Screenshots grid ── */
 function buildScreenshots(p) {
-  const shots = p.screenshots;
+  let shots = p.screenshots;
   /* No screenshots — render a single emoji/color tile as the gallery */
   if (!Array.isArray(shots) || !shots.length) {
     shots = [{
@@ -197,6 +215,19 @@ function buildScreenshots(p) {
   if (hasMultiple) thumbStrip.style.display = '';
   else             thumbStrip.style.display = 'none';
   const featured   = el('div', 'gallery-featured');
+
+  /* Prev / Next arrow buttons — only when multiple items */
+  const btnPrev = el('button', 'gallery-nav gallery-nav--prev');
+  btnPrev.setAttribute('aria-label', 'Previous');
+  btnPrev.innerHTML = SVG_CHEVRON_LEFT;
+  const btnNext = el('button', 'gallery-nav gallery-nav--next');
+  btnNext.setAttribute('aria-label', 'Next');
+  btnNext.innerHTML = SVG_CHEVRON_RIGHT;
+
+  if (hasMultiple) {
+    featured.appendChild(btnPrev);
+    featured.appendChild(btnNext);
+  }
 
   gallery.appendChild(thumbStrip);
   gallery.appendChild(featured);
@@ -321,6 +352,10 @@ function buildScreenshots(p) {
     thumb.addEventListener('click', () => renderFeatured(idx));
     thumbStrip.appendChild(thumb);
   });
+
+  /* Arrow button nav */
+  btnPrev.addEventListener('click', () => renderFeatured((activeIdx - 1 + shots.length) % shots.length));
+  btnNext.addEventListener('click', () => renderFeatured((activeIdx + 1) % shots.length));
 
   /* Keyboard nav */
   gallery.addEventListener('keydown', e => {
@@ -465,6 +500,8 @@ function hexToRgba(hex, alpha) {
 }
 
 /* ── SVG icons ── */
+const SVG_CHEVRON_LEFT  = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>`;
+const SVG_CHEVRON_RIGHT = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>`;
 const SVG_EMBED_THUMB = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><polygon points="9,8 16,10 9,12" fill="white" stroke="none"/></svg>`;
 const SVG_PLAY_THUMB = `<svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>`;
 const SVG_ARROW_LEFT = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>`;

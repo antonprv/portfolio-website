@@ -149,5 +149,12 @@
     })();
   </script>
 
+  <!-- Fix black screen on browser Back: bfcache may restore the transition overlay as active -->
+  <script>
+    window.addEventListener('pageshow', function() {
+      var ov = document.getElementById('page-transition');
+      if (ov) ov.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
