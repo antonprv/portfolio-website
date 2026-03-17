@@ -57,7 +57,11 @@ function setLang(lang) {
 
     // Update inline data-ru / data-en attributes (includes project descs + link buttons)
     document.querySelectorAll('[data-ru]').forEach(el => {
-      el.textContent = el.getAttribute('data-' + lang);
+      if (el.dataset.htmlTranslate) {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      } else {
+        el.textContent = el.getAttribute('data-' + lang);
+      }
     });
 
     // Project card titles (h3 with data-ru / data-en set by config-loader)

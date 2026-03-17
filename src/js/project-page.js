@@ -133,17 +133,19 @@ function renderPage(p, lang, profile) {
   const shots = buildScreenshots(p);
 
   /* ── Long description ── */
-  const body = el('div', 'project-detail-body t reveal');
+  const body = el('div', 'project-detail-body reveal');
+  /* Mark as HTML-translatable (not .t — lang.js would overwrite innerHTML with textContent) */
   body.dataset.ru = p.detailsRu || '';
   body.dataset.en = p.detailsEn || '';
-  body.textContent = details() || '';
+  body.dataset.htmlTranslate = 'true';
+  body.innerHTML = details() || '';
 
   /* ── Assemble: back → header → gallery → description ── */
   const detail = el('div', 'project-detail');
   detail.appendChild(back);
   detail.appendChild(header);
   if (shots) detail.appendChild(shots);
-  if (body.textContent.trim()) detail.appendChild(body);
+  if (body.innerHTML.trim()) detail.appendChild(body);
 
   root.appendChild(detail);
 
