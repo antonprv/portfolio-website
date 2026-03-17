@@ -194,6 +194,162 @@ function buildActions(p, lang) {
 /* ── Hero image ── */
 /* buildHeroImage removed — gallery is used instead */
 
+/* ── Detect whether screenshots are portrait (vertical) ──
+   Loads the first image, resolves true if height > width. */
+function detectPortrait(shots) {
+  const firstImage = shots.find(s => {
+    if (typeof s === 'string') return !/\.(mp4|webm|ogg|mov)$/i.test(s);
+    return (s.type === 'image') || (!s.type && (s.src || s.url || '') && !/\.(mp4|webm|ogg|mov)$/i.test(s.src || s.url || ''));
+  });
+  if (!firstImage) return Promise.resolve(false);
+  const src = typeof firstImage === 'string' ? firstImage : (firstImage.src || firstImage.url || '');
+  if (!src) return Promise.resolve(false);
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload  = () => resolve(img.naturalHeight > img.naturalWidth * 1.1);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+/* ── Render a single image into a slot element ── */
+function renderSlotContent(slot, item, instant) {
+  const build = () => {
+    slot.innerHTML = '';
+    if (item.type === 'embed') {
+      slot.style.cursor = 'default';
+      const wrap = el('div', 'gallery-embed-wrap');
+      const iframe = document.createElement('iframe');
+      iframe.src = item.src;
+      iframe.allow = 'clipboard-write; autoplay; fullscreen';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('frameborder', '0');
+      iframe.className = 'gallery-embed';
+      wrap.appendChild(iframe);
+      slot.appendChild(wrap);
+    } else if (item.type === 'video') {
+      slot.style.cursor = 'default';
+      const video = document.createElement('video');
+      video.src = item.src;
+      video.poster = item.poster || '';
+      video.controls = true;
+      video.className = 'gallery-video';
+      video.setAttribute('playsinline', '');
+      slot.appendChild(video);
+    } else if (item.type === '_fallback') {
+      slot.style.cursor = 'default';
+      const tile = el('div', `project-detail-hero-fallback ${item.color}`);
+      tile.textContent = item.emoji;
+      tile.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4rem;';
+      slot.appendChild(tile);
+    } else {
+      slot.style.cursor = 'zoom-in';
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.caption || '';
+      img.loading = 'eager';
+      img.addEventListener('click', () => openLightbox(item.src, 'image'));
+      slot.appendChild(img);
+      const zoom = el('div', 'gallery-zoom-hint');
+      zoom.textContent = '⤢';
+      slot.appendChild(zoom);
+    }
+    if (item.captionRu || item.captionEn) {
+      const cap = el('div', 'gallery-caption t');
+      cap.dataset.ru = item.captionRu || item.captionEn;
+      cap.dataset.en = item.captionEn || item.captionRu;
+      cap.textContent = (typeof currentLang !== 'undefined' && currentLang === 'en')
+        ? (item.captionEn || item.captionRu)
+        : (item.captionRu || item.captionEn);
+      slot.appendChild(cap);
+    }
+    slot.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease', fill: 'none' });
+  };
+  if (instant) { build(); return; }
+  slot.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, easing: 'ease', fill: 'forwards' })
+    .onfinish = () => { slot.getAnimations().forEach(a => a.cancel()); build(); };
+}
+
+/* ── Build portrait (2-up) gallery ── */
+function buildPortraitGallery(gallery, shots, thumbStrip) {
+  /* Pair container replaces the single .gallery-featured */
+  const pair = el('div', 'gallery-featured-pair');
+
+  const slot0 = el('div', 'gallery-featured-slot');
+  const slot1 = el('div', 'gallery-featured-slot');
+  pair.appendChild(slot0);
+  pair.appendChild(slot1);
+
+  /* Nav arrows live inside the pair */
+  const btnPrev = el('button', 'gallery-nav gallery-nav--prev');
+  btnPrev.setAttribute('aria-label', 'Previous');
+  btnPrev.innerHTML = SVG_CHEVRON_LEFT;
+  const btnNext = el('button', 'gallery-nav gallery-nav--next');
+  btnNext.setAttribute('aria-label', 'Next');
+  btnNext.innerHTML = SVG_CHEVRON_RIGHT;
+  pair.appendChild(btnPrev);
+  pair.appendChild(btnNext);
+
+  gallery.appendChild(pair);
+
+  /* activeIdx = index of the LEFT slot */
+  let activeIdx = 0;
+
+  function renderPair(startIdx, instant) {
+    activeIdx = startIdx;
+
+    const itemA = normalizeMedia(shots[startIdx]);
+    const itemB = startIdx + 1 < shots.length ? normalizeMedia(shots[startIdx + 1]) : null;
+
+    renderSlotContent(slot0, itemA, instant);
+    if (itemB) {
+      slot1.classList.remove('slot-empty');
+      renderSlotContent(slot1, itemB, instant);
+    } else {
+      slot1.innerHTML = '';
+      slot1.classList.add('slot-empty');
+    }
+
+    /* Highlight active pair in thumbs (both) */
+    thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === startIdx || i === startIdx + 1);
+    });
+  }
+
+  /* Clicking thumbs: snap to the pair that contains that thumb */
+  thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+    t.addEventListener('click', () => {
+      /* Snap to even index so we always show a left-aligned pair */
+      const pairStart = i % 2 === 0 ? i : i - 1;
+      renderPair(pairStart);
+    });
+  });
+
+  /* Arrows advance by 2 */
+  btnPrev.addEventListener('click', () => {
+    const next = activeIdx - 2;
+    renderPair(Math.max(0, next % 2 === 0 ? next : next - 1));
+  });
+  btnNext.addEventListener('click', () => {
+    const next = activeIdx + 2;
+    renderPair(next < shots.length ? next : activeIdx);
+  });
+
+  /* Keyboard */
+  gallery.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      const next = activeIdx + 2;
+      if (next < shots.length) renderPair(next);
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      const next = activeIdx - 2;
+      if (next >= 0) renderPair(next);
+    }
+  });
+
+  renderPair(0, true);
+}
+
 /* ── Screenshots grid ── */
 function buildScreenshots(p) {
   let shots = p.screenshots;
@@ -294,9 +450,13 @@ function buildScreenshots(p) {
       }
 
       /* Caption */
-      if (item.caption) {
-        const cap = el('div', 'gallery-caption');
-        cap.textContent = item.caption;
+      if (item.captionRu || item.captionEn) {
+        const cap = el('div', 'gallery-caption t');
+        cap.dataset.ru = item.captionRu || item.captionEn;
+        cap.dataset.en = item.captionEn || item.captionRu;
+        cap.textContent = (typeof currentLang !== 'undefined' && currentLang === 'en')
+          ? (item.captionEn || item.captionRu)
+          : (item.captionRu || item.captionEn);
         featured.appendChild(cap);
       }
 
@@ -367,33 +527,50 @@ function buildScreenshots(p) {
   gallery.setAttribute('tabindex', '0');
   gallery.setAttribute('aria-label', 'Project gallery');
 
+  /* ── Portrait detection: if all images are vertical and screen is wide,
+     replace the standard featured slot with a side-by-side pair ── */
+  if (hasMultiple) {
+    detectPortrait(shots).then(isPortrait => {
+      if (!isPortrait || window.innerWidth < 700) return;
+      /* Switch to portrait layout */
+      gallery.classList.add('gallery-portrait');
+      /* Remove the standard .gallery-featured (already in DOM) */
+      featured.remove();
+      /* Build the pair view */
+      buildPortraitGallery(gallery, shots, thumbStrip);
+    });
+  }
+
   renderFeatured(0, true);
   return gallery;
 }
 
-/* Normalize a screenshot entry to { type, src, embed, poster, caption }
+/* Normalize a screenshot entry to { type, src, embed, poster, captionRu, captionEn }
    Supported formats in config.json:
-     "path/to/image.jpg"                         → image
-     "path/to/video.mp4"                         → video (auto-detected)
-     { "type": "image",  "src": "...",  "caption": "..." }
-     { "type": "video",  "src": "...",  "poster": "...", "caption": "..." }
-     { "type": "embed",  "src": "https://rutube.ru/play/embed/ID/", "poster": "..." }
-     { "embed": "<iframe ...></iframe>" }         → auto-extract src from code */
+     "path/to/image.jpg"
+     { "type": "image", "src": "...", "captionRu": "...", "captionEn": "..." }
+     { "type": "video", "src": "...", "poster": "...", "captionRu": "...", "captionEn": "..." }
+     { "type": "embed", "src": "https://rutube.ru/play/embed/ID/", "poster": "..." }
+     { "embed": "<iframe ...></iframe>" }
+   Legacy "caption" field still works as fallback for both languages. */
 function normalizeMedia(item) {
   if (typeof item === 'string') {
     const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item);
-    return { type: isVideo ? 'video' : 'image', src: item };
+    return { type: isVideo ? 'video' : 'image', src: item, captionRu: '', captionEn: '' };
   }
-  if (item.type === '_fallback') return item;  /* pass through unchanged */
+  if (item.type === '_fallback') return item;
 
-  /* If raw iframe HTML was pasted, extract the src URL */
+  const capRu = item.captionRu || item.caption || '';
+  const capEn = item.captionEn || item.caption || '';
+
   if (item.embed) {
     const match = item.embed.match(/src=["']([^"']+)["']/);
     return {
-      type:    'embed',
-      src:     match ? match[1] : '',
-      poster:  item.poster || '',
-      caption: item.caption || '',
+      type:      'embed',
+      src:       match ? match[1] : '',
+      poster:    item.poster || '',
+      captionRu: capRu,
+      captionEn: capEn,
     };
   }
 
@@ -402,9 +579,10 @@ function normalizeMedia(item) {
 
   return {
     type,
-    src:     rawSrc,
-    poster:  item.poster || '',
-    caption: item.caption || '',
+    src:       rawSrc,
+    poster:    item.poster || '',
+    captionRu: capRu,
+    captionEn: capEn,
   };
 }
 
