@@ -25,10 +25,10 @@
     "photo": "images/profile/photo.jpg",
     "nameRu": "Антон Пируев",
     "nameEn": "Anton Piruev",
-    "taglineRu": "Senior Unity разработчик",
-    "taglineEn": "Senior Unity Developer",
-    "bioRu": "Senior Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
-    "bioEn": "Senior Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
+    "taglineRu": "Unity разработчик",
+    "taglineEn": "Unity Developer",
+    "bioRu": "Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
+    "bioEn": "Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
     "links": {
       "github": "https://github.com/username",
       "telegram": "https://t.me/username",
@@ -160,24 +160,41 @@
       "screenshots": []
     },
     {
-      "_comment": "links-bar with only page link (no github, no play)",
-      "preset": "links-bar",
-      "page": "https://factoryviz.example.com",
-      "image": "images/projects/project-6.jpg",
-      "emoji": "⚙️",
+      "_comment": "Exowar — network shooter with robot customization",
+      "preset": "no-links",
+      "image": "images/projects/exowar-screen1.jpg",
+      "emoji": "🤖",
       "color": "c6",
-      "nameRu": "FactoryViz",
-      "nameEn": "FactoryViz",
-      "descRu": "3D-визуализация завода с интеграцией IoT-датчиков и цифровым двойником в реальном времени.",
-      "descEn": "Real-time 3D factory visualization with IoT sensor integration and a digital twin.",
+      "nameRu": "EXOWAR",
+      "nameEn": "EXOWAR",
+      "descRu": "Сетевой 3D-шутер с изометрической камерой: боевые роботы, система прокачки, матчи 5 минут.",
+      "descEn": "Isometric 3D network shooter: battle robots, upgrade system, 5-minute matches.",
       "tags": [
         "Unity",
-        "IoT",
-        "Digital Twin"
+        "C#",
+        "Multiplayer",
+        "SmartFox"
       ],
-      "detailsRu": "VR-симулятор для отработки действий при аварийных ситуациях на производстве. Развёрнут на 12 предприятиях, прошли обучение более 3000 сотрудников.",
-      "detailsEn": "VR simulator for emergency response training in industrial facilities. Deployed across 12 enterprises, over 3000 employees trained.",
-      "screenshots": []
+      "detailsRu": "EXOWAR — сетевой 3D-шутер с видом изометрической камеры для аудитории 18–30 лет. Игроки управляют боевыми роботами различных классов в матчах продолжительностью 5 минут: лёгкие манёвренные роботы, тяжелобронированные машины и классы поддержки (снайперы, инженеры, роботы-лекари). Доступные режимы — Deathmatch и Захват флага.\n\nВ процессе сражений зарабатываются внутриигровые ресурсы для улучшения здоровья, скорости, урона, открытия новых умений и способностей. В игре предусмотрены расходники: аптечки, мины, телепорты, энергетические щиты.\n\nДля стабильного сетевого взаимодействия использованы сервер SmartFox и авторитарный Java-сервер с полным серверным контролем над действиями игроков, интеграцией античит-решений и REST API для сохранения прогресса. Проект стартовал как ПК-игра для Windows, затем был портирован на Android-консоли. Реализованы ранговые таблицы, сезонные события, система ежедневных миссий, внутриигровой чат, система отрядов и продуманная монетизация.",
+      "detailsEn": "EXOWAR is an isometric 3D network shooter targeting players aged 18–30. Players control battle robots of various classes in 5-minute matches: light and agile robots, heavily armored machines, and support classes (snipers, engineers, healer bots). Available modes — Deathmatch and Capture the Flag.\n\nDuring battles, players earn in-game resources to upgrade health, speed, damage, unlock new skills and active abilities. Consumables include medkits, mines, teleporters, and energy shields.\n\nFor stable networking, the project uses SmartFox Server and an authoritative Java server with full server-side control over player actions, anti-cheat integration, and a REST API for saving progress. The project launched as a Windows PC game and was later ported to Android-based consoles. Features include ranked leaderboards, seasonal events, daily mission system, in-game chat, squad system, and a well-designed monetization model.",
+      "screenshots": [
+        {
+          "type": "image",
+          "src": "images/projects/exowar-screen1.jpg",
+          "caption": "Геймплей: сражение на карте"
+        },
+        {
+          "type": "image",
+          "src": "images/projects/exowar-screen2.jpg",
+          "caption": "Ангар: кастомизация и прокачка робота"
+        },
+        {
+          "type": "embed",
+          "src": "https://rutube.ru/play/embed/860e9f9f310a03f7e3949ae0e7065c17/",
+          "poster": "images/projects/exowar-screen1.jpg",
+          "caption": "Геймплейный трейлер"
+        }
+      ]
     }
   ]
 }
