@@ -161,18 +161,18 @@
         {
           "type": "image",
           "src": "images/projects/puzzlesquad-screen1.jpg",
-          "caption": "Боевой экран: головоломка 10×10 в бою"
+          "caption": "Battle screen: 10×10 puzzle in action"
         },
         {
           "type": "image",
           "src": "images/projects/puzzlesquad-screen2.jpg",
-          "caption": "Геймплей: расстановка отряда и атака"
+          "caption": "Gameplay: party members placing and attack planning"
         },
         {
           "type": "embed",
           "src": "https://rutube.ru/play/embed/0e293f2c3923692666ee82054966b697/",
           "poster": "images/projects/puzzlesquad-screen1.jpg",
-          "caption": "Геймплейный трейлер"
+          "caption": "Gameplay trailer"
         }
       ]
     },
@@ -185,32 +185,32 @@
       "color": "c6",
       "nameRu": "EXOWAR",
       "nameEn": "EXOWAR",
-      "descRu": "Сетевой 3D-шутер с изометрической камерой: боевые роботы, система прокачки, матчи 5 минут.",
-      "descEn": "Isometric 3D network shooter: battle robots, upgrade system, 5-minute matches.",
+      "descRu": "Сетевой 3D-шутер с изометрической камерой. Работал в команде: отвечал за технический пайплайн, 3D-моделирование, текстуринг, оптимизацию и разработку внутренних инструментов студии.",
+      "descEn": "Isometric 3D network shooter. Worked as part of a team: responsible for the technical pipeline, 3D modeling, texturing, optimization, and internal studio tooling",
       "tags": [
         "Unity",
         "C#",
         "Multiplayer",
         "SmartFox"
       ],
-      "detailsRu": "EXOWAR — сетевой 3D-шутер с видом изометрической камеры для аудитории 18–30 лет. Игроки управляют боевыми роботами различных классов в матчах продолжительностью 5 минут: лёгкие манёвренные роботы, тяжелобронированные машины и классы поддержки (снайперы, инженеры, роботы-лекари). Доступные режимы — Deathmatch и Захват флага.\n\nВ процессе сражений зарабатываются внутриигровые ресурсы для улучшения здоровья, скорости, урона, открытия новых умений и способностей. В игре предусмотрены расходники: аптечки, мины, телепорты, энергетические щиты.\n\nДля стабильного сетевого взаимодействия использованы сервер SmartFox и авторитарный Java-сервер с полным серверным контролем над действиями игроков, интеграцией античит-решений и REST API для сохранения прогресса. Проект стартовал как ПК-игра для Windows, затем был портирован на Android-консоли. Реализованы ранговые таблицы, сезонные события, система ежедневных миссий, внутриигровой чат, система отрядов и продуманная монетизация.",
-      "detailsEn": "EXOWAR is an isometric 3D network shooter targeting players aged 18–30. Players control battle robots of various classes in 5-minute matches: light and agile robots, heavily armored machines, and support classes (snipers, engineers, healer bots). Available modes — Deathmatch and Capture the Flag.\n\nDuring battles, players earn in-game resources to upgrade health, speed, damage, unlock new skills and active abilities. Consumables include medkits, mines, teleporters, and energy shields.\n\nFor stable networking, the project uses SmartFox Server and an authoritative Java server with full server-side control over player actions, anti-cheat integration, and a REST API for saving progress. The project launched as a Windows PC game and was later ported to Android-based consoles. Features include ranked leaderboards, seasonal events, daily mission system, in-game chat, squad system, and a well-designed monetization model.",
+      "detailsRu": "EXOWAR — командный проект: сетевой 3D-шутер с видом изометрической камеры. Игроки управляют боевыми роботами различных классов в динамичных матчах по 5 минут. Доступны режимы Deathmatch и Захват флага, прокачка роботов, расходники и внутриигровой чат. Мой вклад в проект охватывал сразу несколько направлений. Я занимался 3D-моделированием и текстурингом игровых ассетов, а также настройкой технического пайплайна команды. Написал ряд инструментов для художников, упрощавших работу с ассетами внутри редактора, и студийные инструменты: систему подгрузки статических данных, инструменты отладки игры и кода. Реализовал системы оптимизации — LOD-управление анимациями в зависимости от расстояния до модели, оптимизацию спрайтов и аудио, процедурную генерацию текстурных атлассов.",
+      "detailsEn": "EXOWAR is a team project: an isometric 3D network shooter where players control battle robots of various classes in fast-paced 5-minute matches. Available modes include Deathmatch and Capture the Flag, with robot upgrades, consumables, and in-game chat. My contribution spanned several areas. I handled 3D modeling and texturing of game assets, and set up the team's technical pipeline. I wrote a set of artist-facing tools to streamline asset workflows inside the editor, as well as internal studio tools: a static data loading system, game and code debugging utilities. I also built optimization systems — distance-based animation LOD, sprite and audio optimization, and texture atlas procedural generation.",
       "screenshots": [
         {
           "type": "image",
           "src": "images/projects/exowar-screen1.jpg",
-          "caption": "Геймплей: сражение на карте"
+          "caption": "Gameplay: battle on a map"
         },
         {
           "type": "image",
           "src": "images/projects/exowar-screen2.jpg",
-          "caption": "Ангар: кастомизация и прокачка робота"
+          "caption": "Angar: robot customization"
         },
         {
           "type": "embed",
           "src": "https://rutube.ru/play/embed/860e9f9f310a03f7e3949ae0e7065c17/",
           "poster": "images/projects/exowar-screen1.jpg",
-          "caption": "Геймплейный трейлер"
+          "caption": "Gameplay trailer"
         }
       ]
     }
