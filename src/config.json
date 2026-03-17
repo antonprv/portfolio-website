@@ -139,29 +139,47 @@
       "screenshots": []
     },
     {
-      "_comment": "links-bar with only github + play (no page link)",
-      "preset": "links-bar",
-      "github": "https://github.com/username/ocean-depths",
-      "play": "https://play.google.com/store/apps/details?id=com.username.oceandepths",
-      "image": "images/projects/project-5.jpg",
-      "emoji": "🌊",
+      "_comment": "Puzzle Squad — mobile puzzle game with combat mechanics",
+      "preset": "link",
+            "url": "https://uniday.pro/gamedev_puzzlesquad",
+      "image": "images/projects/puzzlesquad-screen1.jpg",
+      "emoji": "🧩",
       "color": "c5",
-      "nameRu": "Ocean Depths",
-      "nameEn": "Ocean Depths",
-      "descRu": "Мобильная RPG с подводным сеттингом, системой крафта и мультиплеером на Photon.",
-      "descEn": "Mobile RPG with an underwater setting, crafting system, and Photon multiplayer.",
+      "nameRu": "Puzzle Squad",
+      "nameEn": "Puzzle Squad",
+      "descRu": "Мобильная игра: казуальная головоломка 10×10 со стратегической боёвкой отрядов и развитием базы.",
+      "descEn": "Mobile game: casual 10×10 puzzle combined with squad strategy combat and base-building.",
       "tags": [
         "Unity",
-        "Photon",
-        "Mobile"
+        "Mobile",
+        "Puzzle",
+        "Strategy"
       ],
-      "detailsRu": "Мобильная RPG с подводным сеттингом. Мультиплеер реализован на Photon Fusion. Система крафта включает более 200 рецептов. Монетизация через battle pass.",
-      "detailsEn": "Mobile RPG set underwater. Multiplayer built on Photon Fusion. Crafting system includes 200+ recipes. Monetization via battle pass.",
-      "screenshots": []
+      "detailsRu": "Puzzle Squad — внутренняя разработка студии Uniday, уникальный гибрид жанров: казуальная головоломка на базе механики «10×10», стратегическая боёвка отрядов и развитие собственной базы в стиле сити-билдера. Идея проекта родилась под влиянием участия в конференциях DevGAMM и White Nights.\n\nОсновные особенности: головоломка 10×10 с боевой механикой, система героев и их развития, строительство и развитие базы, события и ежедневные задания.\n\nТехнологические решения: модификаторы поля — специальные клетки активируют эффекты (массовые сдвиги блоков, дополнительные разрушения линий); бомбы с таймером на поле; дополнительные миссии с бонусами; глубокая аналитика поведения игроков.\n\nПроект прошёл несколько итераций: первая версия строилась в азиатском сеттинге с пандой-воином, затем сеттинг сменился на фэнтези-магико-технологический стиль. Из интерфейса убрали отображение собственного отряда, чтобы сфокусировать внимание на поле и боевой механике. Реализованы механики модификаторов, базового строительства и гачи-сбора героев.",
+      "detailsEn": "Puzzle Squad is an in-house project by Uniday studio — a unique genre hybrid: a casual 10×10 puzzle mechanic combined with squad strategy combat and city-builder-style base development. The idea was born from attending DevGAMM and White Nights game conferences.\n\nKey features: 10×10 puzzle with combat mechanics, hero collection and progression system, base building and development, seasonal events and daily quests.\n\nTechnical highlights: field modifiers — burning special cells triggers effects like mass block shifts or extra line clears; timed bomb elements requiring quick decisions; bonus missions for extra depth; deep player behaviour analytics.\n\nThe project went through several iterations: the first version used an Asian setting with a panda warrior, then the setting shifted to a fantasy-magitech style better suited for broad audiences. The squad display was removed from the UI to focus player attention on the field and combat mechanics. Modifier mechanics, base building, and gacha hero collection were all designed and implemented from scratch.",
+      "screenshots": [
+        {
+          "type": "image",
+          "src": "images/projects/puzzlesquad-screen1.jpg",
+          "caption": "Боевой экран: головоломка 10×10 в бою"
+        },
+        {
+          "type": "image",
+          "src": "images/projects/puzzlesquad-screen2.jpg",
+          "caption": "Геймплей: расстановка отряда и атака"
+        },
+        {
+          "type": "embed",
+          "src": "https://rutube.ru/play/embed/0e293f2c3923692666ee82054966b697/",
+          "poster": "images/projects/puzzlesquad-screen1.jpg",
+          "caption": "Геймплейный трейлер"
+        }
+      ]
     },
     {
       "_comment": "Exowar — network shooter with robot customization",
-      "preset": "no-links",
+      "preset": "link",
+      "url": "https://uniday.pro/gamedev_exowar",
       "image": "images/projects/exowar-screen1.jpg",
       "emoji": "🤖",
       "color": "c6",
