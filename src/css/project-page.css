@@ -437,13 +437,38 @@
 }
 .gallery-featured-slot:hover .gallery-zoom-hint { opacity: 0.6; }
 
-/* Portrait thumb strip: slightly taller thumbs */
+/* Portrait thumb strip: paired rows */
 .gallery-portrait .gallery-thumbs {
-  width: 72px;
+  width: 160px;          /* fits two 72px thumbs + gap */
+  padding-right: 10px;   /* space between content and scrollbar */
+  /* Push scrollbar to the far right edge of the strip */
+  scrollbar-gutter: stable;
 }
-.gallery-portrait .gallery-thumb {
-  width: 72px;
-  height: 104px; /* 9:16 ratio ≈ 72 * 16/9 */
+
+/* Pair row: two thumbs side by side */
+.gallery-thumb-row {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  border-radius: 10px;
+  padding: 3px;
+  border: 2px solid transparent;
+  transition: border-color 0.18s;
+  cursor: pointer;
+}
+.gallery-thumb-row.active {
+  border-color: var(--accent);
+}
+.gallery-thumb-row .gallery-thumb {
+  /* thumbs inside a row don't need individual borders */
+  border-color: transparent !important;
+  width: 68px;
+  height: 98px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.gallery-thumb-row:hover {
+  border-color: var(--border);
 }
 
 /* Nav arrows for portrait pair mode */
@@ -472,11 +497,18 @@
     max-height: none;
     overflow-x: auto;
     overflow-y: hidden;
+    padding-right: 0;
+    padding-bottom: 4px;
   }
-  .gallery-portrait .gallery-thumb {
-    width: 50px;
-    height: 72px;
+  /* On mobile, each row is a single column of 2 thumbs stacked */
+  .gallery-thumb-row {
+    flex-direction: column;
     flex-shrink: 0;
+    gap: 0.3rem;
+  }
+  .gallery-thumb-row .gallery-thumb {
+    width: 48px;
+    height: 68px;
   }
 }
 

@@ -312,20 +312,37 @@ function buildPortraitGallery(gallery, shots, thumbStrip) {
       slot1.classList.add('slot-empty');
     }
 
-    /* Highlight active pair in thumbs (both) */
-    thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
-      t.classList.toggle('active', i === startIdx || i === startIdx + 1);
+    /* Highlight active pair: mark the containing row and both thumbs */
+    thumbStrip.querySelectorAll('.gallery-thumb-row').forEach((row, ri) => {
+      const pairIdx = ri * 2;
+      const isActive = pairIdx === startIdx;
+      row.classList.toggle('active', isActive);
+      row.querySelectorAll('.gallery-thumb').forEach(t => t.classList.toggle('active', isActive));
+      if (isActive) row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });
   }
 
-  /* Clicking thumbs: snap to the pair that contains that thumb */
-  thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
-    t.addEventListener('click', () => {
-      /* Snap to even index so we always show a left-aligned pair */
-      const pairStart = i % 2 === 0 ? i : i - 1;
-      renderPair(pairStart);
-    });
-  });
+  /* Re-build thumbStrip as paired rows for portrait mode */
+  const allThumbs = Array.from(thumbStrip.querySelectorAll('.gallery-thumb'));
+  thumbStrip.innerHTML = '';
+  thumbStrip.classList.add('gallery-thumbs--portrait');
+
+  for (let i = 0; i < allThumbs.length; i += 2) {
+    const row = el('div', 'gallery-thumb-row');
+    const tA = allThumbs[i];
+    const tB = allThumbs[i + 1];
+    const pairStart = i;
+
+    tA.addEventListener('click', () => renderPair(pairStart));
+    row.appendChild(tA);
+
+    if (tB) {
+      tB.addEventListener('click', () => renderPair(pairStart));
+      row.appendChild(tB);
+    }
+
+    thumbStrip.appendChild(row);
+  }
 
   /* Arrows advance by 2 */
   btnPrev.addEventListener('click', () => {
