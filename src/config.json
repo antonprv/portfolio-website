@@ -1,218 +1,400 @@
 {
-  "_doc": "Portfolio config. Edit this file only - the site reads everything from here.",
-  
-  "theme": {
-    "accentDark":  "#4ccbad",
-    "accentLight": "#4c3eaf"
-  },
-
-  "noise": {
-    "frequency": 0.65,
-    "octaves":   1
-  },
-  
-  "font": {
-    "family": "TikTokSans",
-    "fallback": "sans-serif",
-    "files": [
-      {
-        "path": "fonts/TikTokSans.woff2",
-        "variable": true
-      }
-    ]
-  },
-  "profile": {
-    "photo": "images/profile/photo.jpg",
-    "nameRu": "Антон Пируев",
-    "nameEn": "Anton Piruev",
-    "taglineRu": "Unity разработчик",
-    "taglineEn": "Unity Developer",
-    "bioRu": "Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
-    "bioEn": "Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
-    "links": {
-      "github": "https://github.com/username",
-      "telegram": "https://t.me/username",
-      "email": "mailto:anton@example.com",
-      "linkedin": "https://linkedin.com/in/username"
-    }
-  },
-  "projects": [
-    {
-      "_comment": "Preset 'no-links' - display only, nothing is clickable",
-      "preset": "no-links",
-      "image": "images/projects/project-1.jpg",
-      "emoji": "🔬",
-      "color": "c1",
-      "nameRu": "SafetyDrill VR",
-      "nameEn": "SafetyDrill VR",
-      "descRu": "VR-симулятор аварийных ситуаций на производстве. NDA - ссылки недоступны.",
-      "descEn": "VR emergency drill simulator for industrial facilities. NDA - links unavailable.",
-      "tags": [
-        "Unity",
-        "VR",
-        "HTC Vive"
-      ],
-      "detailsRu": "Подробное описание проекта на русском языке. Расскажите здесь об использованных технологиях, сложностях, решениях и результатах. Этот текст отображается на странице проекта.",
-      "detailsEn": "Detailed project description in English. Describe the technologies used, challenges faced, solutions found, and results achieved. This text appears on the project page.",
-      "screenshots": [
-        {
-          "type": "image",
-          "src": "images/projects/screen1.jpg",
-          "caption": "Главный экран симулятора"
-        },
-        {
-          "type": "image",
-          "src": "images/projects/screen2.jpg",
-          "caption": "Процесс обучения"
-        },
-        {
-          "type": "video",
-          "src": "https://www.w3schools.com/html/mov_bbb.mp4",
-          "poster": "images/projects/screen1.jpg",
-          "caption": "Геймплейный трейлер"
+    "_doc": "Portfolio config. Edit this file only - the site reads everything from here.",
+    
+    "theme": {
+        "accentDark":  "#4ccbad",
+        "accentLight": "#4c3eaf"
+    },
+    
+    "noise": {
+        "frequency": 0.65,
+        "octaves":   1
+    },
+    
+    "font": {
+        "family": "TikTokSans",
+        "fallback": "sans-serif",
+        "files": [
+            {
+                "path": "fonts/TikTokSans.woff2",
+                "variable": true
+            }
+        ]
+    },
+    "profile": {
+        "photo": "images/profile/photo.jpg",
+        "nameRu": "Антон Пируев",
+        "nameEn": "Anton Piruev",
+        "taglineRu": "Unity разработчик",
+        "taglineEn": "Unity Developer",
+        "bioRu": "Unity разработчик. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза. Пишу код, который работает под нагрузкой, выглядит чисто и не ломается в 3 ночи перед дедлайном.",
+        "bioEn": "Unity Developer. I build PC and mobile games as well as industrial simulations - from prototype to release. I write code that holds up under pressure, stays clean, and doesn't break at 3am before a deadline.",
+        "links": {
+            "github": "https://github.com/username",
+            "telegram": "https://t.me/username",
+            "email": "mailto:anton@example.com",
+            "linkedin": "https://linkedin.com/in/username"
         }
-      ]
     },
-    {
-      "_comment": "Preset 'link' - whole card opens a custom URL (any site, itch.io, steam, etc.)",
-      "preset": "link",
-      "url": "https://username.itch.io/my-game",
-      "image": "images/projects/project-2.jpg",
-      "emoji": "🎮",
-      "color": "c2",
-      "nameRu": "Project Alpha",
-      "nameEn": "Project Alpha",
-      "descRu": "PC-игра с открытым миром и процедурной генерацией уровней на Unity 6.",
-      "descEn": "Open-world PC game with procedural level generation built in Unity 6.",
-      "tags": [
-        "Unity",
-        "C#",
-        "PC"
-      ],
-      "detailsRu": "Гиперказуальная мобильная игра, разработанная с нуля за 3 месяца. Особое внимание уделено производительности на устройствах начального уровня: оптимизированные шейдеры, батчинг спрайтов, адаптивный LOD.",
-      "detailsEn": "Hyper-casual mobile game developed from scratch in 3 months. Special focus on performance for low-end devices: optimized shaders, sprite batching, adaptive LOD.",
-      "screenshots": [
-        "images/projects/alpha1.jpg",
-        "images/projects/alpha2.jpg"
-      ]
-    },
-    {
-      "_comment": "Preset 'github' - whole card opens GitHub repo",
-      "preset": "github",
-      "github": "https://github.com/username/mobile-runner",
-      "image": "images/projects/project-3.jpg",
-      "emoji": "📱",
-      "color": "c3",
-      "nameRu": "Mobile Runner",
-      "nameEn": "Mobile Runner",
-      "descRu": "Гиперказуальная мобильная игра с 500k+ загрузок и оптимизацией под слабые устройства.",
-      "descEn": "Hyper-casual mobile game with 500k+ downloads, optimized for low-end devices.",
-      "tags": [
-        "Unity",
-        "iOS",
-        "Android"
-      ],
-      "detailsRu": "Промышленный VR-тренажёр для обучения операторов производственных линий. Интеграция с реальным оборудованием через OPC-UA. Поддержка HTC Vive и Oculus Quest.",
-      "detailsEn": "Industrial VR trainer for manufacturing line operators. Integration with real equipment via OPC-UA. Supports HTC Vive and Oculus Quest.",
-      "screenshots": []
-    },
-    {
-      "_comment": "Preset 'links-bar' - card has a button bar at the bottom. All 3 links are optional.",
-      "preset": "links-bar",
-      "github": "https://github.com/username/indussim",
-      "page": "https://indussim.example.com",
-      "play": "https://username.itch.io/indussim",
-      "image": "images/projects/project-4.jpg",
-      "emoji": "🏭",
-      "color": "c4",
-      "nameRu": "IndusSim",
-      "nameEn": "IndusSim",
-      "descRu": "Промышленная симуляция производственной линии для обучения операторов в VR.",
-      "descEn": "Industrial production line simulation for operator training in VR.",
-      "tags": [
-        "Unity",
-        "VR",
-        "C#"
-      ],
-      "detailsRu": "3D-визуализация производственного объекта в реальном времени. Данные с IoT-датчиков обновляются каждые 500 мс. Цифровой двойник используется для предиктивного обслуживания.",
-      "detailsEn": "Real-time 3D visualization of an industrial facility. IoT sensor data updates every 500ms. The digital twin is used for predictive maintenance.",
-      "screenshots": []
-    },
-    {
-      "_comment": "Puzzle Squad — mobile puzzle game with combat mechanics",
-      "preset": "link",
+    "projects": [
+        {
+            "_comment": "Preset 'no-links' - display only, nothing is clickable",
+            "preset": "links-bar",
+            "github": "https://github.com/antonprv/LoneBrawler",
+            "page": "https://antonprv.github.io/lonebrawler-website/index.html",
+            "play": "https://elaborate-cassata-bb9b61.netlify.app",
+            "image": "images/projects/lone_brawler/lone_brawler_poster.png",
+            "emoji": "🏰",
+            "color": "c1",
+            "nameRu": "Lone Brawler",
+            "nameEn": "Lone Brawler",
+            "descRu": "Сольный проект - полный цикл разработки от геймдизайна до релиза. 3D action от третьего лица про выживание против орд нежити. 442 файла C# и более 200 000 строк кода.",
+            "descEn": "Solo project - full production cycle from game design to release. Third-person 3D action about surviving hordes of undead. 442 C# files and over 200,000 lines of code.",
+            "tags": [
+                "Unity",
+                "C#",
+                "Game Architecture",
+                "State Machine",
+                "Dependency Injection",
+                "Reactive Programming",
+                "UniTask",
+                "R3",
+                "Zenject",
+                "Optimization",
+                "WebGL",
+                "Android"
+            ],         
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• 442 файла C# и более 200 000 строк кода<br>• 436 автоматизированных тестов (364 EditMode + 72 PlayMode)<br>• собственный DI-фреймворк Zenjex, опубликованный как open-source библиотека<br>• мультиплатформенный релиз: WebGL (Яндекс Игры) и Android<br><br>Игра находится в релизе на Яндекс Играх (WebGL) и RuStore (Android) и активно поддерживается. Проект реализован одним разработчиком: геймдизайн, архитектура, кодовая база, инфраструктура разработки, сборка и публикация.<br><br>Кодовая база состоит из 442 файлов C# (более 200 000 строк). Для проекта был разработан собственный DI-фреймворк Zenjex, который впоследствии выделен в отдельную open-source библиотеку. Полная техническая документация проекта доступна на antonprv.github.io/lonebrawler-website.<br><br><b>Ключевые инженерные системы:</b><br><br>- Архитектура на generic State Machine с payload-переходами (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Каждое состояние изолировано и создаётся через StateFactory.<br><br>- DI-контейнер Zenjex оборачивает Reflex и предоставляет Zenject-подобный fluent API, трёхфазную инъекцию зависимостей и редакторный debugger для анализа графа зависимостей.<br><br>- Асинхронный asset pipeline на UniTask и Addressables: предзагрузка и кеширование хэндлов обеспечивают плавную загрузку даже при медленном соединении, а все ресурсы выгружаются одним Cleanup()-проходом при смене сцены.<br><br>- Мультиплатформенная архитектура сборки: статические данные и конфиги управляют платформенными различиями, благодаря чему используется единый codebase без conditional compilation в геймплейном коде.<br><br><b>Технические детали реализации:</b><br><br>- Математическая библиотека FastMath: Fast Inverse Square Root из Quake3 (0x5f3759df + Ньютон-Рафсон) и BurstMath на Unity.Mathematics с использованием [BurstCompile] и [AggressiveInlining].<br><br>- Система баффов с режимами активации Burst / Constant / Duration. BuffTrackerService сохраняет снапшот активных баффов с оставшимся временем и восстанавливает их при загрузке.<br><br>- Игровая валюта хранится как ReadOnlyReactiveProperty через R3, списание реализовано атомарным вызовом TrySpendSouls.<br><br>- Система сохранений LiveProgressSync: автосейв каждые 5 секунд, финальный сейв при закрытии страницы и облачная синхронизация через Yandex Games SDK с приоритетом облачной копии.<br><br>- Тестовая инфраструктура: 50 файлов тестов в двух сборках - 364 Edit Mode теста (unit + integration) и 72 Play Mode теста (smoke-тесты и performance benchmarks через Unity Performance Testing Package).",
+            "detailsEn": "<b>Key project facts:</b><br>• 442 C# files and over 200,000 lines of code<br>• 436 automated tests (364 EditMode + 72 PlayMode)<br>• custom DI framework Zenjex released as an open-source library<br>• multiplatform release: WebGL (Yandex Games) and Android<br><br>The game is released on Yandex Games (WebGL) and Rustore (Android) and is under active development. The entire project was built by a single developer: game design, architecture, codebase, development infrastructure, build pipeline, and publishing.<br><br>The codebase contains 442 C# files with over 200,000 lines of code. The Zenjex dependency injection framework was developed specifically for the project and later extracted into a standalone open-source library. Full technical documentation is available at antonprv.github.io/lonebrawler-website.<br><br><b>Core engineering systems:</b><br><br>- Architecture built around a generic State Machine with payload transitions (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Each state is isolated and created through a StateFactory.<br><br>- Zenjex DI container wraps Reflex and provides a Zenject-like fluent API, three-phase dependency injection, and an editor debugger for inspecting dependency graphs.<br><br>- Asynchronous asset pipeline based on UniTask and Addressables. Asset preloading and handle caching ensure smooth gameplay even on slow connections, while all resources are released in a single Cleanup() pass when switching scenes.<br><br>- Multiplatform build architecture controlled through static data and configuration systems. A single codebase is used without conditional compilation in gameplay code.<br><br><b>Technical implementation details:</b><br><br>- FastMath library including the Fast Inverse Square Root algorithm from Quake3 (0x5f3759df + Newton-Raphson) and BurstMath built on Unity.Mathematics using [BurstCompile] and [AggressiveInlining].<br><br>- Buff system with three activation modes: Burst, Constant, and Duration. BuffTrackerService snapshots active buffs with remaining time and restores them on load.<br><br>- In-game currency stored as ReadOnlyReactiveProperty via R3, with atomic spending implemented through TrySpendSouls.<br><br>- Save system LiveProgressSync: autosave every five seconds, forced save on page close, and cloud synchronization through Yandex Games SDK with cloud priority.<br><br>- Testing infrastructure: 50 test files across two assemblies - 364 Edit Mode tests (unit + integration) and 72 Play Mode tests (smoke tests and performance benchmarks using Unity Performance Testing Package).",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/lone_brawler/lone_brawler1.png",
+                    "caption": "Player enters first game location"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/lone_brawler/lone_brawler2.png",
+                    "caption": "fighting multiple melle and ranged enemies at once"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/lone_brawler/lone_brawler3.png",
+                    "caption": "Game inventory system"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/lone_brawler/lone_brawler4.png",
+                    "caption": "Inventory tooltip"
+                }
+            ]
+        },
+        {    
+            "_comment": "Preset 'no-links' - display only, nothing is clickable",
+            "preset": "no-links",
+            "image": "images/projects/project-1.jpg",
+            "emoji": "🔬",
+            "color": "c1",
+            "nameRu": "Симулятор автономных транспортных средств",
+            "nameEn": "Autonomous vehicle simulator",
+            "descRu": "VR-симулятор аварийных ситуаций на производстве. NDA - ссылки недоступны.",
+            "descEn": "VR emergency drill simulator for industrial facilities. NDA - links unavailable.",
+            "tags": [
+                "Unreal Engine",
+                "VR",
+                "HTC Vive"
+            ],
+            "detailsRu": "Подробное описание проекта на русском языке. Расскажите здесь об использованных технологиях, сложностях, решениях и результатах. Этот текст отображается на странице проекта.",
+            "detailsEn": "Detailed project description in English. Describe the technologies used, challenges faced, solutions found, and results achieved. This text appears on the project page.",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/screen1.jpg",
+                    "caption": "Главный экран симулятора"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/screen2.jpg",
+                    "caption": "Процесс обучения"
+                },
+                {
+                    "type": "video",
+                    "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+                    "poster": "images/projects/screen1.jpg",
+                    "caption": "Геймплейный трейлер"
+                }
+            ]
+        },
+        {    
+            "_comment": "Preset 'no-links' - display only, nothing is clickable",
+            "preset": "no-links",
+            "image": "images/projects/project-1.jpg",
+            "emoji": "🔬",
+            "color": "c1",
+            "nameRu": "Симулятор автономных транспортных средств",
+            "nameEn": "Autonomous vehicle simulator",
+            "descRu": "VR-симулятор аварийных ситуаций на производстве. NDA - ссылки недоступны.",
+            "descEn": "VR emergency drill simulator for industrial facilities. NDA - links unavailable.",
+            "tags": [
+                "Unreal Engine",
+                "VR",
+                "HTC Vive"
+            ],
+            "detailsRu": "Подробное описание проекта на русском языке. Расскажите здесь об использованных технологиях, сложностях, решениях и результатах. Этот текст отображается на странице проекта.",
+            "detailsEn": "Detailed project description in English. Describe the technologies used, challenges faced, solutions found, and results achieved. This text appears on the project page.",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/screen1.jpg",
+                    "caption": "Главный экран симулятора"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/screen2.jpg",
+                    "caption": "Процесс обучения"
+                },
+                {
+                    "type": "video",
+                    "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+                    "poster": "images/projects/screen1.jpg",
+                    "caption": "Геймплейный трейлер"
+                }
+            ]
+        },
+        {    
+            "_comment": "UNREAL ENGINE ARC CRYPT RAIDER",
+            "preset": "links-bar",
+            "github": "https://github.com/antonprv/CryptRaider.git",
+            "page": "https://gamejolt.com/games/Crypt_Raider/1009990",
+            "play": "https://github.com/antonprv/CryptRaider/releases/download/release/CryptRaider.zip",
+            "image": "images/projects/crypt_raider/crypt_raider_logo.png",
+            "emoji": "🔬",
+            "color": "c1",
+            "nameRu": "Crypt Raider",
+            "nameEn": "Crypt Raider",
+            "descRu": "R&D проект на Unreal Engine, исследующий процедурную генерацию музыки и звуков через MetaSounds, где геймплей напрямую влияет на музыкальную композицию.",
+            "descEn": "R&D Unreal Engine project exploring procedural music and sound generation with MetaSounds, where gameplay directly shapes the musical composition.",
+            "tags": [
+                "Unreal Engine",
+                "C++",
+                "MetaSounds",
+                "Procedural Audio",
+                "Interactive Music",
+                "Gameplay Programming",
+                "Environment Art",
+                "Level Design",
+                "R&D"
+            ]
+            "detailsRu": "Подробное описание проекта на русском языке. Расскажите здесь об использованных технологиях, сложностях, решениях и результатах. Этот текст отображается на странице проекта.",
+            "detailsEn": "Detailed project description in English. Describe the technologies used, challenges faced, solutions found, and results achieved. This text appears on the project page.",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/crypt_raider/crypt_raider1.png",
+                    "caption": "Gameplay: player is player is looking into darkness"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/crypt_raider/crypt_raider2.png",
+                    "caption": "Gameplay: player is picking up gargoyle"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/crypt_raider/crypt_raider3.png",
+                    "caption": "Gameplay: player is looking at the torch"
+                },
+                {
+                    "type": "video",
+                    "src": "https://rutube.ru/play/embed/767c6dacdb7c30810a7a5ef1c3c07af8/",
+                    "poster": "images/projects/crypt_raider/crypt_raider_logo.png",
+                    "caption": "Full walkthrough"
+                }
+            ]
+        },
+        {
+            "_comment": "ZOMBIE TOWER DEFENCE",
+            "preset": "link",
+            "url": "https://play.google.com/store/apps/details?id=tower.defense.hero.strategy",
+            "image": "images/projects/zombie_siege/zombie_siege4.webp",
+            "emoji": "🎮",
+            "color": "c2",
+            "nameRu": "Last Dawn: Zombie Siege",
+            "nameEn": "Last Dawn: Zombie Siege",
+            "descRu": "Мобильный симулятор управления отелем. Техлид проекта с зоной ответственности в AI системах, графике, анимациях и CI/CD, а также оптимизации QA.",
+            "descEn": "Mobile hotel management simulator. Project technical lead with responsibilities in AI systems, graphics, animations, CI/CD, and QA optimization.",
+            "tags": [
+                "Unity",
+                "C#",
+                "Mobile",
+                "Gameplay Programming",
+                "Tower Defense Mechanics",
+                "Game Systems",
+                "AI Systems",
+                "UI Integration",
+                "Performance Optimization",
+                "Team Collaboration"
+            ],
+            "detailsRu": "<p><b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект, разработанный совместно со студией Yohoho Games<br>• ведущая роль в разработке AI игровых систем и технической инфраструктуры<br>• оптимизация графики, скелетных анимаций и техарт пайплайна для мобильных устройств<br>• настройка CI/CD пайплайна и проведение код-ревью<br>• участие в оптимизации QA-процесса и поддержка команды</p><p>My Super Hotel Simulator 3D — мобильный симулятор управления отелем, разработанный совместно с Yohoho Games. В проекте я выступала техническим лидом с совмещёнными инженерными обязанностями, охватывающими AI, графику и анимации.</p><p>Моя зона ответственности включала разработку AI игровых систем, оптимизацию рендеринга, работу с техартом, настройку CI/CD пайплайна, проведение код-ревью, а также улучшение QA-процессов и поддержку команды разработчиков.</p><p><b>Основные технические сложности проекта:</b></p><p>Проект требовал высокой производительности на мобильных устройствах с разным уровнем мощности. Основные вызовы заключались в оптимизации рендеринга и графики, снижении нагрузки на скелетные анимации и обеспечении стабильного FPS при сохранении визуального качества. Дополнительно, масштабируемость AI-систем и корректная интеграция с интерфейсными и игровыми подсистемами создавали сложные инженерные задачи.</p><p><b>Технические достижения и сильные стороны проекта:</b></p><p>- разработка AI игровых систем, обеспечивающих умное поведение NPC и гостей<br>- оптимизация графики и техарт пайплайна для мобильных устройств<br>- оптимизация скелетных анимаций и взаимодействия объектов для стабильного FPS<br>- настройка CI/CD пайплайна и проведение код-ревью команды<br>- улучшение QA-процессов и поддержки команды разработчиков</p>",
+            "detailsEn": "<p><b>Key project highlights:</b><br>• commercial mobile game developed in collaboration with Yohoho Games<br>• key role in AI gameplay systems and technical infrastructure<br>• graphics, animation and tech art optimization for mobile devices<br>• CI/CD pipeline setup and code review<br>• QA workflow improvements and team support</p><p>My Super Hotel Simulator 3D is a mobile hotel management simulator developed in collaboration with Yohoho Games. I worked on the project as a technical lead with combined responsibilities across AI, graphics and animation systems.</p><p>My responsibilities included developing AI gameplay systems, optimizing rendering and tech art pipelines, CI/CD pipeline setup, performing code reviews, and improving QA processes while supporting the development team.</p><p><b>Main technical challenges:</b></p><p>The project required high performance on a wide range of mobile devices. Major challenges included rendering and graphics optimization, reducing skeleton animation overhead, and maintaining stable FPS while preserving visual quality. Additionally, scalable AI systems and proper integration with interface and gameplay subsystems added complex engineering challenges.</p><p><b>Technical highlights:</b></p><p>- development of AI gameplay systems enabling intelligent NPC and guest behavior<br>- graphics and tech art pipeline optimization for mobile devices<br>- skeleton animation and entity interaction optimization for stable FPS<br>- CI/CD pipeline setup and team code review<br>- QA workflow improvement and support for the development team</p>"
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/zombie_siege/zombie_siege1.webp",
+                    "caption": "Gameplay: zombies attack base in daytime"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/zombie_siege/zombie_siege2.webp",
+                    "caption": "Gameplay: Defeding the base"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/zombie_siege/zombie_siege3.webp",
+                    "caption": "Gameplay: Player is attacking zombies using height advantage"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/zombie_siege/zombie_siege4.webp",
+                    "caption": "Graphic: calm view of player base at daytime"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/zombie_siege/zombie_siege5.webp",
+                    "caption": "Gameplay: aggressive base defense at night"
+                }
+            ]
+        },
+        {
+            "_comment": "Hotel Sim TODO UNFINISHED",
+            "preset": "link",
+            "github": "https://play.google.com/store/apps/details?id=shop.booking.star.city",
+            "image": "images/projects/project-3.jpg",
+            "emoji": "🏨",
+            "color": "c3",
+            "nameRu": "My Super Hotel Simulator 3D",
+            "nameEn": "My Super Hotel Simulator 3D",
+            "descRu": "Мобильный симулятор управления отелем. Техлид проекта - AI систем, графических и анимационных оптимизаций, техарт, CI/CD пайплайн и код-ревью.",
+            "descEn": "Mobile hotel management simulator. Technical lead - AI systems, graphics and animation optimization, tech art, CI/CD pipeline and code review.",
+            "tags": [
+                "Unity",
+                "C#",
+                "Mobile",
+                "AI Systems",
+                "Gameplay Programming",
+                "Tech Art",
+                "Animation Optimization",
+                "Rendering Optimization",
+                "CI/CD",
+                "QA Pipeline",
+                "Technical Leadership",
+                "Team Support"
+            ],
+            "detailsRu": "<p>My Super Hotel Simulator 3D - мобильный симулятор управления отелем, разработанный совместно со студией Yohoho Games. В проекте я выступал техническим лидом с совмещёнными инженерными обязанностями.</p><p>Моя зона ответственности включала разработку AI игровых систем, графические оптимизации и техарт, оптимизацию скелетных анимаций для мобильных устройств, настройку CI/CD пайплайна, проведение код-ревью и оптимизацию QA-процесса.</p><p>Ключевые технические задачи проекта были связаны с мобильной производительностью: оптимизация рендеринга, снижение нагрузки анимационных систем, баланс между визуальным качеством и стабильным FPS на широком спектре устройств.</p>",
+            "detailsEn": "<p>My Super Hotel Simulator 3D is a mobile hotel management simulator developed in collaboration with Yohoho Games. I worked on the project as a technical lead with combined engineering responsibilities.</p><p>My responsibilities included development of AI gameplay systems, graphics optimization and tech art tasks, skeletal animation optimization for mobile devices, CI/CD pipeline setup, code reviews and QA workflow improvements.</p><p>The main technical challenges involved mobile performance: rendering optimization, reducing animation system overhead and maintaining stable FPS across a wide range of devices while preserving visual quality.</p>",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/hotel_sim/hotel_sim1.webp",
+                    "caption": "Reception desk PC UI"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/hotel_sim/hotel_sim2.webp",
+                    "caption": "Gameplay: Taking care of rooms"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/hotel_sim/hotel_sim3.webp",
+                    "caption": "Gameplay: carrying luggage"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/hotel_sim/hotel_sim4.webp",
+                    "caption": "Gameplay: people arrive at hotel"
+                }
+            ]
+        },
+        {
+            "_comment": "Puzzle Squad — mobile puzzle game with combat mechanics",
+            "preset": "link",
             "url": "https://uniday.pro/gamedev_puzzlesquad",
-      "image": "images/projects/puzzlesquad-screen1.jpg",
-      "emoji": "🧩",
-      "color": "c5",
-      "nameRu": "Puzzle Squad",
-      "nameEn": "Puzzle Squad",
-      "descRu": "Мобильная игра: казуальная головоломка 10×10 со стратегической боёвкой отрядов и развитием базы.",
-      "descEn": "Mobile game: casual 10×10 puzzle combined with squad strategy combat and base-building.",
-      "tags": [
-        "Unity",
-        "Mobile",
-        "Puzzle",
-        "Strategy"
-      ],
-      "detailsRu": "Puzzle Squad — внутренняя разработка студии Uniday, уникальный гибрид жанров: казуальная головоломка на базе механики «10×10», стратегическая боёвка отрядов и развитие собственной базы в стиле сити-билдера. Идея проекта родилась под влиянием участия в конференциях DevGAMM и White Nights.\n\nОсновные особенности: головоломка 10×10 с боевой механикой, система героев и их развития, строительство и развитие базы, события и ежедневные задания.\n\nТехнологические решения: модификаторы поля — специальные клетки активируют эффекты (массовые сдвиги блоков, дополнительные разрушения линий); бомбы с таймером на поле; дополнительные миссии с бонусами; глубокая аналитика поведения игроков.\n\nПроект прошёл несколько итераций: первая версия строилась в азиатском сеттинге с пандой-воином, затем сеттинг сменился на фэнтези-магико-технологический стиль. Из интерфейса убрали отображение собственного отряда, чтобы сфокусировать внимание на поле и боевой механике. Реализованы механики модификаторов, базового строительства и гачи-сбора героев.",
-      "detailsEn": "Puzzle Squad is an in-house project by Uniday studio — a unique genre hybrid: a casual 10×10 puzzle mechanic combined with squad strategy combat and city-builder-style base development. The idea was born from attending DevGAMM and White Nights game conferences.\n\nKey features: 10×10 puzzle with combat mechanics, hero collection and progression system, base building and development, seasonal events and daily quests.\n\nTechnical highlights: field modifiers — burning special cells triggers effects like mass block shifts or extra line clears; timed bomb elements requiring quick decisions; bonus missions for extra depth; deep player behaviour analytics.\n\nThe project went through several iterations: the first version used an Asian setting with a panda warrior, then the setting shifted to a fantasy-magitech style better suited for broad audiences. The squad display was removed from the UI to focus player attention on the field and combat mechanics. Modifier mechanics, base building, and gacha hero collection were all designed and implemented from scratch.",
-      "screenshots": [
-        {
-          "type": "image",
-          "src": "images/projects/puzzlesquad-screen1.jpg",
-          "caption": "Battle screen: 10×10 puzzle in action"
+            "image": "images/projects/puzzlesquad-screen1.jpg",
+            "emoji": "🧩",
+            "color": "c5",
+            "nameRu": "Puzzle Squad",
+            "nameEn": "Puzzle Squad",
+            "descRu": "Мобильная игра - гибрид 10×10 головоломки, стратегической боёвки отрядов и развития базы в стиле city-builder.",
+            "descEn": "Mobile game - hybrid of a 10×10 puzzle mechanic, squad strategy combat and city-builder style base development.",
+            "tags": [
+                "Unity",
+                "C#",
+                "Mobile",
+                "Game Systems",
+                "Puzzle Mechanics",
+                "Strategy Systems",
+                "LiveOps"
+            ],
+            "detailsRu": "Puzzle Squad — внутренняя разработка студии Uniday, уникальный гибрид жанров: казуальная головоломка на базе механики «10×10», стратегическая боёвка отрядов и развитие собственной базы в стиле сити-билдера. Идея проекта родилась под влиянием участия в конференциях DevGAMM и White Nights.\n\nОсновные особенности: головоломка 10×10 с боевой механикой, система героев и их развития, строительство и развитие базы, события и ежедневные задания.\n\nТехнологические решения: модификаторы поля — специальные клетки активируют эффекты (массовые сдвиги блоков, дополнительные разрушения линий); бомбы с таймером на поле; дополнительные миссии с бонусами; глубокая аналитика поведения игроков.\n\nПроект прошёл несколько итераций: первая версия строилась в азиатском сеттинге с пандой-воином, затем сеттинг сменился на фэнтези-магико-технологический стиль. Из интерфейса убрали отображение собственного отряда, чтобы сфокусировать внимание на поле и боевой механике. Реализованы механики модификаторов, базового строительства и гачи-сбора героев.",
+            "detailsEn": "Puzzle Squad is an in-house project by Uniday studio — a unique genre hybrid: a casual 10×10 puzzle mechanic combined with squad strategy combat and city-builder-style base development. The idea was born from attending DevGAMM and White Nights game conferences.\n\nKey features: 10×10 puzzle with combat mechanics, hero collection and progression system, base building and development, seasonal events and daily quests.\n\nTechnical highlights: field modifiers — burning special cells triggers effects like mass block shifts or extra line clears; timed bomb elements requiring quick decisions; bonus missions for extra depth; deep player behaviour analytics.\n\nThe project went through several iterations: the first version used an Asian setting with a panda warrior, then the setting shifted to a fantasy-magitech style better suited for broad audiences. The squad display was removed from the UI to focus player attention on the field and combat mechanics. Modifier mechanics, base building, and gacha hero collection were all designed and implemented from scratch.",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg",
+                    "caption": "Battle screen: 10×10 puzzle in action"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/puzzle_squad/puzzlesquad-screen2.jpg",
+                    "caption": "Gameplay: party members placing and attack planning"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://rutube.ru/play/embed/0e293f2c3923692666ee82054966b697/",
+                    "poster": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg",
+                    "caption": "Gameplay trailer"
+                }
+            ]
         },
         {
-          "type": "image",
-          "src": "images/projects/puzzlesquad-screen2.jpg",
-          "caption": "Gameplay: party members placing and attack planning"
-        },
-        {
-          "type": "embed",
-          "src": "https://rutube.ru/play/embed/0e293f2c3923692666ee82054966b697/",
-          "poster": "images/projects/puzzlesquad-screen1.jpg",
-          "caption": "Gameplay trailer"
+            "_comment": "Exowar — network shooter with robot customization",
+            "preset": "link",
+            "url": "https://uniday.pro/gamedev_exowar",
+            "image": "images/projects/exowar-screen1.jpg",
+            "emoji": "🤖",
+            "color": "c6",
+            "nameRu": "EXOWAR",
+            "nameEn": "EXOWAR",
+            "descRu": "Сетевой 3D-шутер с изометрической камерой. Отвечал за технический пайплайн, оптимизацию, инструменты разработки и 3D ассеты.",
+            "descEn": "Isometric 3D multiplayer shooter. Responsible for the technical pipeline, optimization, development tools and 3D assets.",
+            "tags": [
+                "Unity",
+                "C#",
+                "Multiplayer",
+                "SmartFox",
+                "Tools Development",
+                "Optimization",
+                "Tech Art"
+            ],
+            "detailsRu": "EXOWAR — командный проект: сетевой 3D-шутер с видом изометрической камеры. Игроки управляют боевыми роботами различных классов в динамичных матчах по 5 минут. Доступны режимы Deathmatch и Захват флага, прокачка роботов, расходники и внутриигровой чат. Мой вклад в проект охватывал сразу несколько направлений. Я занимался 3D-моделированием и текстурингом игровых ассетов, а также настройкой технического пайплайна команды. Написал ряд инструментов для художников, упрощавших работу с ассетами внутри редактора, и студийные инструменты: систему подгрузки статических данных, инструменты отладки игры и кода. Реализовал системы оптимизации — LOD-управление анимациями в зависимости от расстояния до модели, оптимизацию спрайтов и аудио, процедурную генерацию текстурных атлассов.",
+            "detailsEn": "EXOWAR is a team project: an isometric 3D network shooter where players control battle robots of various classes in fast-paced 5-minute matches. Available modes include Deathmatch and Capture the Flag, with robot upgrades, consumables, and in-game chat. My contribution spanned several areas. I handled 3D modeling and texturing of game assets, and set up the team's technical pipeline. I wrote a set of artist-facing tools to streamline asset workflows inside the editor, as well as internal studio tools: a static data loading system, game and code debugging utilities. I also built optimization systems — distance-based animation LOD, sprite and audio optimization, and texture atlas procedural generation.",
+            "screenshots": [
+                {
+                    "type": "image",
+                    "src": "images/projects/exowar/exowar-screen1.jpg",
+                    "caption": "Gameplay: battle on a map"
+                },
+                {
+                    "type": "image",
+                    "src": "images/projects/exowar/exowar-screen2.jpg",
+                    "caption": "Angar: robot customization"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://rutube.ru/play/embed/860e9f9f310a03f7e3949ae0e7065c17/",
+                    "poster": "images/projects/exowar/exowar-screen1.jpg",
+                    "caption": "Gameplay trailer"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "_comment": "Exowar — network shooter with robot customization",
-      "preset": "link",
-      "url": "https://uniday.pro/gamedev_exowar",
-      "image": "images/projects/exowar-screen1.jpg",
-      "emoji": "🤖",
-      "color": "c6",
-      "nameRu": "EXOWAR",
-      "nameEn": "EXOWAR",
-      "descRu": "Сетевой 3D-шутер с изометрической камерой. Работал в команде: отвечал за технический пайплайн, 3D-моделирование, текстуринг, оптимизацию и разработку внутренних инструментов студии.",
-      "descEn": "Isometric 3D network shooter. Worked as part of a team: responsible for the technical pipeline, 3D modeling, texturing, optimization, and internal studio tooling",
-      "tags": [
-        "Unity",
-        "C#",
-        "Multiplayer",
-        "SmartFox"
-      ],
-      "detailsRu": "EXOWAR — командный проект: сетевой 3D-шутер с видом изометрической камеры. Игроки управляют боевыми роботами различных классов в динамичных матчах по 5 минут. Доступны режимы Deathmatch и Захват флага, прокачка роботов, расходники и внутриигровой чат. Мой вклад в проект охватывал сразу несколько направлений. Я занимался 3D-моделированием и текстурингом игровых ассетов, а также настройкой технического пайплайна команды. Написал ряд инструментов для художников, упрощавших работу с ассетами внутри редактора, и студийные инструменты: систему подгрузки статических данных, инструменты отладки игры и кода. Реализовал системы оптимизации — LOD-управление анимациями в зависимости от расстояния до модели, оптимизацию спрайтов и аудио, процедурную генерацию текстурных атлассов.",
-      "detailsEn": "EXOWAR is a team project: an isometric 3D network shooter where players control battle robots of various classes in fast-paced 5-minute matches. Available modes include Deathmatch and Capture the Flag, with robot upgrades, consumables, and in-game chat. My contribution spanned several areas. I handled 3D modeling and texturing of game assets, and set up the team's technical pipeline. I wrote a set of artist-facing tools to streamline asset workflows inside the editor, as well as internal studio tools: a static data loading system, game and code debugging utilities. I also built optimization systems — distance-based animation LOD, sprite and audio optimization, and texture atlas procedural generation.",
-      "screenshots": [
-        {
-          "type": "image",
-          "src": "images/projects/exowar-screen1.jpg",
-          "caption": "Gameplay: battle on a map"
-        },
-        {
-          "type": "image",
-          "src": "images/projects/exowar-screen2.jpg",
-          "caption": "Angar: robot customization"
-        },
-        {
-          "type": "embed",
-          "src": "https://rutube.ru/play/embed/860e9f9f310a03f7e3949ae0e7065c17/",
-          "poster": "images/projects/exowar-screen1.jpg",
-          "caption": "Gameplay trailer"
-        }
-      ]
-    }
-  ]
+    ]
 }
