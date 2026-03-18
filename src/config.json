@@ -71,8 +71,8 @@
         { "id": "Unreal Engine", "label": "Unreal Engine" },
         { "id": "Mobile",        "label": "Mobile" },
         { "id": "AI Systems",    "label": "AI" },
-        { "id": "Simulation",    "label": "Simulation" },
-        { "id": "R&D",           "label": "R&D" }
+        { "id": "R&D",           "label": "R&D" },
+        { "id": "Simulation",    "label": "Simulation" }
     ],
 
     "projects": [
@@ -131,79 +131,48 @@
         },
         
         {
-            "_comment": "Autonomous vehicle simulator — NDA project",
-            
-            "preset": "no-links",
-            "image": "images/projects/project-1.jpg",
-            "emoji": "🚗",
-            "color": "c1",
-            
-            "nameRu": "Симулятор автономных транспортных средств",
-            "nameEn": "Autonomous Vehicle Simulator",
-            "descRu": "Промышленный симулятор для тестирования систем управления автономным транспортом. NDA — ссылки недоступны.",
-            "descEn": "Industrial simulator for testing autonomous vehicle control systems. NDA — links unavailable.",
-            "tags": ["Unity", "Simulation", "AI Systems"],
-            "subtags": ["C#", "Vehicle Physics", "Industrial"],
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• промышленный заказной проект под NDA<br>• физически точная модель поведения автономного транспорта<br>• интеграция с реальными системами управления через внешний API<br>• визуализация сенсорных данных (лидар, камеры, радар) в реальном времени<br><br>Симулятор разработан для тестирования и валидации алгоритмов управления автономными транспортными средствами в контролируемой среде без риска для реального оборудования. Заказчик — промышленное предприятие, использующее АТС для внутренней логистики.<br><br><b>Ключевые инженерные системы:</b><br><br>- Физическая модель транспортного средства: кастомный vehicle controller с поддержкой различных типов шасси, кинематической и динамической моделью движения, симуляцией нагрузки и центра масс.<br><br>- Система сенсоров: процедурная генерация точечных облаков лидара, симуляция угла обзора и дальности камер, радарное обнаружение с учётом материалов объектов.<br><br>- Интеграционный слой: двусторонний обмен данными с внешним контроллером АТС через TCP-сокеты, нормализация форматов команд и телеметрии.<br><br>- Сценарная система: редактор тестовых сценариев с поддержкой скриптовых триггеров, записью и воспроизведением сессий, автоматической генерацией отчётов по заданным метрикам.",
-            "detailsEn": "<b>Key project facts:</b><br>• custom industrial project under NDA<br>• physically accurate autonomous vehicle behaviour model<br>• real-time integration with vehicle control systems via external API<br>• live visualisation of sensor data (lidar, cameras, radar)<br><br>The simulator was built for testing and validating autonomous vehicle control algorithms in a controlled environment, eliminating risk to real hardware. The client is an industrial facility using AVs for internal logistics.<br><br><b>Core engineering systems:</b><br><br>- Vehicle physics model: custom vehicle controller supporting multiple chassis types, kinematic and dynamic motion models, load and centre-of-mass simulation.<br><br>- Sensor system: procedural lidar point-cloud generation, camera field-of-view and range simulation, radar detection with per-material reflection properties.<br><br>- Integration layer: bidirectional data exchange with an external AV controller over TCP sockets, command and telemetry format normalisation.<br><br>- Scenario system: test-scenario editor with scriptable triggers, session recording and playback, automated report generation against configurable metrics.",
-            "screenshots": [
-                { 
-                    "type": "image",
-                    "src": "images/projects/screen1.jpg",
-                    "captionRu": "Главный экран симулятора",
-                    "captionEn": "Simulator main screen" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/screen2.jpg",
-                    "captionRu": "Визуализация сенсорных данных",
-                    "captionEn": "Sensor data visualisation"
-                },
-                { 
-                    "type": "video",
-                    "src": "https://www.w3schools.com/html/mov_bbb.mp4",
-                    "poster": "images/projects/screen1.jpg",
-                    "captionRu": "Демонстрация симулятора",
-                    "captionEn": "Simulator demo" 
-                }
-            ]
+            "_comment": "Zenjex — open-source DI framework for Unity",
+
+            "preset": "links-bar",
+
+            "github": "https://github.com/antonprv/Zenjex",
+            "page":   "https://antonprv.github.io/zenjex-website/docs.html",
+
+            "image":  "images/projects/zenjex/zenjex_logo.png",
+            "emoji":  "💉",
+            "color":  "c2",
+
+            "nameRu": "Zenjex",
+            "nameEn": "Zenjex",
+
+            "descRu": "Open-source DI-фреймворк для Unity 6. Drop-in совместимость с Zenject API поверх Reflex — мигрируйте без переписывания инсталлеров.",
+            "descEn": "Open-source DI framework for Unity 6. Drop-in Zenject-compatible API on top of Reflex — migrate without rewriting a single installer.",
+
+            "tags": ["Unity", "C#", "R&D"],
+            "subtags": ["Dependency Injection", "Reflex", "Architecture", "Open Source", "Unity 6"],
+
+            "detailsRu": "<b>Zenjex</b> — production-ready DI-фреймворк для Unity, решающий одну конкретную боль: команда работает на Zenject / Extenject, впереди переезд на Unity 6, и переписывать весь injection-слой с нуля никто не хочет.<br><br><b>Ключевые факты:</b><br>• drop-in совместимость с Zenject API — ни один инсталлер переписывать не нужно<br>• под капотом работает Reflex 14.1.0 — самый быстрый DI для Unity на бенчмарках<br>• полная поддержка Unity 6.3 LTS, включая починенный debugger-window<br>• три паттерна инъекций, lifecycle-управление, scoped-контейнеры на сцену<br>• живой пример на реальном проекте: (Lone Brawler)[https://github.com/antonprv/LoneBrawler]<br><br>Фреймворк родился внутри Lone Brawler как необходимость — Extenject не поддерживал Unity 6, а холодный переход на Reflex означал переучивание всей команды и переписывание каждого инсталлера. Zenjex устраняет эту цену: синтаксис биндингов намеренно идентичен Zenject, а под капотом работает Reflex с его expression-tree-based активацией и умным кэшированием.<br><br>После завершения Lone Brawler фреймворк был выделен в отдельную open-source библиотеку, документирован и опубликован.<br><br><b>Архитектура фреймворка:</b><br><br>- <b>ProjectRootInstaller</b> — глобальный composition root (аналог ProjectContext + MonoInstaller из Zenject). Запускается с execution order -280, гарантируя что контейнер собран до любого Awake() в сцене. Поддерживает асинхронную фазу InstallGameInstanceRoutine() для загрузки Addressables и рантайм-биндингов.<br><br>- <b>SceneInstaller</b> — создаёт дочерний контейнер на каждую сцену, наследующий глобальные биндинги и добавляющий локальные поверх. Диспозится автоматически при выгрузке сцены.<br><br>- <b>ZenjexBehaviour</b> — базовый класс для MonoBehaviour с гарантированной инъекцией до Awake() (execution order -100). Работает в том числе для префабов, созданных через Instantiate() в рантайме.<br><br>- <b>Lifecycle</b>: IInitializable вызывается автоматически после сборки контейнера, до LaunchGame(). RootContext.Runtime позволяет добавлять биндинги в живой контейнер после инициализации.<br><br><b>Паттерны инъекций:</b><br><br>- RootContext.Resolve&lt;T&gt;() — прямой резолв из любого места, без базового класса и атрибутов.<br>- [Zenjex] на MonoBehaviour — декларативные инъекции для объектов в сцене на момент загрузки.<br>- ZenjexBehaviour + [Zenjex] — гарантированная инъекция до Awake(), в том числе для рантайм-инстанциированных объектов.<br>- ZenjexRunner.InjectGameObject() — ручная инъекция для Instantiate() без наследования.<br><br><b>Полная документация:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
+
+            "detailsEn": "<b>Zenjex</b> is a production-ready DI framework for Unity that solves one specific, painful problem: your team uses Zenject / Extenject, Unity 6 migration is coming, and nobody wants to rewrite the entire injection layer from scratch.<br><br><b>Key facts:</b><br>• drop-in Zenject API compatibility — not a single installer needs to change<br>• powered by Reflex 14.1.0 under the hood — the fastest DI framework for Unity by benchmarks<br>• full Unity 6.3 LTS support, including a fixed debugger window<br>• three injection patterns, lifecycle management, per-scene scoped containers<br>• proven at scale: (Lone Brawler)[https://github.com/antonprv/LoneBrawler] — a full production game built on this framework<br><br>The framework was born inside Lone Brawler out of necessity — Extenject had no Unity 6 support, and a cold migration to Reflex meant retraining the team and rewriting every installer. Zenjex eliminates that cost: the binding syntax is intentionally identical to Zenject, while Reflex runs underneath with its expression-tree-based activation and smart caching.<br><br>After Lone Brawler shipped, the framework was extracted into a standalone open-source library, fully documented, and published.<br><br><b>Framework architecture:</b><br><br>- <b>ProjectRootInstaller</b> — global composition root (equivalent to Zenject's ProjectContext + MonoInstaller). Runs at execution order -280, guaranteeing the container is fully built before any Awake() in the scene fires. Supports an async InstallGameInstanceRoutine() phase for Addressables loading and runtime bindings.<br><br>- <b>SceneInstaller</b> — creates a child container per scene that inherits all global bindings and adds local ones on top. Automatically disposed when the scene unloads.<br><br>- <b>ZenjexBehaviour</b> — MonoBehaviour base class with guaranteed pre-Awake() injection (execution order -100). Works for prefabs instantiated at runtime via Instantiate().<br><br>- <b>Lifecycle</b>: IInitializable is called automatically after the container is built, before LaunchGame(). RootContext.Runtime allows adding bindings to the live container post-initialization.<br><br><b>Injection patterns:</b><br><br>- RootContext.Resolve&lt;T&gt;() — direct resolve from anywhere, no base class or attribute needed.<br>- [Zenjex] on MonoBehaviour — declarative injection for objects present in the scene at load time.<br>- ZenjexBehaviour + [Zenjex] — guaranteed pre-Awake() injection, including runtime-instantiated objects.<br>- ZenjexRunner.InjectGameObject() — manual injection for Instantiate() without inheritance.<br><br><b>Full documentation:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
+
+            "screenshots": []
         },
         
         {
-            "_comment": "VR Emergency Drill Simulator — NDA project",
+            "_comment": "Innopolis autonomous vehicle simulator — NDA project",
             "preset": "no-links",
             "image": "images/projects/project-1.jpg",
-            "emoji": "🔬",
-            "color": "c1",
-            "nameRu": "VR-тренажёр аварийных ситуаций",
-            "nameEn": "VR Emergency Drill Simulator",
-            "descRu": "VR-симулятор аварийных ситуаций для промышленных объектов. Подготовка персонала к действиям в нештатных ситуациях. NDA — ссылки недоступны.",
-            "descEn": "VR emergency drill simulator for industrial facilities. Personnel training for non-standard situation response. NDA — links unavailable.",
-            "tags": ["Unreal Engine", "Simulation"],
-            "subtags": ["C++", "VR", "HTC Vive", "Industrial"],
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• VR-тренажёр для промышленного предприятия, проект под NDA<br>• поддержка HTC Vive с полным room-scale трекингом<br>• процедурная генерация сценариев аварийных ситуаций<br>• система оценки действий оператора с детализированным отчётом<br><br>Симулятор разработан для обучения персонала промышленных объектов действиям при аварийных ситуациях: пожаре, утечке опасных веществ, отказе оборудования. VR-формат обеспечивает реалистичное погружение без риска для жизни и здоровья сотрудников.<br><br><b>Ключевые инженерные системы:</b><br><br>- VR-взаимодействие: физические руки с хват-системой, поддержка инструментов и защитного снаряжения, тактильная обратная связь через контроллеры HTC Vive.<br><br>- Система сценариев: конфигурируемые тренировочные модули с вариативными условиями старта, таймерами и контрольными точками. Инструктор управляет ходом тренировки из отдельного UI.<br><br>- Оценочная система: журнал всех действий оператора с временными метками, сравнение с эталонным сценарием, автоматический отчёт с оценкой по ключевым показателям.<br><br>- Оптимизация для VR: стабильный 90 FPS достигнут через aggressive culling, LOD-систему для промышленного окружения и оптимизацию draw calls через static/dynamic batching.",
-            "detailsEn": "<b>Key project facts:</b><br>• VR training simulator for an industrial facility, project under NDA<br>• HTC Vive support with full room-scale tracking<br>• procedural emergency scenario generation<br>• operator action scoring system with detailed reporting<br><br>The simulator was built to train industrial facility personnel to respond to emergency situations: fire, hazardous material leaks, and equipment failure. The VR format provides realistic immersion without putting employees at risk.<br><br><b>Core engineering systems:</b><br><br>- VR interaction: physical hands with a grab system, tool and protective equipment support, haptic feedback through HTC Vive controllers.<br><br>- Scenario system: configurable training modules with variable start conditions, timers, and checkpoints. The instructor controls the session flow from a separate UI.<br><br>- Scoring system: full operator action log with timestamps, comparison against a reference scenario, automatic report with scores across key performance indicators.<br><br>- VR optimisation: stable 90 FPS achieved through aggressive culling, an LOD system for industrial environments, and draw call optimisation via static and dynamic batching.",
-            "screenshots": [
-                {
-                    "type": "image",
-                    "src": "images/projects/screen1.jpg",
-                    "captionRu": "Главный экран тренажёра",
-                    "captionEn": "Simulator main screen"
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/screen2.jpg",
-                    "captionRu": "Процесс VR-тренировки",
-                    "captionEn": "VR training session" 
-                },
-                {
-                    "type": "video",
-                    "src": "https://www.w3schools.com/html/mov_bbb.mp4",
-                    "poster": "images/projects/screen1.jpg",
-                    "captionRu": "Геймплейный трейлер",
-                    "captionEn": "Gameplay trailer" 
-                }
-            ]
+            "emoji": "🚗",
+            "color": "c5",
+            "nameRu": "Симулятор автономных транспортных средств",
+            "nameEn": "Autonomous Vehicle Simulator",
+            "descRu": "Ведущий разработчик модуля поведения трафика и сценарной системы для промышленного симулятора беспилотного транспорта. Проект под NDA — детали не раскрываются.",
+            "descEn": "Lead developer of the traffic behaviour and scenario system modules for an industrial autonomous vehicle simulator. Project under NDA — details are not disclosed.",
+            "tags": ["Unity", "Simulation", "AI Systems"],
+            "subtags": ["C#", "HDRP", "State Machines", "Async Systems", "Industrial"],
+            "detailsRu": "<b>Проект выполнен под NDA.</b> Описание намеренно ограничено — раскрывать архитектурные и технические детали не представляется возможным.<br><br>Симулятор разрабатывался на базе <b>Innopolis Simulator</b> — программного комплекса Лаборатории автономных транспортных систем Университета Иннополис. Платформа используется для отладки и тестирования беспилотных решений для легкового и грузового транспорта без проведения натурных испытаний.<br><br>Симулятор воспроизводит полный сенсорный стек автономного транспортного средства — лидар, камеры, радар, GPS, IMU — и моделирует реалистичное городское окружение с динамическим трафиком, пешеходами, погодными условиями и сменой времени суток.<br><br><b>Моя роль в проекте:</b><br><br>Отвечал за разработку двух ключевых подсистем. Подробности раскрыть не могу, но в общих чертах:<br><br>- <b>Система поведения трафика</b>: агенты транспортных средств и пешеходов с реактивным поведением — соблюдение правил дорожного движения, реакция на светофоры, взаимодействие с тестируемым беспилотником. Архитектура строилась на иерархических конечных автоматах и асинхронных пайплайнах — принципах, которые я активно применял в Lone Brawler.<br><br>- <b>Сценарная система</b>: конфигурируемые тестовые сценарии с поддержкой скриптовых триггеров, управлением плотностью трафика, граничными случаями (внезапный пешеход, отказ светофора, ограниченная видимость). Система позволяла запускать воспроизводимые тест-кейсы для валидации алгоритмов управления беспилотником.<br><br>Проект научил работать в условиях жёстких требований к детерминированности и воспроизводимости — совсем другой контекст по сравнению с игровой разработкой, но с полностью пересекающимся инструментарием.",
+            "detailsEn": "<b>Project is under NDA.</b> The description is intentionally limited — architectural and technical details cannot be disclosed.<br><br>The simulator was built on top of <b>Innopolis Simulator</b> — a platform developed by the Autonomous Transportation Systems Laboratory at Innopolis University. It is used to test and debug autonomous vehicle solutions for passenger and freight transport, eliminating the need for costly real-world trials.<br><br>The simulator reproduces the full AV sensor stack — lidar, cameras, radar, GPS, IMU — and models a realistic urban environment with dynamic traffic, pedestrians, weather conditions, and time-of-day cycles.<br><br><b>My role on the project:</b><br><br>I was responsible for two core subsystems. I cannot share specifics, but in general terms:<br><br>- <b>Traffic behaviour system</b>: vehicle and pedestrian agents with reactive behaviour — traffic rule compliance, traffic light response, interaction with the test vehicle. The architecture was built on hierarchical state machines and asynchronous pipelines — the same principles I applied extensively in Lone Brawler.<br><br>- <b>Scenario system</b>: configurable test scenarios with scriptable triggers, traffic density control, and edge cases (sudden pedestrian, traffic light failure, limited visibility). The system enabled reproducible test cases for validating autonomous control algorithms.<br><br>The project required working under strict determinism and reproducibility constraints — a very different context from game development, but with a fully overlapping engineering toolkit.",
+            "screenshots": []
         },
         
         {
@@ -462,6 +431,33 @@
                     "captionEn": "Gameplay trailer" 
                 }
             ]
+        },
+
+        {
+            "_comment": "Zenjex — open-source DI framework for Unity",
+            "preset": "links-bar",
+
+            "github": "https://github.com/antonprv/Zenjex",
+            "page":   "https://antonprv.github.io/zenjex-website/index.html",
+
+            "image":  "",
+            "emoji":  "⚙️",
+            "color":  "c2",
+
+            "nameRu": "Zenjex",
+            "nameEn": "Zenjex",
+
+            "descRu": "Open-source DI-фреймворк для Unity. Обёртка над Reflex с Zenject-подобным fluent API, трёхфазной инъекцией зависимостей и редакторным debugger'ом для анализа графа зависимостей.",
+            "descEn": "Open-source DI framework for Unity. A wrapper over Reflex with a Zenject-like fluent API, three-phase dependency injection, and an editor debugger for inspecting the dependency graph.",
+
+            "tags": ["Unity", "C#"],
+            "subtags": ["Dependency Injection", "Open Source", "Architecture"],
+
+            "detailsRu": "<b>Zenjex</b> — собственный DI-фреймворк для Unity, разработанный в ходе работы над Lone Brawler и впоследствии выделенный в отдельную open-source библиотеку.<br><br><b>Ключевые факты:</b><br>• обёртка над Reflex с Zenject-подобным fluent API<br>• трёхфазная инъекция зависимостей<br>• редакторный debugger для анализа графа зависимостей<br>• опубликован как open-source на GitHub<br><br>Фреймворк возник из практической необходимости: Zenject избыточен для большинства Unity-проектов, а Reflex слишком минималистичен. Zenjex занимает золотую середину — лаконичный API с достаточной функциональностью для масштабируемых проектов.<br><br>- <b>Fluent API</b>: регистрация зависимостей в стиле Zenject через цепочки вызовов, понятные разработчикам, знакомым с VContainer или Zenject.<br><br>- <b>Трёхфазная инъекция</b>: Bind → Resolve → Inject — каждая фаза изолирована, что упрощает тестирование и отладку.<br><br>- <b>Editor Debugger</b>: визуализация графа зависимостей прямо в Unity Editor — позволяет видеть какие зависимости зарегистрированы, как они разрешаются и где возникают конфликты.",
+
+            "detailsEn": "<b>Zenjex</b> is a custom DI framework for Unity, built during development of Lone Brawler and later extracted as a standalone open-source library.<br><br><b>Key facts:</b><br>• wrapper over Reflex with a Zenject-like fluent API<br>• three-phase dependency injection<br>• editor debugger for inspecting the dependency graph<br>• published as open-source on GitHub<br><br>The framework grew from a practical need: Zenject is overkill for most Unity projects, and Reflex is too minimalist. Zenjex sits in the middle — a concise API with enough functionality for scalable projects.<br><br>- <b>Fluent API</b>: Zenject-style dependency registration through method chains, familiar to developers who know VContainer or Zenject.<br><br>- <b>Three-phase injection</b>: Bind → Resolve → Inject — each phase is isolated, making testing and debugging straightforward.<br><br>- <b>Editor Debugger</b>: dependency graph visualisation directly in the Unity Editor — see which dependencies are registered, how they resolve, and where conflicts arise.",
+
+            "screenshots": []
         }
     ]
 }
