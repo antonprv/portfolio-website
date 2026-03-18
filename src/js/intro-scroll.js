@@ -1,25 +1,33 @@
 /* ============================================================
    intro-scroll.js
-   0 = stage (hero centred)
-   1 = stage (hero right + skills left)
-   2 = projects
+   Section 0: stage — hero centred
+   Section 1: stage — hero right + skills left
+   Section 2: projects — separate fixed layer, z-index above stage
+
+   Architecture:
+   • snap-container (z:10) holds snap-stage
+   • snap-projects  (z:9→11) is a separate fixed element
+   • Transition 0↔1: continuity animation on hero/skills panels
+   • Transition 1→2: snap-stage slides up, snap-projects slides up from bottom
+   • Transition 2→1: reverse
 ============================================================ */
 (function () {
   'use strict';
 
   if (window.matchMedia('(max-width: 900px)').matches) return;
 
-  const snapStage   = document.getElementById('snap-stage');
-  const snapProj    = document.getElementById('snap-projects');
-  const stageHero   = document.getElementById('stage-hero');
-  const stageSkills = document.getElementById('stage-skills');
-  const heroBio     = document.getElementById('bio');
-  const projScroll  = document.getElementById('projects-scroll');
-  const sbThumb     = document.getElementById('scrollbar-thumb');
-  const sbTrack     = document.getElementById('custom-scrollbar');
-  const navDots     = document.querySelectorAll('.section-nav__dot');
+  const snapContainer = document.getElementById('snap-container');
+  const snapStage     = document.getElementById('snap-stage');
+  const snapProj      = document.getElementById('snap-projects');
+  const stageHero     = document.getElementById('stage-hero');
+  const stageSkills   = document.getElementById('stage-skills');
+  const heroBio       = document.getElementById('bio');
+  const projScroll    = document.getElementById('projects-scroll');
+  const sbThumb       = document.getElementById('scrollbar-thumb');
+  const sbTrack       = document.getElementById('custom-scrollbar');
+  const navDots       = document.querySelectorAll('.section-nav__dot');
 
-  if (!snapStage || !snapProj || !stageHero || !stageSkills) return;
+  if (!snapContainer || !snapStage || !snapProj || !stageHero || !stageSkills) return;
 
   let current      = 0;
   let transitioning = false;
@@ -31,10 +39,8 @@
 
   const s = (el, p) => Object.assign(el.style, p);
 
-  /* ── Init positions ── */
-  s(snapStage, { position:'absolute', inset:'0', transform:'translateY(0)' });
-  s(snapProj,  { position:'absolute', inset:'0', transform:'translateY(100%)' });
-
+  /* ── Init ── */
+  s(snapStage, { position:'absolute', inset:'0' });
   s(stageHero, {
     position:'absolute', inset:'0',
     display:'flex', alignItems:'center', justifyContent:'center',
@@ -49,44 +55,28 @@
   });
   if (heroBio) s(heroBio, { opacity:'1' });
 
-  /* ── Pointer events: only visible section is interactive ── */
-  function setVisible(section) {
-    [snapStage, snapProj].forEach(el => el.classList.remove('is-visible'));
-    section.classList.add('is-visible');
-  }
-  setVisible(snapStage);
+  /* snap-projects starts below, z-index below stage */
+  snapProj.style.transform = 'translateY(100%)';
+  snapProj.classList.remove('is-active');
 
-  /* ── Nav dots ── */
+  /* ── Dots ── */
   function updateDots(i) {
     navDots.forEach((d, j) => d.classList.toggle('is-active', i === j));
   }
 
-  /* ── 0 → 1: hero slides right, bio fades, skills slide in ── */
+  /* ── 0 → 1 ── */
   function animateToSplit() {
     if (heroBio) s(heroBio, { transition:`opacity ${Math.round(DUR*0.35)}ms ease`, opacity:'0' });
-
-    s(stageHero, {
-      transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`,
-      left:'50%', width:'50%'
-    });
-    s(stageSkills, {
-      transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.7)}ms ${EASE}`,
-      transform:'translateX(0)', opacity:'1'
-    });
+    s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'50%', width:'50%' });
+    s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.7)}ms ${EASE}`, transform:'translateX(0)', opacity:'1' });
     setTimeout(() => { stageSkills.style.borderRight = '1px solid var(--border)'; }, DUR * 0.5);
     setTimeout(() => { transitioning = false; }, DUR + 40);
   }
 
-  /* ── 1 → 0: hero back to centre, bio fades in, skills slide out ── */
+  /* ── 1 → 0 ── */
   function animateToHero() {
-    s(stageSkills, {
-      transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.4)}ms ease`,
-      transform:'translateX(-100%)', opacity:'0'
-    });
-    s(stageHero, {
-      transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`,
-      left:'0', width:'100%'
-    });
+    s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.4)}ms ease`, transform:'translateX(-100%)', opacity:'0' });
+    s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'0', width:'100%' });
     setTimeout(() => {
       if (heroBio) s(heroBio, { transition:`opacity ${Math.round(DUR*0.5)}ms ease`, opacity:'1' });
       stageSkills.style.borderRight = '1px solid transparent';
@@ -103,9 +93,6 @@
     current = idx;
     transitioning = true;
     updateDots(idx);
-
-    // Update pointer events
-    setVisible(idx < 2 ? snapStage : snapProj);
 
     const dur = instant ? '0s' : `${DUR}ms ${EASE_SNAP}`;
 
@@ -129,18 +116,33 @@
     }
 
     /* Stage ↔ Projects */
-    if (idx === 2 && projScroll) {
-      projScroll.scrollTop = 0;
-      updateScrollbar();
-    }
+    if (idx === 2) {
+      /* Projects come up from bottom, stage slides up */
+      if (projScroll) { projScroll.scrollTop = 0; updateScrollbar(); }
 
-    s(snapStage, { transition:`transform ${dur}`, transform: idx < 2 ? 'translateY(0)' : 'translateY(-100%)' });
-    s(snapProj,  { transition:`transform ${dur}`, transform: idx < 2 ? 'translateY(100%)' : 'translateY(0)' });
+      /* First: raise projects z-index so it appears above stage */
+      snapProj.classList.add('is-active');
+
+      s(snapProj,      { transition:'none', transform:'translateY(100%)' });
+      s(snapContainer, { transition:'none' });
+      snapProj.getBoundingClientRect(); // reflow
+
+      s(snapProj,      { transition:`transform ${dur}`, transform:'translateY(0)' });
+      s(snapContainer, { transition:`transform ${dur}`, transform:'translateY(-100%)' });
+
+    } else {
+      /* Projects go back down, stage slides back in */
+      s(snapProj,      { transition:`transform ${dur}`, transform:'translateY(100%)' });
+      s(snapContainer, { transition:`transform ${dur}`, transform:'translateY(0)' });
+
+      /* After animation, lower projects z-index */
+      setTimeout(() => { snapProj.classList.remove('is-active'); }, DUR + 40);
+    }
 
     setTimeout(() => { transitioning = false; }, instant ? 0 : DUR + 40);
   }
 
-  /* ── Scrollbar ── */
+  /* ── Custom scrollbar ── */
   function updateScrollbar() {
     if (!projScroll || !sbThumb || !sbTrack) return;
     const ratio  = projScroll.clientHeight / projScroll.scrollHeight;

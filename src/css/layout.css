@@ -110,14 +110,17 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   SNAP SECTIONS — all 3 are position:fixed, translateY flipping
-   body has overflow:hidden always (snap-container handles scroll)
+   SNAP SECTIONS
+   ─ snap-container: fixed, covers viewport, holds stage only
+   ─ snap-projects:  fixed, separate from container, z-index above
+                     container when active, below when inactive
    ════════════════════════════════════════════════════════════ */
 
 body {
   overflow: hidden;
 }
 
+/* Stage container — holds hero/skills sections */
 .snap-container {
   position: fixed;
   top: 0;
@@ -126,28 +129,43 @@ body {
   height: 100%;
   z-index: 10;
   overflow: hidden;
+  background: var(--bg);
+  will-change: transform;
 }
 
-/* ── Snap section base — all sections positioned absolutely in container ── */
-.snap-section {
-  position: absolute;
+/* Projects section — separate fixed layer */
+#snap-projects {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 9;           /* below stage initially */
+  background: var(--bg);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  /* starts off-screen below */
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* When projects are active, bring above stage */
+#snap-projects.is-active {
+  z-index: 11;
+}
+
+/* snap-stage — fills its container */
+#snap-stage {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg);
   will-change: transform;
-  /* Sections off-screen have no pointer events */
-  pointer-events: none;
-}
-
-/* Only the on-screen section is interactive */
-.snap-section.is-visible {
-  pointer-events: auto;
 }
 
 /* ── Background glow for stage section ── */
@@ -308,22 +326,16 @@ body {
     position: static;
     height: auto;
     overflow: visible;
-  }
-
-  .snap-section {
-    position: static;
-    height: auto;
-    min-height: 100svh;
     transform: none !important;
-    transition: none;
   }
 
   #snap-stage {
-    flex-direction: column;
-    overflow-y: auto;
+    position: static;
     height: auto;
     min-height: 100svh;
-    position: static;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
     transform: none !important;
   }
 
@@ -341,7 +353,8 @@ body {
 
   .stage-hero {
     position: static;
-    width: 100%;
+    width: 100% !important;
+    left: 0 !important;
     height: auto;
     padding: 5rem 1.5rem 2.5rem;
     order: 1;
@@ -352,7 +365,12 @@ body {
   }
 
   #snap-projects {
+    position: static;
+    height: auto;
+    transform: none !important;
+    z-index: auto;
     flex-direction: column;
+    overflow: visible;
   }
 
   .projects-scroll {
