@@ -170,50 +170,52 @@ body {
   z-index: 0;
 }
 
-/* ── Section 2: split layout ── */
-#snap-split {
-  justify-content: stretch;
-  align-items: stretch;
+/* ── Stage: single section that holds both hero and skills ── */
+#snap-stage {
+  overflow: hidden;
 }
 
-.split-skills {
-  flex: 1;
+/* Skills panel — full left half, starts off-screen left */
+.stage-skills {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
   padding: 5rem 2rem 4rem 3rem;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid transparent;
   overflow-y: auto;
   scrollbar-width: none;
-  position: relative;
   z-index: 1;
-  transform: translateX(-40px);
+  /* Off-screen left initially — JS drives transitions */
+  transform: translateX(-100%);
+  will-change: transform, opacity;
   opacity: 0;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity   0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.split-skills::-webkit-scrollbar { display: none; }
-.split-skills .skills-inner { width: 100%; max-width: 100%; margin: 0; }
+.stage-skills::-webkit-scrollbar { display: none; }
+.stage-skills .skills-inner { width: 100%; max-width: 100%; margin: 0; }
 
-.split-hero {
-  flex: 1;
+/* Hero panel — centred initially, shifts right on transition */
+.stage-hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem 3rem 4rem 2rem;
-  position: relative;
-  z-index: 1;
-  transform: translateX(40px);
-  opacity: 0;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
-              opacity   0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+  padding: 5rem 2rem 4rem;
+  z-index: 2;
+  /* JS drives left + width transitions */
+  will-change: transform, left, width;
 }
 
-#snap-split.is-current .split-skills,
-#snap-split.is-current .split-hero {
-  transform: translateX(0);
-  opacity: 1;
+/* Bio — fades out when hero slides right */
+.hero-bio {
+  will-change: opacity;
 }
 
 /* ── Section 3: projects with internal scroll ── */
@@ -314,19 +316,38 @@ body {
     transition: none;
   }
 
-  #snap-split {
+  #snap-stage {
     flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+    min-height: 100svh;
+    position: static;
+    transform: none !important;
   }
 
-  .split-skills, .split-hero {
-    width: 100%; height: auto;
-    padding: 3rem 1.5rem;
+  .stage-skills {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 2rem 1.5rem 3rem;
     transform: none !important;
     opacity: 1 !important;
-    border-right: none;
+    border-top: 1px solid var(--border);
+    order: 2;
+    overflow-y: visible;
   }
-  .split-skills { border-top: 1px solid var(--border); order: 2; }
-  .split-hero   { order: 1; padding-top: 5rem; }
+
+  .stage-hero {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 5rem 1.5rem 2.5rem;
+    order: 1;
+  }
+
+  .hero-bio {
+    opacity: 1 !important;
+  }
 
   #snap-projects {
     flex-direction: column;
