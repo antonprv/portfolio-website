@@ -366,7 +366,7 @@ function renderSkills(skills) {
     grid.appendChild(group);
   });
 
-  section.style.display = '';
+  section.style.visibility = 'visible';
 }
 
 
