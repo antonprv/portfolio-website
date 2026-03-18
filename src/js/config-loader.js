@@ -585,6 +585,16 @@ function buildInfo(p) {
   h3.dataset.en  = p.nameEn || '';
   info.appendChild(h3);
 
+  /* Role badge — shown if roleRu / roleEn are set */
+  if (p.roleRu || p.roleEn) {
+    const role = document.createElement('p');
+    role.className   = 'project-role t';
+    role.textContent = p.roleRu || '';
+    role.dataset.ru  = p.roleRu || '';
+    role.dataset.en  = p.roleEn || '';
+    info.appendChild(role);
+  }
+
   const desc = document.createElement('p');
   desc.className   = 't';
   desc.textContent = p.descRu || '';
@@ -624,10 +634,10 @@ function buildLinksBar(p) {
   bar.className = 'project-link-footer';
 
   const buttons = [
-    { href: p.github, labelRu: 'GitHub',   labelEn: 'GitHub',  icon: SVG_GITHUB_SMALL, cls: '' },
-    { href: p.url,    labelRu: 'Открыть',  labelEn: 'Open',    icon: SVG_LINK,         cls: '' },
-    { href: p.page,   labelRu: 'Страница', labelEn: 'Page',    icon: SVG_LINK,         cls: '' },
-    { href: p.play,   labelRu: 'Играть',   labelEn: 'Play',    icon: SVG_PLAY,         cls: 'project-link-btn--play' },
+    { href: p.github, labelRu: 'GitHub',                          labelEn: 'GitHub',               icon: SVG_GITHUB_SMALL, cls: '' },
+    { href: p.url,    labelRu: p.urlLabelRu  || 'Открыть',        labelEn: p.urlLabelEn  || 'Open', icon: SVG_LINK,         cls: '' },
+    { href: p.page,   labelRu: p.pageLabelRu || 'Страница',       labelEn: p.pageLabelEn || 'Page', icon: SVG_LINK,         cls: '' },
+    { href: p.play,   labelRu: p.playLabelRu || 'Играть',         labelEn: p.playLabelEn || 'Play', icon: SVG_PLAY,         cls: 'project-link-btn--play' },
   ];
 
   buttons.forEach(({ href, labelRu, labelEn, icon, cls }) => {
@@ -682,6 +692,7 @@ function patchI18n(profile) {
       lastName:       restRu.join(' '),
       tagline:        taglineRu || i18n.ru.tagline,
       bio:            bioRu     || i18n.ru.bio,
+      highlights:     profile.highlightsRu || [],
       'footer-text':  `© ${new Date().getFullYear()} ${nameRu}\u00a0-\u00a0 Сделано с ☕ и вниманием к деталям`,
       pageTitle:      `${nameRu} - Портфолио`,
     });
@@ -691,6 +702,7 @@ function patchI18n(profile) {
       lastName:       restEn.join(' '),
       tagline:        taglineEn || i18n.en.tagline,
       bio:            bioEn     || i18n.en.bio,
+      highlights:     profile.highlightsEn || [],
       'footer-text':  `© ${new Date().getFullYear()} ${nameEn}\u00a0-\u00a0 Made with ☕ and attention to detail`,
       pageTitle:      `${nameEn} - Portfolio`,
     });
@@ -717,6 +729,17 @@ function applyCurrentLang() {
   /* Bio supports HTML tags (<br> etc.) */
   const bioEl = document.getElementById('bio');
   if (bioEl) bioEl.innerHTML = t.bio || '';
+
+  /* Highlights */
+  const hlEl = document.getElementById('hero-highlights');
+  if (hlEl && Array.isArray(t.highlights) && t.highlights.length) {
+    hlEl.innerHTML = t.highlights
+      .map(h => `<li><span class="hl-bullet" aria-hidden="true">▸</span>${h}</li>`)
+      .join('');
+    hlEl.style.display = '';
+  } else if (hlEl) {
+    hlEl.style.display = 'none';
+  }
 
   document.querySelectorAll('[data-ru]').forEach(el => {
     el.textContent = el.getAttribute('data-' + currentLang);

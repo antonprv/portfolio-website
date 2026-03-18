@@ -14,22 +14,31 @@
     "font": {
         "family": "TikTokSans",
         "fallback": "sans-serif",
-        "files": [
-            {
-                "path": "fonts/TikTokSans.woff2",
-                "variable": true
-            }
-        ]
+        "files": [{ "path": "fonts/TikTokSans.woff2", "variable": true }]
     },
     
     "profile": {
         "photo": "images/profile/photo.jpg",
         "nameRu": "Антон Пируев",
         "nameEn": "Anton Piruev",
-        "taglineRu": "Инженер системного геймплея - Unity, AI, симуляции",
-        "taglineEn": "Systems-Driven Gameplay Engineer - Unity, AI, Simulation",
-        "bioRu": "Разработчик игровых систем, специализирующийся на архитектуре, AI и системном геймплее. Создаю PC и мобильные игры, а также промышленные симуляции - от прототипа до релиза.<br><br>Проектирую масштабируемые архитектуры, игровые системы и инструменты разработки. Предпочитаю модульный дизайн, dependency injection и асинхронные пайплайны, позволяющие проектам расти без превращения кодовой базы в хаос.<br><br>Работаю с Unity и Unreal Engine, разрабатываю gameplay-системы, AI-поведение, симуляции и инфраструктуру разработки.",
-        "bioEn": "Gameplay and systems engineer focused on architecture, AI systems and systemic gameplay. I develop PC and mobile games as well as industrial simulations - from prototype to release.<br><br>I design scalable gameplay architectures, development tools and engine-level systems. My approach emphasises modular design, dependency injection and asynchronous pipelines that allow projects to grow without turning the codebase into tightly coupled code.<br><br>I work with Unity and Unreal Engine, building gameplay systems, AI behaviours, simulations and technical infrastructure.",
+        "taglineRu": "Инженер системного геймплея · Unity · AI · Симуляции",
+        "taglineEn": "Systems Gameplay Engineer · Unity · AI · Simulation",
+        "bioRu": "Разработчик игровых систем, специализирующийся на архитектуре, AI и системном геймплее. Создаю PC и мобильные игры, а также промышленные симуляции — от прототипа до релиза.<br><br>Проектирую масштабируемые архитектуры и инструменты разработки. Предпочитаю модульный дизайн, dependency injection и асинхронные пайплайны, позволяющие проектам расти без превращения кодовой базы в тесно связанные монолиты.",
+        "bioEn": "Gameplay and systems engineer focused on architecture, AI systems and systemic gameplay. I develop PC and mobile games as well as industrial simulations — from prototype to release.<br><br>I design scalable gameplay architectures and development tools. My approach emphasises modular design, dependency injection and asynchronous pipelines that allow projects to grow without turning the codebase into tightly coupled monoliths.",
+        "highlightsRu": [
+            "200 000+ строк кода в сольном Unity-проекте",
+            "436 автоматизированных тестов (EditMode + PlayMode)",
+            "Автор open-source DI-фреймворка Zenjex",
+            "Релиз коммерческой мобильной игры в Google Play",
+            "Ведущий разработчик AI-систем в симуляторе беспилотников"
+        ],
+        "highlightsEn": [
+            "200k+ LOC Unity project built solo",
+            "436 automated tests (EditMode + PlayMode)",
+            "Author of open-source DI framework Zenjex",
+            "Commercial mobile game shipped on Google Play",
+            "Lead developer of AI systems in an autonomous vehicle simulator"
+        ],
         "links": {
             "github":   "https://github.com/antonprv",
             "telegram": "https://t.me/aaprxt",
@@ -39,425 +48,237 @@
 
     "skills": [
         {
-            "title": "Core technologies",
+            "title": "Core Technologies",
             "icon": "star",
             "primary": true,
             "items": ["Unity", "C#", "Unreal Engine", "C++"]
         },
         {
+            "title": "Gameplay Systems",
+            "icon": "radio",
+            "items": ["AI Systems", "Simulation", "Gameplay Programming", "Interaction Systems", "Physics"]
+        },
+        {
             "title": "Architecture",
             "icon": "grid",
-            "items": ["Dependency Injection", "State Machines", "Reactive Programming", "Async Systems"]
+            "items": ["Dependency Injection", "State Machines", "Async Systems", "Reactive Programming"]
         },
         {
-            "title": "Gameplay",
-            "icon": "radio",
-            "items": ["AI Systems", "Gameplay Programming", "Physics", "Interaction Systems"]
-        },
-        {
-            "title": "Frameworks",
+            "title": "Frameworks & Libraries",
             "icon": "code",
-            "items": ["R3", "UniRX", "Zenject", "UniTask", "Addressables", "Entitas"]
+            "items": ["Zenject", "UniTask", "R3 / UniRX", "Addressables", "Entitas"]
         },
         {
-            "title": "Tools",
+            "title": "Tools & Platforms",
             "icon": "wrench",
             "items": ["Git", "CI/CD", "WebGL", "Android"]
         }
     ],
-    
+
     "tagFilters": [
-        { "id": "Unity",         "label": "Unity" },
-        { "id": "Unreal Engine", "label": "Unreal Engine" },
-        { "id": "Mobile",        "label": "Mobile" },
-        { "id": "AI Systems",    "label": "AI" },
-        { "id": "R&D",           "label": "R&D" },
-        { "id": "Simulation",    "label": "Simulation" }
+        { "id": "Unity",      "label": "Unity" },
+        { "id": "Unreal",     "label": "Unreal" },
+        { "id": "AI",         "label": "AI" },
+        { "id": "Simulation", "label": "Simulation" },
+        { "id": "Mobile",     "label": "Mobile" },
+        { "id": "OpenSource", "label": "Open Source" },
+        { "id": "R&D",        "label": "R&D" }
     ],
 
     "projects": [
         {
-            "_comment": "Lone Brawler - solo full-cycle Unity project",
-
+            "_comment": "Lone Brawler — solo full-cycle Unity project",
             "preset": "links-bar",
-
             "github": "https://github.com/antonprv/LoneBrawler",
             "page":   "https://antonprv.github.io/lonebrawler-website/index.html",
             "play":   "https://elaborate-cassata-bb9b61.netlify.app",
-
             "image":  "images/projects/lone_brawler/lone_brawler_poster.png",
             "emoji":  "🏰",
             "color":  "c1",
             "nameRu": "Lone Brawler",
             "nameEn": "Lone Brawler",
-
-            "descRu": "Сольный проект - полный цикл разработки от геймдизайна до релиза. 3D action от третьего лица про выживание против орд нежити. 442 файла C# и более 200 000 строк кода.",
-
-            "descEn": "Solo project - full production cycle from game design to release. Third-person 3D action about surviving hordes of undead. 442 C# files and over 200,000 lines of code.",
-            
-            "tags": ["Unity", "WebGL", "Android"],
-            "subtags": ["C#", "Game Architecture", "Dependency Injection", "State Machines", "Reactive Programming", "UniTask", "Zenject", "R3 / UniRX", "Performance Optimization"],
-            
-            "detailsRu": "<b>Lone Brawler</b> - сольный <b>full-cycle</b> проект, в котором я исследовал архитектуру масштабируемого Unity-проекта: от DI и state-machine архитектуры до тестовой инфраструктуры и мультиплатформенного билда.<br><br><b>Ключевые факты проекта:</b><br>• 442 файла C# и более 200 000 строк кода<br>• 436 автоматизированных тестов (364 EditMode + 72 PlayMode)<br>• собственный DI-фреймворк Zenjex, опубликованный как open-source библиотека<br>• мультиплатформенный релиз: WebGL (Яндекс Игры) и Android<br><br>Игра находится в релизе на Яндекс Играх (WebGL) и RuStore (Android) и активно поддерживается. Проект реализован одним разработчиком: геймдизайн, архитектура, кодовая база, инфраструктура разработки, сборка и публикация.<br><br>Кодовая база состоит из 442 файлов C# (более 200 000 строк). Для проекта был разработан собственный DI-фреймворк Zenjex, который впоследствии выделен в отдельную open-source библиотеку. Полная техническая документация проекта доступна на antonprv.github.io/lonebrawler-website.<br><br><b>Ключевые инженерные системы:</b><br><br>- Архитектура на generic State Machine с payload-переходами (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Каждое состояние изолировано и создаётся через StateFactory.<br><br>- DI-контейнер Zenjex оборачивает Reflex и предоставляет Zenject-подобный fluent API, трёхфазную инъекцию зависимостей и редакторный debugger для анализа графа зависимостей.<br><br>- Асинхронный asset pipeline на UniTask и Addressables: предзагрузка и кеширование хэндлов обеспечивают плавную загрузку даже при медленном соединении, а все ресурсы выгружаются одним Cleanup()-проходом при смене сцены.<br><br>- Мультиплатформенная архитектура сборки: статические данные и конфиги управляют платформенными различиями, единый codebase без conditional compilation в геймплейном коде.<br><br><b>Технические детали реализации:</b><br><br>- Математическая библиотека FastMath: Fast Inverse Square Root из Quake3 (0x5f3759df + Ньютон-Рафсон) и BurstMath на Unity.Mathematics с [BurstCompile] и [AggressiveInlining].<br><br>- Система баффов с режимами активации Burst / Constant / Duration. BuffTrackerService сохраняет снапшот активных баффов с оставшимся временем и восстанавливает их при загрузке.<br><br>- Игровая валюта хранится как ReadOnlyReactiveProperty через R3, списание реализовано атомарным вызовом TrySpendSouls.<br><br>- Система сохранений LiveProgressSync: автосейв каждые 5 секунд, финальный сейв при закрытии страницы и облачная синхронизация через Yandex Games SDK с приоритетом облачной копии.<br><br>- Тестовая инфраструктура: 50 файлов тестов, 364 Edit Mode теста (unit + integration) и 72 Play Mode теста (smoke-тесты и performance benchmarks через Unity Performance Testing Package).",
-
-            "detailsEn": "<b>Lone Brawler</b> is a solo <b>full-cycle</b> project exploring scalable Unity project architecture - from dependency injection and state-machine driven gameplay to testing infrastructure and multiplatform builds.<br><br><b>Key project facts:</b><br>• 442 C# files and over 200,000 lines of code<br>• 436 automated tests (364 EditMode + 72 PlayMode)<br>• custom DI framework Zenjex released as an open-source library<br>• multiplatform release: WebGL (Yandex Games) and Android<br><br>The game is live on Yandex Games (WebGL) and RuStore (Android) and is under active development. The entire project was built by a single developer: game design, architecture, codebase, development infrastructure, build pipeline, and publishing.<br><br>The codebase contains 442 C# files with over 200,000 lines of code. The Zenjex dependency injection framework was developed specifically for the project and later extracted into a standalone open-source library. Full technical documentation is available at antonprv.github.io/lonebrawler-website.<br><br><b>Core engineering systems:</b><br><br>- Generic State Machine architecture with payload transitions (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Each state is isolated and instantiated through a StateFactory.<br><br>- Zenjex DI container wraps Reflex and provides a Zenject-like fluent API, three-phase dependency injection, and an editor debugger for inspecting the dependency graph.<br><br>- Asynchronous asset pipeline built on UniTask and Addressables. Handle preloading and caching ensure smooth loading even on slow connections; all resources are released in a single Cleanup() pass on scene transition.<br><br>- Multiplatform build architecture driven by static data and configs. A single codebase with no conditional compilation in gameplay code.<br><br><b>Technical implementation details:</b><br><br>- FastMath library: Fast Inverse Square Root from Quake3 (0x5f3759df + Newton-Raphson) and BurstMath on Unity.Mathematics with [BurstCompile] and [AggressiveInlining].<br><br>- Buff system with three activation modes: Burst, Constant, Duration. BuffTrackerService snapshots active buffs with remaining time and restores them on load.<br><br>- In-game currency stored as ReadOnlyReactiveProperty via R3, atomic spending through TrySpendSouls.<br><br>- Save system LiveProgressSync: autosave every five seconds, forced save on page close, cloud sync through Yandex Games SDK with cloud-copy priority.<br><br>- Testing infrastructure: 50 test files, 364 Edit Mode tests (unit + integration) and 72 Play Mode tests (smoke tests and performance benchmarks using Unity Performance Testing Package).",
-            
+            "roleRu": "Роль: Сольный разработчик",
+            "roleEn": "Role: Solo developer",
+            "descRu": "Сольный full-cycle Unity-проект с акцентом на масштабируемую игровую архитектуру и системный дизайн. От геймдизайна и ключевых систем до тестовой инфраструктуры и мультиплатформенного релиза — всё реализовано одним разработчиком.",
+            "descEn": "Solo full-cycle Unity project focused on scalable gameplay architecture and systemic design. Built entirely by a single developer — from game design and core systems to tooling, testing infrastructure and multiplatform release.",
+            "tags": ["Unity", "WebGL"],
+            "subtags": ["C#", "Game Architecture", "Dependency Injection", "State Machines", "Reactive Programming", "UniTask", "Zenject", "R3 / UniRX", "Testing", "Android"],
+            "detailsRu": "<b>Lone Brawler</b> — сольный <b>full-cycle</b> проект, в котором я исследовал архитектуру масштабируемого Unity-проекта: от DI и state-machine архитектуры до тестовой инфраструктуры и мультиплатформенного билда.<br><br><b>Ключевые факты проекта:</b><br>• 442 файла C# и более 200 000 строк кода<br>• 436 автоматизированных тестов (364 EditMode + 72 PlayMode)<br>• собственный DI-фреймворк Zenjex, опубликованный как open-source библиотека<br>• мультиплатформенный релиз: WebGL (Яндекс Игры) и Android<br><br>Игра находится в релизе на Яндекс Играх (WebGL) и RuStore (Android) и активно поддерживается. Проект реализован одним разработчиком: геймдизайн, архитектура, кодовая база, инфраструктура разработки, сборка и публикация.<br><br>Кодовая база состоит из 442 файлов C# (более 200 000 строк). Для проекта был разработан собственный DI-фреймворк Zenjex, который впоследствии выделен в отдельную open-source библиотеку. Полная техническая документация проекта доступна на (antonprv.github.io/lonebrawler-website)[https://antonprv.github.io/lonebrawler-website].<br><br><b>Ключевые инженерные системы:</b><br><br>- Архитектура на generic State Machine с payload-переходами (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Каждое состояние изолировано и создаётся через StateFactory.<br><br>- DI-контейнер Zenjex оборачивает Reflex и предоставляет Zenject-подобный fluent API, трёхфазную инъекцию зависимостей и редакторный debugger для анализа графа зависимостей.<br><br>- Асинхронный asset pipeline на UniTask и Addressables: предзагрузка и кеширование хэндлов обеспечивают плавную загрузку даже при медленном соединении, а все ресурсы выгружаются одним Cleanup()-проходом при смене сцены.<br><br>- Мультиплатформенная архитектура сборки: статические данные и конфиги управляют платформенными различиями, единый codebase без conditional compilation в геймплейном коде.<br><br><b>Технические детали реализации:</b><br><br>- Математическая библиотека FastMath: Fast Inverse Square Root из Quake3 (0x5f3759df + Ньютон-Рафсон) и BurstMath на Unity.Mathematics с [BurstCompile] и [AggressiveInlining].<br><br>- Система баффов с режимами активации Burst / Constant / Duration. BuffTrackerService сохраняет снапшот активных баффов с оставшимся временем и восстанавливает их при загрузке.<br><br>- Игровая валюта хранится как ReadOnlyReactiveProperty через R3, списание реализовано атомарным вызовом TrySpendSouls.<br><br>- Система сохранений LiveProgressSync: автосейв каждые 5 секунд, финальный сейв при закрытии страницы и облачная синхронизация через Yandex Games SDK с приоритетом облачной копии.<br><br>- Тестовая инфраструктура: 50 файлов тестов, 364 Edit Mode теста (unit + integration) и 72 Play Mode теста (smoke-тесты и performance benchmarks через Unity Performance Testing Package).",
+            "detailsEn": "<b>Lone Brawler</b> is a solo <b>full-cycle</b> project focused on scalable Unity project architecture — from dependency injection and state-machine driven gameplay to testing infrastructure and multiplatform builds.<br><br><b>Key project facts:</b><br>• 442 C# files and over 200,000 lines of code<br>• 436 automated tests (364 EditMode + 72 PlayMode)<br>• custom DI framework Zenjex released as an open-source library<br>• multiplatform release: WebGL (Yandex Games) and Android<br><br>The game is live on Yandex Games (WebGL) and RuStore (Android) and is under active development. The entire project was built by a single developer: game design, architecture, codebase, development infrastructure, build pipeline, and publishing.<br><br>Full technical documentation is available at (antonprv.github.io/lonebrawler-website)[https://antonprv.github.io/lonebrawler-website].<br><br><b>Core engineering systems:</b><br><br>- Generic State Machine architecture with payload transitions (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Each state is isolated and instantiated through a StateFactory.<br><br>- Zenjex DI container wraps Reflex and provides a Zenject-like fluent API, three-phase dependency injection, and an editor debugger for inspecting the dependency graph.<br><br>- Asynchronous asset pipeline built on UniTask and Addressables. Handle preloading and caching ensure smooth loading even on slow connections; all resources are released in a single Cleanup() pass on scene transition.<br><br>- Multiplatform build architecture driven by static data and configs. A single codebase with no conditional compilation in gameplay code.<br><br><b>Technical implementation details:</b><br><br>- FastMath library: Fast Inverse Square Root from Quake3 (0x5f3759df + Newton-Raphson) and BurstMath on Unity.Mathematics with [BurstCompile] and [AggressiveInlining].<br><br>- Buff system with three activation modes: Burst, Constant, Duration. BuffTrackerService snapshots active buffs with remaining time and restores them on load.<br><br>- In-game currency stored as ReadOnlyReactiveProperty via R3, atomic spending through TrySpendSouls.<br><br>- Save system LiveProgressSync: autosave every five seconds, forced save on page close, cloud sync through Yandex Games SDK with cloud-copy priority.<br><br>- Testing infrastructure: 50 test files, 364 Edit Mode tests (unit + integration) and 72 Play Mode tests (smoke tests and performance benchmarks using Unity Performance Testing Package).",
             "screenshots": [
-                { 
-                    "type": "image",
-                    "src": "images/projects/lone_brawler/lone_brawler1.png",
-                    "captionRu": "Игрок входит в первую локацию",
-                    "captionEn": "Player enters first game location" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/lone_brawler/lone_brawler2.png",
-                    "captionRu": "Бой с несколькими врагами ближнего и дальнего боя одновременно",
-                    "captionEn": "Fighting multiple melee and ranged enemies at once" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/lone_brawler/lone_brawler3.png",
-                    "captionRu": "Система инвентаря",
-                    "captionEn": "Game inventory system" 
-                },
-                {
-                    "type": "image",
-                    "src": "images/projects/lone_brawler/lone_brawler4.png",
-                    "captionRu": "Тултип предмета в инвентаре",
-                    "captionEn": "Inventory item tooltip" 
-                }
+                { "type": "image", "src": "images/projects/lone_brawler/lone_brawler1.png", "captionRu": "Игрок входит в первую локацию", "captionEn": "Player enters first game location" },
+                { "type": "image", "src": "images/projects/lone_brawler/lone_brawler2.png", "captionRu": "Бой с несколькими врагами ближнего и дальнего боя одновременно", "captionEn": "Fighting multiple melee and ranged enemies at once" },
+                { "type": "image", "src": "images/projects/lone_brawler/lone_brawler3.png", "captionRu": "Система инвентаря", "captionEn": "Game inventory system" },
+                { "type": "image", "src": "images/projects/lone_brawler/lone_brawler4.png", "captionRu": "Тултип предмета в инвентаре", "captionEn": "Inventory item tooltip" }
             ]
         },
-        
+
         {
-            "_comment": "Zenjex - open-source DI framework for Unity",
-
+            "_comment": "Zenjex — open-source DI framework for Unity",
             "preset": "links-bar",
-
             "github": "https://github.com/antonprv/Zenjex",
             "page":   "https://antonprv.github.io/zenjex-website/docs.html",
-
+            "pageLabelRu": "Документация",
+            "pageLabelEn": "Docs",
             "image":  "images/projects/zenjex/zenjex_logo.png",
             "emoji":  "💉",
             "color":  "c2",
-
             "nameRu": "Zenjex",
             "nameEn": "Zenjex",
-
-            "descRu": "Open-source DI-фреймворк для Unity 6. Drop-in совместимость с Zenject API поверх Reflex - мигрируйте без переписывания инсталлеров.",
-            "descEn": "Open-source DI framework for Unity 6. Drop-in Zenject-compatible API on top of Reflex - migrate without rewriting a single installer.",
-
-            "tags": ["Unity", "C#", "R&D"],
-            "subtags": ["Dependency Injection", "Reflex", "Architecture", "Open Source", "Unity 6"],
-
-            "detailsRu": "<b>Zenjex</b> - production-ready DI-фреймворк для Unity, решающий одну конкретную боль: команда работает на Zenject / Extenject, впереди переезд на Unity 6, и переписывать весь injection-слой с нуля никто не хочет.<br><br><b>Ключевые факты:</b><br>• drop-in совместимость с Zenject API - ни один инсталлер переписывать не нужно<br>• под капотом работает Reflex 14.1.0 - самый быстрый DI для Unity на бенчмарках<br>• полная поддержка Unity 6.3 LTS, включая починенный debugger-window<br>• три паттерна инъекций, lifecycle-управление, scoped-контейнеры на сцену<br>• живой пример на реальном проекте: (Lone Brawler)[https://github.com/antonprv/LoneBrawler]<br><br>Фреймворк родился внутри Lone Brawler как необходимость - Extenject не поддерживал Unity 6, а холодный переход на Reflex означал переучивание всей команды и переписывание каждого инсталлера. Zenjex устраняет эту цену: синтаксис биндингов намеренно идентичен Zenject, а под капотом работает Reflex с его expression-tree-based активацией и умным кэшированием.<br><br>После завершения Lone Brawler фреймворк был выделен в отдельную open-source библиотеку, документирован и опубликован.<br><br><b>Архитектура фреймворка:</b><br><br>- <b>ProjectRootInstaller</b> - глобальный composition root (аналог ProjectContext + MonoInstaller из Zenject). Запускается с execution order -280, гарантируя что контейнер собран до любого Awake() в сцене. Поддерживает асинхронную фазу InstallGameInstanceRoutine() для загрузки Addressables и рантайм-биндингов.<br><br>- <b>SceneInstaller</b> - создаёт дочерний контейнер на каждую сцену, наследующий глобальные биндинги и добавляющий локальные поверх. Диспозится автоматически при выгрузке сцены.<br><br>- <b>ZenjexBehaviour</b> - базовый класс для MonoBehaviour с гарантированной инъекцией до Awake() (execution order -100). Работает в том числе для префабов, созданных через Instantiate() в рантайме.<br><br>- <b>Lifecycle</b>: IInitializable вызывается автоматически после сборки контейнера, до LaunchGame(). RootContext.Runtime позволяет добавлять биндинги в живой контейнер после инициализации.<br><br><b>Паттерны инъекций:</b><br><br>- RootContext.Resolve&lt;T&gt;() - прямой резолв из любого места, без базового класса и атрибутов.<br>- [Zenjex] на MonoBehaviour - декларативные инъекции для объектов в сцене на момент загрузки.<br>- ZenjexBehaviour + [Zenjex] - гарантированная инъекция до Awake(), в том числе для рантайм-инстанциированных объектов.<br>- ZenjexRunner.InjectGameObject() - ручная инъекция для Instantiate() без наследования.<br><br><b>Полная документация:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
-
-            "detailsEn": "<b>Zenjex</b> is a production-ready DI framework for Unity that solves one specific, painful problem: your team uses Zenject / Extenject, Unity 6 migration is coming, and nobody wants to rewrite the entire injection layer from scratch.<br><br><b>Key facts:</b><br>• drop-in Zenject API compatibility - not a single installer needs to change<br>• powered by Reflex 14.1.0 under the hood - the fastest DI framework for Unity by benchmarks<br>• full Unity 6.3 LTS support, including a fixed debugger window<br>• three injection patterns, lifecycle management, per-scene scoped containers<br>• proven at scale: (Lone Brawler)[https://github.com/antonprv/LoneBrawler] - a full production game built on this framework<br><br>The framework was born inside Lone Brawler out of necessity - Extenject had no Unity 6 support, and a cold migration to Reflex meant retraining the team and rewriting every installer. Zenjex eliminates that cost: the binding syntax is intentionally identical to Zenject, while Reflex runs underneath with its expression-tree-based activation and smart caching.<br><br>After Lone Brawler shipped, the framework was extracted into a standalone open-source library, fully documented, and published.<br><br><b>Framework architecture:</b><br><br>- <b>ProjectRootInstaller</b> - global composition root (equivalent to Zenject's ProjectContext + MonoInstaller). Runs at execution order -280, guaranteeing the container is fully built before any Awake() in the scene fires. Supports an async InstallGameInstanceRoutine() phase for Addressables loading and runtime bindings.<br><br>- <b>SceneInstaller</b> - creates a child container per scene that inherits all global bindings and adds local ones on top. Automatically disposed when the scene unloads.<br><br>- <b>ZenjexBehaviour</b> - MonoBehaviour base class with guaranteed pre-Awake() injection (execution order -100). Works for prefabs instantiated at runtime via Instantiate().<br><br>- <b>Lifecycle</b>: IInitializable is called automatically after the container is built, before LaunchGame(). RootContext.Runtime allows adding bindings to the live container post-initialization.<br><br><b>Injection patterns:</b><br><br>- RootContext.Resolve&lt;T&gt;() - direct resolve from anywhere, no base class or attribute needed.<br>- [Zenjex] on MonoBehaviour - declarative injection for objects present in the scene at load time.<br>- ZenjexBehaviour + [Zenjex] - guaranteed pre-Awake() injection, including runtime-instantiated objects.<br>- ZenjexRunner.InjectGameObject() - manual injection for Instantiate() without inheritance.<br><br><b>Full documentation:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
-
+            "roleRu": "Роль: Автор фреймворка",
+            "roleEn": "Role: Framework author",
+            "descRu": "Production-ready open-source DI-фреймворк для Unity — использован в реальном проекте с 200 000+ строк кода. Drop-in совместимость с Zenject API поверх Reflex: мигрируйте без переписывания инсталлеров.",
+            "descEn": "Production-ready open-source DI framework for Unity — used in a 200k+ LOC production game. Drop-in Zenject-compatible API on top of Reflex: migrate without rewriting a single installer.",
+            "tags": ["Unity", "OpenSource"],
+            "subtags": ["C#", "Dependency Injection", "Reflex", "Architecture", "Unity 6"],
+            "detailsRu": "<b>Zenjex</b> — production-ready DI-фреймворк для Unity, решающий одну конкретную боль: команда работает на Zenject / Extenject, впереди переезд на Unity 6, и переписывать весь injection-слой с нуля никто не хочет.<br><br><b>Ключевые факты:</b><br>• drop-in совместимость с Zenject API — ни один инсталлер переписывать не нужно<br>• под капотом работает Reflex 14.1.0 — самый быстрый DI для Unity на бенчмарках<br>• полная поддержка Unity 6.3 LTS, включая починенный debugger-window<br>• три паттерна инъекций, lifecycle-управление, scoped-контейнеры на сцену<br>• живой пример на реальном проекте: (Lone Brawler)[https://github.com/antonprv/LoneBrawler] — 200 000+ строк кода<br><br>Фреймворк родился внутри Lone Brawler как необходимость — Extenject не поддерживал Unity 6, а холодный переход на Reflex означал переучивание всей команды и переписывание каждого инсталлера. Zenjex устраняет эту цену: синтаксис биндингов намеренно идентичен Zenject, а под капотом работает Reflex с его expression-tree-based активацией и умным кэшированием.<br><br>После завершения Lone Brawler фреймворк был выделен в отдельную open-source библиотеку, документирован и опубликован.<br><br><b>Архитектура фреймворка:</b><br><br>- <b>ProjectRootInstaller</b> — глобальный composition root (аналог ProjectContext + MonoInstaller из Zenject). Запускается с execution order -280, гарантируя что контейнер собран до любого Awake() в сцене. Поддерживает асинхронную фазу InstallGameInstanceRoutine() для загрузки Addressables и рантайм-биндингов.<br><br>- <b>SceneInstaller</b> — создаёт дочерний контейнер на каждую сцену, наследующий глобальные биндинги и добавляющий локальные поверх. Диспозится автоматически при выгрузке сцены.<br><br>- <b>ZenjexBehaviour</b> — базовый класс для MonoBehaviour с гарантированной инъекцией до Awake() (execution order -100). Работает в том числе для префабов, созданных через Instantiate() в рантайме.<br><br>- <b>Lifecycle</b>: IInitializable вызывается автоматически после сборки контейнера, до LaunchGame(). RootContext.Runtime позволяет добавлять биндинги в живой контейнер после инициализации.<br><br><b>Паттерны инъекций:</b><br><br>- RootContext.Resolve&lt;T&gt;() — прямой резолв из любого места, без базового класса и атрибутов.<br>- [Zenjex] на MonoBehaviour — декларативные инъекции для объектов в сцене на момент загрузки.<br>- ZenjexBehaviour + [Zenjex] — гарантированная инъекция до Awake(), в том числе для рантайм-инстанциированных объектов.<br>- ZenjexRunner.InjectGameObject() — ручная инъекция для Instantiate() без наследования.<br><br><b>Полная документация:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
+            "detailsEn": "<b>Zenjex</b> is a production-ready DI framework for Unity that solves one specific, painful problem: your team uses Zenject / Extenject, Unity 6 migration is coming, and nobody wants to rewrite the entire injection layer from scratch.<br><br><b>Key facts:</b><br>• drop-in Zenject API compatibility — not a single installer needs to change<br>• powered by Reflex 14.1.0 under the hood — the fastest DI framework for Unity by benchmarks<br>• full Unity 6.3 LTS support, including a fixed debugger window<br>• three injection patterns, lifecycle management, per-scene scoped containers<br>• proven at scale: (Lone Brawler)[https://github.com/antonprv/LoneBrawler] — a 200k+ LOC production game built on this framework<br><br>The framework was born inside Lone Brawler out of necessity — Extenject had no Unity 6 support, and a cold migration to Reflex meant retraining the team and rewriting every installer. Zenjex eliminates that cost: the binding syntax is intentionally identical to Zenject, while Reflex runs underneath with its expression-tree-based activation and smart caching.<br><br>After Lone Brawler shipped, the framework was extracted into a standalone open-source library, fully documented, and published.<br><br><b>Framework architecture:</b><br><br>- <b>ProjectRootInstaller</b> — global composition root (equivalent to Zenject's ProjectContext + MonoInstaller). Runs at execution order -280, guaranteeing the container is fully built before any Awake() in the scene fires. Supports an async InstallGameInstanceRoutine() phase for Addressables loading and runtime bindings.<br><br>- <b>SceneInstaller</b> — creates a child container per scene that inherits all global bindings and adds local ones on top. Automatically disposed when the scene unloads.<br><br>- <b>ZenjexBehaviour</b> — MonoBehaviour base class with guaranteed pre-Awake() injection (execution order -100). Works for prefabs instantiated at runtime via Instantiate().<br><br>- <b>Lifecycle</b>: IInitializable is called automatically after the container is built, before LaunchGame(). RootContext.Runtime allows adding bindings to the live container post-initialization.<br><br><b>Injection patterns:</b><br><br>- RootContext.Resolve&lt;T&gt;() — direct resolve from anywhere, no base class or attribute needed.<br>- [Zenjex] on MonoBehaviour — declarative injection for objects present in the scene at load time.<br>- ZenjexBehaviour + [Zenjex] — guaranteed pre-Awake() injection, including runtime-instantiated objects.<br>- ZenjexRunner.InjectGameObject() — manual injection for Instantiate() without inheritance.<br><br><b>Full documentation:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
             "screenshots": []
         },
-        
+
         {
-            "_comment": "Innopolis autonomous vehicle simulator - NDA project",
+            "_comment": "Innopolis autonomous vehicle simulator — NDA project",
             "preset": "no-links",
             "image": "images/projects/project-1.jpg",
             "emoji": "🚗",
             "color": "c5",
             "nameRu": "Симулятор автономных транспортных средств",
             "nameEn": "Autonomous Vehicle Simulator",
-            "descRu": "Ведущий разработчик модуля поведения трафика и сценарной системы для промышленного симулятора беспилотного транспорта. Проект под NDA - детали не раскрываются.",
-            "descEn": "Lead developer of the traffic behaviour and scenario system modules for an industrial autonomous vehicle simulator. Project under NDA - details are not disclosed.",
-            "tags": ["Unity", "Simulation", "AI Systems"],
+            "roleRu": "Роль: Ведущий разработчик AI-систем",
+            "roleEn": "Role: Lead AI systems developer",
+            "descRu": "Ведущий разработчик модуля поведения трафика и сценарной системы для промышленного симулятора беспилотного транспорта. Проект под NDA — детали не раскрываются.",
+            "descEn": "Lead developer of the traffic behaviour and scenario system modules for an industrial autonomous vehicle simulator. Project under NDA — details are not disclosed.",
+            "tags": ["Unity", "Simulation", "AI"],
             "subtags": ["C#", "HDRP", "State Machines", "Async Systems", "Industrial"],
-            "detailsRu": "<b>Проект выполнен под NDA.</b> Описание намеренно ограничено - раскрывать архитектурные и технические детали не представляется возможным.<br><br>Симулятор разрабатывался на базе <b>Innopolis Simulator</b> - программного комплекса Лаборатории автономных транспортных систем Университета Иннополис. Платформа используется для отладки и тестирования беспилотных решений для легкового и грузового транспорта без проведения натурных испытаний.<br><br>Симулятор воспроизводит полный сенсорный стек автономного транспортного средства - лидар, камеры, радар, GPS, IMU - и моделирует реалистичное городское окружение с динамическим трафиком, пешеходами, погодными условиями и сменой времени суток.<br><br><b>Моя роль в проекте:</b><br><br>Отвечал за разработку двух ключевых подсистем. Подробности раскрыть не могу, но в общих чертах:<br><br>- <b>Система поведения трафика</b>: агенты транспортных средств и пешеходов с реактивным поведением - соблюдение правил дорожного движения, реакция на светофоры, взаимодействие с тестируемым беспилотником. Архитектура строилась на иерархических конечных автоматах и асинхронных пайплайнах - принципах, которые я активно применял в Lone Brawler.<br><br>- <b>Сценарная система</b>: конфигурируемые тестовые сценарии с поддержкой скриптовых триггеров, управлением плотностью трафика, граничными случаями (внезапный пешеход, отказ светофора, ограниченная видимость). Система позволяла запускать воспроизводимые тест-кейсы для валидации алгоритмов управления беспилотником.<br><br>Проект научил работать в условиях жёстких требований к детерминированности и воспроизводимости - совсем другой контекст по сравнению с игровой разработкой, но с полностью пересекающимся инструментарием.",
-            "detailsEn": "<b>Project is under NDA.</b> The description is intentionally limited - architectural and technical details cannot be disclosed.<br><br>The simulator was built on top of <b>Innopolis Simulator</b> - a platform developed by the Autonomous Transportation Systems Laboratory at Innopolis University. It is used to test and debug autonomous vehicle solutions for passenger and freight transport, eliminating the need for costly real-world trials.<br><br>The simulator reproduces the full AV sensor stack - lidar, cameras, radar, GPS, IMU - and models a realistic urban environment with dynamic traffic, pedestrians, weather conditions, and time-of-day cycles.<br><br><b>My role on the project:</b><br><br>I was responsible for two core subsystems. I cannot share specifics, but in general terms:<br><br>- <b>Traffic behaviour system</b>: vehicle and pedestrian agents with reactive behaviour - traffic rule compliance, traffic light response, interaction with the test vehicle. The architecture was built on hierarchical state machines and asynchronous pipelines - the same principles I applied extensively in Lone Brawler.<br><br>- <b>Scenario system</b>: configurable test scenarios with scriptable triggers, traffic density control, and edge cases (sudden pedestrian, traffic light failure, limited visibility). The system enabled reproducible test cases for validating autonomous control algorithms.<br><br>The project required working under strict determinism and reproducibility constraints - a very different context from game development, but with a fully overlapping engineering toolkit.",
+            "detailsRu": "<b>Проект выполнен под NDA.</b> Описание намеренно ограничено — раскрывать архитектурные и технические детали не представляется возможным.<br><br>Симулятор разрабатывался на базе <b>Innopolis Simulator</b> — программного комплекса Лаборатории автономных транспортных систем Университета Иннополис. Платформа используется для отладки и тестирования беспилотных решений для легкового и грузового транспорта без проведения натурных испытаний.<br><br>Симулятор воспроизводит полный сенсорный стек автономного транспортного средства — лидар, камеры, радар, GPS, IMU — и моделирует реалистичное городское окружение с динамическим трафиком, пешеходами, погодными условиями и сменой времени суток.<br><br><b>Моя роль в проекте:</b><br><br>Отвечал за разработку двух ключевых подсистем. Подробности раскрыть не могу, но в общих чертах:<br><br>- <b>Система поведения трафика</b>: агенты транспортных средств и пешеходов с реактивным поведением — соблюдение правил дорожного движения, реакция на светофоры, взаимодействие с тестируемым беспилотником. Архитектура строилась на иерархических конечных автоматах и асинхронных пайплайнах — принципах, которые я активно применял в Lone Brawler.<br><br>- <b>Сценарная система</b>: конфигурируемые тестовые сценарии с поддержкой скриптовых триггеров, управлением плотностью трафика, граничными случаями (внезапный пешеход, отказ светофора, ограниченная видимость). Система позволяла запускать воспроизводимые тест-кейсы для валидации алгоритмов управления беспилотником.<br><br>Проект научил работать в условиях жёстких требований к детерминированности и воспроизводимости — совсем другой контекст по сравнению с игровой разработкой, но с полностью пересекающимся инструментарием.",
+            "detailsEn": "<b>Project is under NDA.</b> The description is intentionally limited — architectural and technical details cannot be disclosed.<br><br>The simulator was built on top of <b>Innopolis Simulator</b> — a platform developed by the Autonomous Transportation Systems Laboratory at Innopolis University. It is used to test and debug autonomous vehicle solutions for passenger and freight transport, eliminating the need for costly real-world trials.<br><br>The simulator reproduces the full AV sensor stack — lidar, cameras, radar, GPS, IMU — and models a realistic urban environment with dynamic traffic, pedestrians, weather conditions, and time-of-day cycles.<br><br><b>My role on the project:</b><br><br>I was responsible for two core subsystems. I cannot share specifics, but in general terms:<br><br>- <b>Traffic behaviour system</b>: vehicle and pedestrian agents with reactive behaviour — traffic rule compliance, traffic light response, interaction with the test vehicle. The architecture was built on hierarchical state machines and asynchronous pipelines — the same principles I applied extensively in Lone Brawler.<br><br>- <b>Scenario system</b>: configurable test scenarios with scriptable triggers, traffic density control, and edge cases (sudden pedestrian, traffic light failure, limited visibility). The system enabled reproducible test cases for validating autonomous control algorithms.<br><br>The project required working under strict determinism and reproducibility constraints — a very different context from game development, but with a fully overlapping engineering toolkit.",
             "screenshots": []
         },
 
         {
-            "_comment": "Last Dawn: Zombie Siege - mobile tower defense",
-            
+            "_comment": "Last Dawn: Zombie Siege — mobile tower defense",
             "preset": "link",
             "url":   "https://play.google.com/store/apps/details?id=tower.defense.hero.strategy",
-            
             "image": "images/projects/zombie_siege/zombie_siege4.webp",
-            
             "emoji": "🎮",
             "color": "c2",
             "nameRu": "Last Dawn: Zombie Siege",
             "nameEn": "Last Dawn: Zombie Siege",
-            
+            "roleRu": "Роль: Программист AI-систем",
+            "roleEn": "Role: AI systems programmer",
             "descRu": "Коммерческая мобильная игра в жанре tower defense. Роль: программист AI-систем, оптимизация графики и анимаций, CI/CD, код-ревью.",
-            
             "descEn": "Commercial mobile tower defense game. Role: AI systems programmer, graphics and animation optimization, CI/CD, code review.",
-            
-            "tags": ["Unity", "Mobile", "AI Systems"],
+            "tags": ["Unity", "Mobile", "AI"],
             "subtags": ["C#", "Tower Defense", "Gameplay Programming", "Performance Optimization", "CI/CD", "Team Collaboration"],
-            
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект совместно со студией Yohoho Games<br>• роль: программист с зоной ответственности в AI, графике и технической инфраструктуре<br>• релиз в Google Play, активная аудитория<br>• оптимизация под широкий спектр Android-устройств<br><br>Last Dawn: Zombie Siege - мобильная tower defense с акцентом на стратегическую оборону базы. Игрок строит укрепления, расставляет башни и лично участвует в бою против волн зомби. Я работал на проекте в роли программиста с совмещёнными обязанностями.<br><br><b>Ключевые инженерные задачи:</b><br><br>- AI-системы врагов: поведение зомби на основе иерархического конечного автомата. Агенты динамически переключаются между патрулированием, преследованием, атакой стен и атакой игрока в зависимости от контекста.<br><br>- Pathfinding: кастомная надстройка над Unity NavMesh для группового передвижения больших волн - агенты расходятся по разным маршрутам, избегая взаимных столкновений и равномерно нагружая оборонительные позиции.<br><br>- Оптимизация анимаций: LOD-система скелетных анимаций с понижением частоты обновления для дальних объектов, culling невидимых агентов, object pooling для всех врагов и снарядов.<br><br>- CI/CD: настройка автосборки через Unity Cloud Build с дифференцированными конфигурациями для QA и релизных билдов, автоматическая загрузка в Google Play Internal Track.",
-
-            "detailsEn": "<b>Key project facts:</b><br>• commercial mobile project in collaboration with Yohoho Games<br>• role: programmer responsible for AI, graphics, and technical infrastructure<br>• released on Google Play with an active player base<br>• optimised for a wide range of Android devices<br><br>Last Dawn: Zombie Siege is a mobile tower defense focused on strategic base defence. The player constructs fortifications, deploys towers, and directly engages waves of zombies. I worked on the project as a programmer with combined responsibilities.<br><br><b>Core engineering tasks:</b><br><br>- Enemy AI systems: zombie behaviour built on a hierarchical finite state machine. Agents dynamically switch between patrolling, chasing, attacking walls, and attacking the player based on context.<br><br>- Pathfinding: custom layer on top of Unity NavMesh for large-wave group movement - agents split across multiple routes, avoid mutual collisions, and distribute load evenly across defensive positions.<br><br>- Animation optimisation: skeletal animation LOD system with reduced update frequency for distant objects, culling of off-screen agents, object pooling for all enemies and projectiles.<br><br>- CI/CD: Unity Cloud Build automation with separate configurations for QA and release builds, automatic upload to Google Play Internal Track.",
-            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект совместно со студией Yohoho Games<br>• роль: программист с зоной ответственности в AI, графике и технической инфраструктуре<br>• релиз в Google Play, активная аудитория<br>• оптимизация под широкий спектр Android-устройств<br><br>Last Dawn: Zombie Siege — мобильная tower defense с акцентом на стратегическую оборону базы. Игрок строит укрепления, расставляет башни и лично участвует в бою против волн зомби. Я работал на проекте в роли программиста с совмещёнными обязанностями.<br><br><b>Ключевые инженерные задачи:</b><br><br>- AI-системы врагов: поведение зомби на основе иерархического конечного автомата. Агенты динамически переключаются между патрулированием, преследованием, атакой стен и атакой игрока в зависимости от контекста.<br><br>- Pathfinding: кастомная надстройка над Unity NavMesh для группового передвижения больших волн — агенты расходятся по разным маршрутам, избегая взаимных столкновений и равномерно нагружая оборонительные позиции.<br><br>- Оптимизация анимаций: LOD-система скелетных анимаций с понижением частоты обновления для дальних объектов, culling невидимых агентов, object pooling для всех врагов и снарядов.<br><br>- CI/CD: настройка автосборки через Unity Cloud Build с дифференцированными конфигурациями для QA и релизных билдов, автоматическая загрузка в Google Play Internal Track.",
+            "detailsEn": "<b>Key project facts:</b><br>• commercial mobile project in collaboration with Yohoho Games<br>• role: programmer responsible for AI, graphics, and technical infrastructure<br>• released on Google Play with an active player base<br>• optimised for a wide range of Android devices<br><br>Last Dawn: Zombie Siege is a mobile tower defense focused on strategic base defence. The player constructs fortifications, deploys towers, and directly engages waves of zombies. I worked on the project as a programmer with combined responsibilities.<br><br><b>Core engineering tasks:</b><br><br>- Enemy AI systems: zombie behaviour built on a hierarchical finite state machine. Agents dynamically switch between patrolling, chasing, attacking walls, and attacking the player based on context.<br><br>- Pathfinding: custom layer on top of Unity NavMesh for large-wave group movement — agents split across multiple routes, avoid mutual collisions, and distribute load evenly across defensive positions.<br><br>- Animation optimisation: skeletal animation LOD system with reduced update frequency for distant objects, culling of off-screen agents, object pooling for all enemies and projectiles.<br><br>- CI/CD: Unity Cloud Build automation with separate configurations for QA and release builds, automatic upload to Google Play Internal Track.",
             "screenshots": [
-                { 
-                    "type": "image",
-                    "src": "images/projects/zombie_siege/zombie_siege1.webp",
-                    "captionRu": "Геймплей: атака зомби на базу днём",
-                    "captionEn": "Gameplay: zombies attacking base in daytime"
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/zombie_siege/zombie_siege2.webp",
-                    "captionRu": "Геймплей: защита базы",
-                    "captionEn": "Gameplay: defending the base" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/zombie_siege/zombie_siege3.webp",
-                    "captionRu": "Геймплей: атака зомби с высоты",
-                    "captionEn": "Gameplay: attacking zombies from high ground" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/zombie_siege/zombie_siege4.webp",
-                    "captionRu": "Графика: спокойный вид базы днём",
-                    "captionEn": "Graphics: calm view of player base at daytime"
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/zombie_siege/zombie_siege5.webp",
-                    "captionRu": "Геймплей: интенсивная защита базы ночью",
-                    "captionEn": "Gameplay: aggressive base defense at night" 
-                }
+                { "type": "image", "src": "images/projects/zombie_siege/zombie_siege1.webp", "captionRu": "Геймплей: атака зомби на базу днём", "captionEn": "Gameplay: zombies attacking base in daytime" },
+                { "type": "image", "src": "images/projects/zombie_siege/zombie_siege2.webp", "captionRu": "Геймплей: защита базы", "captionEn": "Gameplay: defending the base" },
+                { "type": "image", "src": "images/projects/zombie_siege/zombie_siege3.webp", "captionRu": "Геймплей: атака зомби с высоты", "captionEn": "Gameplay: attacking zombies from high ground" },
+                { "type": "image", "src": "images/projects/zombie_siege/zombie_siege4.webp", "captionRu": "Графика: спокойный вид базы днём", "captionEn": "Graphics: calm view of player base at daytime" },
+                { "type": "image", "src": "images/projects/zombie_siege/zombie_siege5.webp", "captionRu": "Геймплей: интенсивная защита базы ночью", "captionEn": "Gameplay: aggressive base defense at night" }
             ]
         },
-        
+
         {
-            "_comment": "Crypt Raider - Unreal Engine R&D project with MetaSounds",
-
+            "_comment": "Crypt Raider — Unreal Engine R&D project with MetaSounds",
             "preset": "links-bar",
-
             "github": "https://github.com/antonprv/CryptRaider.git",
             "page":   "https://gamejolt.com/games/Crypt_Raider/1009990",
             "play":   "https://github.com/antonprv/CryptRaider/releases/download/release/CryptRaider.zip",
-
             "image":  "images/projects/crypt_raider/crypt_raider_logo.png",
             "emoji":  "🗿",
             "color":  "c1",
-
             "nameRu": "Crypt Raider",
             "nameEn": "Crypt Raider",
-
+            "roleRu": "Роль: Сольный R&D разработчик",
+            "roleEn": "Role: Solo R&D developer",
             "descRu": "R&D проект на Unreal Engine: процедурная генерация музыки через MetaSounds, где каждое игровое событие напрямую влияет на музыкальную композицию в реальном времени.",
-
             "descEn": "R&D Unreal Engine project: procedural music generation through MetaSounds, where every gameplay event directly shapes the musical composition in real time.",
-
-            "tags": ["Unreal Engine", "R&D"],
+            "tags": ["Unreal", "R&D"],
             "subtags": ["C++", "Gameplay Programming", "Procedural Audio", "MetaSounds", "Interactive Music", "Environment Art", "Level Design"],
-
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• R&D проект, исследующий возможности MetaSounds в Unreal Engine 5<br>• полностью процедурный саундтрек - ни одного заранее записанного трека<br>• геймплейные события управляют параметрами процедурного музыкального графа в реальном времени<br>• среда, геймплей и арт-дирекшн реализованы одним разработчиком<br><br>Crypt Raider - исследовательский проект, основная цель которого: проверить, насколько далеко можно зайти с интерактивной музыкой, не написав ни одного статичного трека. Игрок исследует крипту и взаимодействует с окружением - каждое действие немедленно отражается в звуковой картине.<br><br><b>Ключевые инженерные системы:</b><br><br>- MetaSounds граф: многослойная процедурная композиция с динамическим миксом напряжённости. Темп, тональность, плотность инструментов и интенсивность эмбиента изменяются плавно через параметры, не через кроссфейды треков.<br><br>- Геймплейные триггеры: C++ компоненты-детекторы передают нормализованные значения (близость к врагу, уровень здоровья, статус головоломки) напрямую в MetaSounds параметры через Blueprint-интерфейс.<br><br>- Физическое взаимодействие: система захвата объектов на основе PhysicsHandle с поддержкой веса и инерции - горгульи, факелы и рычаги реагируют на физически достоверным образом.<br><br>- Среда и освещение: ручная расстановка Lumen-источников света для достижения нужной атмосферы при удержании производительности; статические меши оптимизированы под Nanite.",
-
-            "detailsEn": "<b>Key project facts:</b><br>• R&D project exploring MetaSounds capabilities in Unreal Engine 5<br>• fully procedural soundtrack - not a single pre-recorded track<br>• gameplay events drive parameters of the procedural audio graph<br>• environment, gameplay, and art direction implemented by a single developer<br><br>Crypt Raider is a research project with one central question: how far can interactive music go without writing a single static track? The player explores a crypt and interacts with the environment - every action is immediately reflected in the soundscape.<br><br><b>Core engineering systems:</b><br><br>- MetaSounds graph: multi-layer procedural composition with a dynamic tension mix. Tempo, key, instrument density, and ambience intensity shift smoothly through parameters - no track crossfades.<br><br>- Gameplay triggers: C++ detector components pass normalised values (enemy proximity, health level, puzzle state) directly into MetaSounds parameters through a Blueprint interface.<br><br>- Physical interaction: PhysicsHandle-based object grab system with weight and inertia support - gargoyles, torches, and levers respond in a physically convincing way.<br><br>- Environment and lighting: manual Lumen light source placement to achieve the right atmosphere while maintaining performance; static meshes optimised for Nanite.",
-            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• R&D проект, исследующий возможности MetaSounds в Unreal Engine 5<br>• полностью процедурный саундтрек — ни одного заранее записанного трека<br>• геймплейные события управляют параметрами процедурного музыкального графа в реальном времени<br>• среда, геймплей и арт-дирекшн реализованы одним разработчиком<br><br>Crypt Raider — исследовательский проект, основная цель которого: проверить, насколько далеко можно зайти с интерактивной музыкой, не написав ни одного статичного трека. Игрок исследует крипту и взаимодействует с окружением — каждое действие немедленно отражается в звуковой картине.<br><br><b>Ключевые инженерные системы:</b><br><br>- MetaSounds граф: многослойная процедурная композиция с динамическим миксом напряжённости. Темп, тональность, плотность инструментов и интенсивность эмбиента изменяются плавно через параметры, не через кроссфейды треков.<br><br>- Геймплейные триггеры: C++ компоненты-детекторы передают нормализованные значения (близость к врагу, уровень здоровья, статус головоломки) напрямую в MetaSounds параметры через Blueprint-интерфейс.<br><br>- Физическое взаимодействие: система захвата объектов на основе PhysicsHandle с поддержкой веса и инерции — горгульи, факелы и рычаги реагируют физически достоверным образом.<br><br>- Среда и освещение: ручная расстановка Lumen-источников света для достижения нужной атмосферы при удержании производительности; статические меши оптимизированы под Nanite.",
+            "detailsEn": "<b>Key project facts:</b><br>• R&D project exploring MetaSounds capabilities in Unreal Engine 5<br>• fully procedural soundtrack — not a single pre-recorded track<br>• gameplay events drive parameters of the procedural audio graph<br>• environment, gameplay, and art direction implemented by a single developer<br><br>Crypt Raider is a research project with one central question: how far can interactive music go without writing a single static track? The player explores a crypt and interacts with the environment — every action is immediately reflected in the soundscape.<br><br><b>Core engineering systems:</b><br><br>- MetaSounds graph: multi-layer procedural composition with a dynamic tension mix. Tempo, key, instrument density, and ambience intensity shift smoothly through parameters — no track crossfades.<br><br>- Gameplay triggers: C++ detector components pass normalised values (enemy proximity, health level, puzzle state) directly into MetaSounds parameters through a Blueprint interface.<br><br>- Physical interaction: PhysicsHandle-based object grab system with weight and inertia support — gargoyles, torches, and levers respond in a physically convincing way.<br><br>- Environment and lighting: manual Lumen light source placement to achieve the right atmosphere while maintaining performance; static meshes optimised for Nanite.",
             "screenshots": [
-                { 
-                    "type": "image",
-                    "src": "images/projects/crypt_raider/crypt_raider1.png",
-                    "captionRu": "Геймплей: игрок смотрит в темноту",
-                    "captionEn": "Gameplay: player looking into darkness" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/crypt_raider/crypt_raider2.png",
-                    "captionRu": "Геймплей: игрок поднимает горгулью",
-                    "captionEn": "Gameplay: player picking up gargoyle" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/crypt_raider/crypt_raider3.png",
-                    "captionRu": "Геймплей: игрок смотрит на факел",
-                    "captionEn": "Gameplay: player looking at the torch" 
-                },
-                { 
-                    "type": "embed",
-                    "src": "https://rutube.ru/play/embed/9987d2e6af8c7996681dbafe6937cad5/",
-                    "poster": "images/projects/crypt_raider/crypt_raider_logo.png",
-                    "captionRu": "Геймплейный трейлер",
-                    "captionEn": "Gameplay trailer" 
-                }
+                { "type": "image", "src": "images/projects/crypt_raider/crypt_raider1.png", "captionRu": "Геймплей: игрок смотрит в темноту", "captionEn": "Gameplay: player looking into darkness" },
+                { "type": "image", "src": "images/projects/crypt_raider/crypt_raider2.png", "captionRu": "Геймплей: игрок поднимает горгулью", "captionEn": "Gameplay: player picking up gargoyle" },
+                { "type": "image", "src": "images/projects/crypt_raider/crypt_raider3.png", "captionRu": "Геймплей: игрок смотрит на факел", "captionEn": "Gameplay: player looking at the torch" },
+                { "type": "embed", "src": "https://rutube.ru/play/embed/9987d2e6af8c7996681dbafe6937cad5/", "poster": "images/projects/crypt_raider/crypt_raider_logo.png", "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer" }
             ]
         },
-        
-        {
-            "_comment": "My Super Hotel Simulator 3D - mobile hotel management game",
-            "preset": "link",
 
+        {
+            "_comment": "My Super Hotel Simulator 3D — mobile hotel management game",
+            "preset": "link",
             "github": "https://play.google.com/store/apps/details?id=shop.booking.star.city",
             "image":  "images/projects/hotel_sim/hotel_sim1.webp",
-
             "emoji":  "🏨",
             "color":  "c3",
             "nameRu": "My Super Hotel Simulator 3D",
             "nameEn": "My Super Hotel Simulator 3D",
-
-            "descRu": "Коммерческий мобильный симулятор управления отелем. Роль: техлид - AI-системы, оптимизация графики и анимаций, техарт, CI/CD, код-ревью.",
-
-            "descEn": "Commercial mobile hotel management simulator. Role: technical lead - AI systems, graphics and animation optimization, tech art, CI/CD, code review.",
-
-            "tags": ["Unity", "Mobile", "AI Systems"],
+            "roleRu": "Роль: Технический лид",
+            "roleEn": "Role: Technical lead",
+            "descRu": "Коммерческий мобильный симулятор управления отелем. Роль: техлид — AI-системы, оптимизация графики и анимаций, техарт, CI/CD, код-ревью.",
+            "descEn": "Commercial mobile hotel management simulator. Role: technical lead — AI systems, graphics and animation optimization, tech art, CI/CD, code review.",
+            "tags": ["Unity", "Mobile", "AI"],
             "subtags": ["C#", "Tech Art", "Animation Optimization", "Rendering Optimization", "CI/CD", "Technical Leadership"],
-
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект совместно со студией Yohoho Games<br>• роль: технический лид с совмещёнными инженерными обязанностями<br>• релиз в Google Play и App Store<br>• высокие требования к производительности на mid-range Android-устройствах<br><br>My Super Hotel Simulator 3D - симулятор управления отелем с механиками тайм-менеджмента. Игрок нанимает персонал, обустраивает номера и обслуживает гостей, удерживая рейтинг заведения. Я выступал техническим лидом и отвечал за несколько ключевых направлений.<br><br><b>Ключевые инженерные задачи:</b><br><br>- AI-системы NPC: поведение гостей и персонала на основе Utility AI - агенты оценивают приоритеты задач через таблицу весовых коэффициентов, что даёт органичное и непредсказуемое поведение без жёсткого скрипта.<br><br>- Оптимизация анимаций: аудит и рефакторинг анимационных графов - устранение лишних слоёв и нерабочих переходов, переход на Animator Override Controller для вариантов персонажей вместо дублирования контроллеров.<br><br>- Техарт: настройка текстурного пайплайна (атласы, mip-уровни, форматы сжатия под платформу), оптимизация draw calls через static batching и GPU instancing для однотипных объектов интерьера.<br><br>- Техническое лидерство: еженедельное код-ревью, стандарты именования и архитектурные гайдлайны для команды, настройка CI/CD на базе Unity Cloud Build.",
-
-            "detailsEn": "<b>Key project facts:</b><br>• commercial mobile project in collaboration with Yohoho Games<br>• role: technical lead with combined engineering responsibilities<br>• released on Google Play and App Store<br>• strict performance requirements on mid-range Android devices<br><br>My Super Hotel Simulator 3D is a hotel management simulator with time-management mechanics. The player hires staff, furnishes rooms, and serves guests while keeping the hotel's rating up. I served as technical lead and owned several key areas.<br><br><b>Core engineering tasks:</b><br><br>- NPC AI systems: guest and staff behaviour built on Utility AI - agents score task priorities through a weighted coefficient table, producing organic, unpredictable behaviour without rigid scripting.<br><br>- Animation optimisation: audit and refactor of animation graphs - removal of redundant layers and dead transitions, migration to Animator Override Controller for character variants instead of duplicating controllers.<br><br>- Tech art: texture pipeline setup (atlases, mip levels, platform-specific compression formats), draw call optimisation through static batching and GPU instancing for repeated interior objects.<br><br>- Technical leadership: weekly code reviews, naming conventions and architectural guidelines for the team, CI/CD setup on Unity Cloud Build.",
-            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект совместно со студией Yohoho Games<br>• роль: технический лид с совмещёнными инженерными обязанностями<br>• релиз в Google Play и App Store<br>• высокие требования к производительности на mid-range Android-устройствах<br><br>My Super Hotel Simulator 3D — симулятор управления отелем с механиками тайм-менеджмента. Игрок нанимает персонал, обустраивает номера и обслуживает гостей, удерживая рейтинг заведения. Я выступал техническим лидом и отвечал за несколько ключевых направлений.<br><br><b>Ключевые инженерные задачи:</b><br><br>- AI-системы NPC: поведение гостей и персонала на основе Utility AI — агенты оценивают приоритеты задач через таблицу весовых коэффициентов, что даёт органичное и непредсказуемое поведение без жёсткого скрипта.<br><br>- Оптимизация анимаций: аудит и рефакторинг анимационных графов — устранение лишних слоёв и нерабочих переходов, переход на Animator Override Controller для вариантов персонажей вместо дублирования контроллеров.<br><br>- Техарт: настройка текстурного пайплайна (атласы, mip-уровни, форматы сжатия под платформу), оптимизация draw calls через static batching и GPU instancing для однотипных объектов интерьера.<br><br>- Техническое лидерство: еженедельное код-ревью, стандарты именования и архитектурные гайдлайны для команды, настройка CI/CD на базе Unity Cloud Build.",
+            "detailsEn": "<b>Key project facts:</b><br>• commercial mobile project in collaboration with Yohoho Games<br>• role: technical lead with combined engineering responsibilities<br>• released on Google Play and App Store<br>• strict performance requirements on mid-range Android devices<br><br>My Super Hotel Simulator 3D is a hotel management simulator with time-management mechanics. The player hires staff, furnishes rooms, and serves guests while keeping the hotel's rating up. I served as technical lead and owned several key areas.<br><br><b>Core engineering tasks:</b><br><br>- NPC AI systems: guest and staff behaviour built on Utility AI — agents score task priorities through a weighted coefficient table, producing organic, unpredictable behaviour without rigid scripting.<br><br>- Animation optimisation: audit and refactor of animation graphs — removal of redundant layers and dead transitions, migration to Animator Override Controller for character variants instead of duplicating controllers.<br><br>- Tech art: texture pipeline setup (atlases, mip levels, platform-specific compression formats), draw call optimisation through static batching and GPU instancing for repeated interior objects.<br><br>- Technical leadership: weekly code reviews, naming conventions and architectural guidelines for the team, CI/CD setup on Unity Cloud Build.",
             "screenshots": [
-                {
-                    "type": "image", 
-                    "src": "images/projects/hotel_sim/hotel_sim1.webp",
-                    "captionRu": "UI стойки ресепшн",
-                    "captionEn": "Reception desk PC UI" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/hotel_sim/hotel_sim2.webp", 
-                    "captionRu": "Геймплей: уборка номеров",
-                    "captionEn": "Gameplay: taking care of rooms" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/hotel_sim/hotel_sim3.webp", 
-                    "captionRu": "Геймплей: перенос багажа",
-                    "captionEn": "Gameplay: carrying luggage" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/hotel_sim/hotel_sim4.webp",
-                    "captionRu": "Геймплей: прибытие гостей в отель",
-                    "captionEn": "Gameplay: guests arriving at hotel" 
-                }
+                { "type": "image", "src": "images/projects/hotel_sim/hotel_sim1.webp", "captionRu": "UI стойки ресепшн", "captionEn": "Reception desk PC UI" },
+                { "type": "image", "src": "images/projects/hotel_sim/hotel_sim2.webp", "captionRu": "Геймплей: уборка номеров", "captionEn": "Gameplay: taking care of rooms" },
+                { "type": "image", "src": "images/projects/hotel_sim/hotel_sim3.webp", "captionRu": "Геймплей: перенос багажа", "captionEn": "Gameplay: carrying luggage" },
+                { "type": "image", "src": "images/projects/hotel_sim/hotel_sim4.webp", "captionRu": "Геймплей: прибытие гостей в отель", "captionEn": "Gameplay: guests arriving at hotel" }
             ]
         },
-        
-        {
-            "_comment": "Puzzle Squad - mobile puzzle/strategy hybrid",
-            "preset": "link",
 
+        {
+            "_comment": "Puzzle Squad — mobile puzzle/strategy hybrid",
+            "preset": "link",
             "url":   "https://uniday.pro/gamedev_puzzlesquad",
             "image": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg",
-
             "emoji": "🧩",
             "color": "c5",
-
             "nameRu": "Puzzle Squad",
             "nameEn": "Puzzle Squad",
-
-            "descRu": "Мобильная игра - гибрид 10×10 головоломки, стратегической боёвки отрядов и развития базы в стиле city-builder. Разработка in-house в студии Uniday.",
-
-            "descEn": "Mobile game - hybrid of a 10×10 puzzle mechanic, squad strategy combat, and city-builder style base development. In-house project at Uniday studio.",
-
+            "roleRu": "Роль: Gameplay-инженер",
+            "roleEn": "Role: Gameplay engineer",
+            "descRu": "Мобильная игра — гибрид 10×10 головоломки, стратегической боёвки отрядов и развития базы в стиле city-builder. Разработка in-house в студии Uniday.",
+            "descEn": "Mobile game — hybrid of a 10×10 puzzle mechanic, squad strategy combat, and city-builder style base development. In-house project at Uniday studio.",
             "tags": ["Unity", "Mobile"],
             "subtags": ["C#", "Puzzle Mechanics", "Strategy Systems", "Game Systems", "LiveOps"],
-
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• in-house проект студии Uniday<br>• уникальный гибрид трёх жанров: казуальная головоломка, стратегическая боёвка и сити-билдер<br>• прошёл несколько итераций геймдизайна и смену сеттинга<br>• глубокая система LiveOps: сезонные события, ежедневные задания, аналитика поведения<br><br>Puzzle Squad - оригинальная разработка студии. Идея родилась из желания взять хорошо знакомую механику 10×10 и наслоить на неё боевую стратегию: выкладываешь блоки - наносишь урон врагам. Базовое строительство добавляет прогрессию между боями.<br><br><b>Ключевые инженерные системы:</b><br><br>- Ядро головоломки: расширенная механика 10×10 с модификаторами поля - специальные клетки активируют эффекты (массовые сдвиги блоков, цепные взрывы, дополнительные разрушения линий). Все модификаторы компонуются без конфликтов через приоритетную очередь.<br><br>- Боевая система: параллельное разрешение атак - ходы игрока транслируются в урон по врагам через таблицу коэффициентов, зависящих от типа блока, позиции и активных баффов отряда.<br><br>- Система героев и гачи: пул персонажей с уникальными пассивными и активными способностями, система редкости, механика призыва с гарантированными дроп-ставками (pity system).<br><br>- LiveOps-инфраструктура: серверная конфигурация балансировочных параметров без обновления клиента, A/B тестирование геймплейных переменных, аналитический пайплайн для отслеживания drop-off по сессиям.",
-
-            "detailsEn": "<b>Key project facts:</b><br>• in-house project at Uniday studio<br>• unique three-genre hybrid: casual puzzle, strategy combat, city-builder<br>• went through multiple game design iterations and a full setting change<br>• deep LiveOps system: seasonal events, daily quests, behaviour analytics<br><br>Puzzle Squad is an original studio production. The idea came from taking a familiar 10×10 mechanic and layering strategic combat on top: placing blocks deals damage to enemies. Base building adds progression between fights.<br><br><b>Core engineering systems:</b><br><br>- Puzzle core: extended 10×10 mechanic with field modifiers - special cells trigger effects (mass block shifts, chain explosions, bonus line clears). All modifiers compose without conflicts through a priority queue.<br><br>- Combat system: parallel attack resolution - player moves translate into enemy damage through a coefficient table depending on block type, position, and active squad buffs.<br><br>- Hero and gacha system: character pool with unique passive and active abilities, rarity tiers, summoning mechanic with guaranteed drop rates (pity system).<br><br>- LiveOps infrastructure: server-side configuration of balance parameters without a client update, A/B testing of gameplay variables, analytics pipeline for tracking session drop-off.",
-            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• in-house проект студии Uniday<br>• уникальный гибрид трёх жанров: казуальная головоломка, стратегическая боёвка и сити-билдер<br>• прошёл несколько итераций геймдизайна и смену сеттинга<br>• глубокая система LiveOps: сезонные события, ежедневные задания, аналитика поведения<br><br>Puzzle Squad — оригинальная разработка студии. Идея родилась из желания взять хорошо знакомую механику 10×10 и наслоить на неё боевую стратегию: выкладываешь блоки — наносишь урон врагам. Базовое строительство добавляет прогрессию между боями.<br><br><b>Ключевые инженерные системы:</b><br><br>- Ядро головоломки: расширенная механика 10×10 с модификаторами поля — специальные клетки активируют эффекты (массовые сдвиги блоков, цепные взрывы, дополнительные разрушения линий). Все модификаторы компонуются без конфликтов через приоритетную очередь.<br><br>- Боевая система: параллельное разрешение атак — ходы игрока транслируются в урон по врагам через таблицу коэффициентов, зависящих от типа блока, позиции и активных баффов отряда.<br><br>- Система героев и гачи: пул персонажей с уникальными пассивными и активными способностями, система редкости, механика призыва с гарантированными дроп-ставками (pity system).<br><br>- LiveOps-инфраструктура: серверная конфигурация балансировочных параметров без обновления клиента, A/B тестирование геймплейных переменных, аналитический пайплайн для отслеживания drop-off по сессиям.",
+            "detailsEn": "<b>Key project facts:</b><br>• in-house project at Uniday studio<br>• unique three-genre hybrid: casual puzzle, strategy combat, city-builder<br>• went through multiple game design iterations and a full setting change<br>• deep LiveOps system: seasonal events, daily quests, behaviour analytics<br><br>Puzzle Squad is an original studio production. The idea came from taking a familiar 10×10 mechanic and layering strategic combat on top: placing blocks deals damage to enemies. Base building adds progression between fights.<br><br><b>Core engineering systems:</b><br><br>- Puzzle core: extended 10×10 mechanic with field modifiers — special cells trigger effects (mass block shifts, chain explosions, bonus line clears). All modifiers compose without conflicts through a priority queue.<br><br>- Combat system: parallel attack resolution — player moves translate into enemy damage through a coefficient table depending on block type, position, and active squad buffs.<br><br>- Hero and gacha system: character pool with unique passive and active abilities, rarity tiers, summoning mechanic with guaranteed drop rates (pity system).<br><br>- LiveOps infrastructure: server-side configuration of balance parameters without a client update, A/B testing of gameplay variables, analytics pipeline for tracking session drop-off.",
             "screenshots": [
-                { 
-                    "type": "image",
-                    "src": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg",
-                    "captionRu": "Боевой экран: головоломка 10×10 в действии",
-                    "captionEn": "Battle screen: 10×10 puzzle in action" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/puzzle_squad/puzzlesquad-screen2.jpg",
-                    "captionRu": "Геймплей: расстановка бойцов и планирование атаки",
-                    "captionEn": "Gameplay: party placement and attack planning" 
-                },
-                { 
-                    "type": "embed",
-                    "src": "https://rutube.ru/play/embed/0e293f2c3923692666ee82054966b697/",
-                    "poster": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg",
-                    "captionRu": "Геймплейный трейлер",
-                    "captionEn": "Gameplay trailer" 
-                }
+                { "type": "image", "src": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg", "captionRu": "Боевой экран: головоломка 10×10 в действии", "captionEn": "Battle screen: 10×10 puzzle in action" },
+                { "type": "image", "src": "images/projects/puzzle_squad/puzzlesquad-screen2.jpg", "captionRu": "Геймплей: расстановка бойцов и планирование атаки", "captionEn": "Gameplay: party placement and attack planning" },
+                { "type": "embed", "src": "https://rutube.ru/play/embed/0e293f2c3923692666ee82054966b697/", "poster": "images/projects/puzzle_squad/puzzlesquad-screen1.jpg", "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer" }
             ]
         },
-        
-        {
-            "_comment": "EXOWAR - isometric multiplayer shooter",
-            "preset": "link",
 
+        {
+            "_comment": "EXOWAR — isometric multiplayer shooter",
+            "preset": "link",
             "url":   "https://uniday.pro/gamedev_exowar",
             "image": "images/projects/exowar/exowar-screen2.jpg",
-
             "emoji": "🤖",
             "color": "c6",
             "nameRu": "EXOWAR",
             "nameEn": "EXOWAR",
-
+            "roleRu": "Роль: Технический программист",
+            "roleEn": "Role: Technical programmer",
             "descRu": "Командный сетевой 3D-шутер с изометрической камерой. Роль: технический пайплайн, инструменты для художников, оптимизация и 3D-ассеты.",
-
             "descEn": "Team-based isometric 3D network shooter. Role: technical pipeline, artist tools, optimization, and 3D assets.",
-
             "tags": ["Unity"],
             "subtags": ["C#", "Multiplayer", "SmartFox", "Tools Development", "Optimization", "Tech Art", "3D Modeling"],
-
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• командный проект студии Uniday<br>• сетевой 3D-шутер: матчи 5 минут, режимы Deathmatch и Capture the Flag<br>• SmartFox Server в качестве сетевого бэкенда<br>• роль: технический пайплайн, инструментарий, оптимизация, 3D-ассеты<br><br>EXOWAR - быстрый сетевой шутер с видом изометрической камеры. Игроки управляют боевыми роботами разных классов, прокачивают их между матчами и используют расходники. Я отвечал за техническую часть проекта и параллельно закрывал часть арт-задач.<br><br><b>Ключевые инженерные задачи:</b><br><br>- Инструменты для художников: редакторные утилиты для пакетной обработки ассетов - автоматическая настройка import settings, валидация текстурных размеров и форматов, батчевый re-import с отчётом об ошибках. Сократили время подготовки ассетов к интеграции в несколько раз.<br><br>- Студийные инструменты: система загрузки статических данных из ScriptableObject-конфигураций с горячей перезагрузкой в Editor Play Mode; дебаг-оверлей для отображения состояния сетевого соединения, FPS и стейта персонажа.<br><br>- Оптимизация: LOD-менеджер для анимаций - частота обновления скелетных анимаций снижается в зависимости от дистанции до камеры; процедурная генерация текстурных атласов для спрайтов эффектов; аудио-пулинг и ограничение одновременно играющих источников.<br><br>- 3D-моделирование: роботы и окружение - low-poly меши с запечёнными normal maps, подготовка UV-развёрток под единый текстурный атлас, соблюдение бюджета полигонов для мобильного таргета.",
-
-            "detailsEn": "<b>Key project facts:</b><br>• team project at Uniday studio<br>• isometric 3D network shooter: 5-minute matches, Deathmatch and Capture the Flag modes<br>• SmartFox Server as the network backend<br>• role: technical pipeline, tooling, optimisation, 3D assets<br><br>EXOWAR is a fast-paced network shooter with an isometric camera. Players control battle robots of different classes, upgrade them between matches, and use consumables. I owned the technical side of the project while also covering part of the art workload.<br><br><b>Core engineering tasks:</b><br><br>- Artist tools: editor utilities for batch asset processing - automatic import settings configuration, texture size and format validation, batch re-import with an error report. Cut asset integration prep time significantly.<br><br>- Studio tools: static data loading system from ScriptableObject configs with hot-reload in Editor Play Mode; debug overlay showing network connection state, FPS, and character state.<br><br>- Optimisation: animation LOD manager - skeletal animation update frequency scales with camera distance; procedural texture atlas generation for effect sprites; audio pooling and concurrent source limiting.<br><br>- 3D modelling: robots and environments - low-poly meshes with baked normal maps, UV layout prepared for a shared texture atlas, polygon budget maintained for mobile targets.",
-            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• командный проект студии Uniday<br>• сетевой 3D-шутер: матчи 5 минут, режимы Deathmatch и Capture the Flag<br>• SmartFox Server в качестве сетевого бэкенда<br>• роль: технический пайплайн, инструментарий, оптимизация, 3D-ассеты<br><br>EXOWAR — быстрый сетевой шутер с видом изометрической камеры. Игроки управляют боевыми роботами разных классов, прокачивают их между матчами и используют расходники. Я отвечал за техническую часть проекта и параллельно закрывал часть арт-задач.<br><br><b>Ключевые инженерные задачи:</b><br><br>- Инструменты для художников: редакторные утилиты для пакетной обработки ассетов — автоматическая настройка import settings, валидация текстурных размеров и форматов, батчевый re-import с отчётом об ошибках. Сократили время подготовки ассетов к интеграции в несколько раз.<br><br>- Студийные инструменты: система загрузки статических данных из ScriptableObject-конфигураций с горячей перезагрузкой в Editor Play Mode; дебаг-оверлей для отображения состояния сетевого соединения, FPS и стейта персонажа.<br><br>- Оптимизация: LOD-менеджер для анимаций — частота обновления скелетных анимаций снижается в зависимости от дистанции до камеры; процедурная генерация текстурных атласов для спрайтов эффектов; аудио-пулинг и ограничение одновременно играющих источников.<br><br>- 3D-моделирование: роботы и окружение — low-poly меши с запечёнными normal maps, подготовка UV-развёрток под единый текстурный атлас, соблюдение бюджета полигонов для мобильного таргета.",
+            "detailsEn": "<b>Key project facts:</b><br>• team project at Uniday studio<br>• isometric 3D network shooter: 5-minute matches, Deathmatch and Capture the Flag modes<br>• SmartFox Server as the network backend<br>• role: technical pipeline, tooling, optimisation, 3D assets<br><br>EXOWAR is a fast-paced network shooter with an isometric camera. Players control battle robots of different classes, upgrade them between matches, and use consumables. I owned the technical side of the project while also covering part of the art workload.<br><br><b>Core engineering tasks:</b><br><br>- Artist tools: editor utilities for batch asset processing — automatic import settings configuration, texture size and format validation, batch re-import with an error report. Cut asset integration prep time significantly.<br><br>- Studio tools: static data loading system from ScriptableObject configs with hot-reload in Editor Play Mode; debug overlay showing network connection state, FPS, and character state.<br><br>- Optimisation: animation LOD manager — skeletal animation update frequency scales with camera distance; procedural texture atlas generation for effect sprites; audio pooling and concurrent source limiting.<br><br>- 3D modelling: robots and environments — low-poly meshes with baked normal maps, UV layout prepared for a shared texture atlas, polygon budget maintained for mobile targets.",
             "screenshots": [
-                { 
-                    "type": "image",
-                    "src": "images/projects/exowar/exowar-screen1.jpg",
-                    "captionRu": "Геймплей: бой на карте", 
-                    "captionEn": "Gameplay: battle on a map" 
-                },
-                { 
-                    "type": "image",
-                    "src": "images/projects/exowar/exowar-screen2.jpg",
-                    "captionRu": "Ангар: кастомизация робота",
-                    "captionEn": "Hangar: robot customization" 
-                },
-                { 
-                    "type": "embed", 
-                    "src": "https://rutube.ru/play/embed/860e9f9f310a03f7e3949ae0e7065c17/",
-                    "poster": "images/projects/exowar/exowar-screen1.jpg",
-                    "captionRu": "Геймплейный трейлер", 
-                    "captionEn": "Gameplay trailer" 
-                }
+                { "type": "image", "src": "images/projects/exowar/exowar-screen1.jpg", "captionRu": "Геймплей: бой на карте", "captionEn": "Gameplay: battle on a map" },
+                { "type": "image", "src": "images/projects/exowar/exowar-screen2.jpg", "captionRu": "Ангар: кастомизация робота", "captionEn": "Hangar: robot customization" },
+                { "type": "embed", "src": "https://rutube.ru/play/embed/860e9f9f310a03f7e3949ae0e7065c17/", "poster": "images/projects/exowar/exowar-screen1.jpg", "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer" }
             ]
-        },
-
-        {
-            "_comment": "Zenjex - open-source DI framework for Unity",
-            "preset": "links-bar",
-
-            "github": "https://github.com/antonprv/Zenjex",
-            "page":   "https://antonprv.github.io/zenjex-website/index.html",
-
-            "image":  "",
-            "emoji":  "⚙️",
-            "color":  "c2",
-
-            "nameRu": "Zenjex",
-            "nameEn": "Zenjex",
-
-            "descRu": "Open-source DI-фреймворк для Unity. Обёртка над Reflex с Zenject-подобным fluent API, трёхфазной инъекцией зависимостей и редакторным debugger'ом для анализа графа зависимостей.",
-            "descEn": "Open-source DI framework for Unity. A wrapper over Reflex with a Zenject-like fluent API, three-phase dependency injection, and an editor debugger for inspecting the dependency graph.",
-
-            "tags": ["Unity", "C#"],
-            "subtags": ["Dependency Injection", "Open Source", "Architecture"],
-
-            "detailsRu": "<b>Zenjex</b> - собственный DI-фреймворк для Unity, разработанный в ходе работы над Lone Brawler и впоследствии выделенный в отдельную open-source библиотеку.<br><br><b>Ключевые факты:</b><br>• обёртка над Reflex с Zenject-подобным fluent API<br>• трёхфазная инъекция зависимостей<br>• редакторный debugger для анализа графа зависимостей<br>• опубликован как open-source на GitHub<br><br>Фреймворк возник из практической необходимости: Zenject избыточен для большинства Unity-проектов, а Reflex слишком минималистичен. Zenjex занимает золотую середину - лаконичный API с достаточной функциональностью для масштабируемых проектов.<br><br>- <b>Fluent API</b>: регистрация зависимостей в стиле Zenject через цепочки вызовов, понятные разработчикам, знакомым с VContainer или Zenject.<br><br>- <b>Трёхфазная инъекция</b>: Bind → Resolve → Inject - каждая фаза изолирована, что упрощает тестирование и отладку.<br><br>- <b>Editor Debugger</b>: визуализация графа зависимостей прямо в Unity Editor - позволяет видеть какие зависимости зарегистрированы, как они разрешаются и где возникают конфликты.",
-
-            "detailsEn": "<b>Zenjex</b> is a custom DI framework for Unity, built during development of Lone Brawler and later extracted as a standalone open-source library.<br><br><b>Key facts:</b><br>• wrapper over Reflex with a Zenject-like fluent API<br>• three-phase dependency injection<br>• editor debugger for inspecting the dependency graph<br>• published as open-source on GitHub<br><br>The framework grew from a practical need: Zenject is overkill for most Unity projects, and Reflex is too minimalist. Zenjex sits in the middle - a concise API with enough functionality for scalable projects.<br><br>- <b>Fluent API</b>: Zenject-style dependency registration through method chains, familiar to developers who know VContainer or Zenject.<br><br>- <b>Three-phase injection</b>: Bind → Resolve → Inject - each phase is isolated, making testing and debugging straightforward.<br><br>- <b>Editor Debugger</b>: dependency graph visualisation directly in the Unity Editor - see which dependencies are registered, how they resolve, and where conflicts arise.",
-
-            "screenshots": []
         }
     ]
 }

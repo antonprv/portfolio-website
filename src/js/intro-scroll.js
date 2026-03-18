@@ -56,11 +56,18 @@
 
   /* ── Bio height ── */
   let bioHeight = 0;
+  let hlHeight  = 0;
+  const heroHL  = document.getElementById('hero-highlights');
   function measureBio() {
     if (!heroBio) return;
     heroBio.style.maxHeight = '';
-    heroBio.style.margin = '';
+    heroBio.style.margin    = '';
     bioHeight = heroBio.scrollHeight;
+    if (heroHL) {
+      heroHL.style.maxHeight = '';
+      heroHL.style.margin    = '';
+      hlHeight = heroHL.scrollHeight;
+    }
   }
   setTimeout(measureBio, 200);
 
@@ -97,11 +104,13 @@
     const sq   = Math.round(DUR * 0.35);
 
     if (heroBio) s(heroBio, { transition:`opacity ${Math.round(DUR*0.35)}ms ease`, opacity:'0' });
+    if (heroHL)  s(heroHL,  { transition:`opacity ${Math.round(DUR*0.35)}ms ease`, opacity:'0' });
     s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'50%', width:'50%' });
     s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.7)}ms ${EASE}`, transform:'translateX(0)', opacity:'1' });
 
     setTimeout(() => {
       if (heroBio) s(heroBio, { maxHeight:'0', marginTop:'0', marginBottom:'0' });
+      if (heroHL)  s(heroHL,  { maxHeight:'0', marginTop:'0', marginBottom:'0' });
       s(heroTop,    { transition:`transform ${half}ms ${EASE}`, transform:'translateY(12px)' });
       s(heroBottom, { transition:`transform ${half}ms ${EASE}`, transform:'translateY(-12px)' });
     }, sq);
@@ -115,11 +124,13 @@
     s(heroTop,    { transition:`transform ${half}ms ${EASE}`, transform:'translateY(0)' });
     s(heroBottom, { transition:`transform ${half}ms ${EASE}`, transform:'translateY(0)' });
     if (heroBio) s(heroBio, { transition:`max-height ${half}ms ease, margin ${half}ms ease`, maxHeight: bioHeight + 'px', marginTop:'', marginBottom:'' });
+    if (heroHL)  s(heroHL,  { transition:`max-height ${half}ms ease, margin ${half}ms ease`, maxHeight: hlHeight  + 'px', marginTop:'', marginBottom:'' });
 
     setTimeout(() => {
       s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'0', width:'100%' });
       s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${half}ms ease`, transform:'translateX(-100%)', opacity:'0' });
       if (heroBio) s(heroBio, { transition:`opacity ${half}ms ease`, opacity:'1' });
+      if (heroHL)  s(heroHL,  { transition:`opacity ${half}ms ease`, opacity:'1' });
       stageSkills.style.borderRight = '1px solid transparent';
     }, Math.round(half * 0.3));
     setTimeout(() => { transitioning = false; }, DUR + 40);
@@ -145,12 +156,14 @@
           s(stageHero,   { transition:'none', left:'50%', width:'50%' });
           s(stageSkills, { transition:'none', transform:'translateX(0)', opacity:'1', borderRight:'1px solid var(--border)' });
           if (heroBio) s(heroBio, { opacity:'0', maxHeight:'0', marginTop:'0', marginBottom:'0' });
+          if (heroHL)  s(heroHL,  { opacity:'0', maxHeight:'0', marginTop:'0', marginBottom:'0' });
           s(heroTop,    { transition:'none', transform:'translateY(12px)' });
           s(heroBottom, { transition:'none', transform:'translateY(-12px)' });
         } else {
           s(stageHero,   { transition:'none', left:'0', width:'100%' });
           s(stageSkills, { transition:'none', transform:'translateX(-100%)', opacity:'0', borderRight:'1px solid transparent' });
           if (heroBio) s(heroBio, { opacity:'1', maxHeight:'', marginTop:'', marginBottom:'' });
+          if (heroHL)  s(heroHL,  { opacity:'1', maxHeight:'', marginTop:'', marginBottom:'' });
           s(heroTop,    { transition:'none', transform:'translateY(0)' });
           s(heroBottom, { transition:'none', transform:'translateY(0)' });
         }

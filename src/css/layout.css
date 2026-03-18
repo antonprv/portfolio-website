@@ -392,6 +392,12 @@ body.page-project::-webkit-scrollbar { display: none; }
     opacity: 1 !important;
   }
 
+  .hero-highlights {
+    opacity: 1 !important;
+    max-height: none !important;
+    margin: 0 !important;
+  }
+
   #snap-projects {
     position: static;
     height: auto;
@@ -435,6 +441,39 @@ body.page-project::-webkit-scrollbar { display: none; }
   position: relative;
   z-index: 1;
   animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Highlights list ── */
+.hero-highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-align: left;
+  width: 100%;
+  will-change: opacity, max-height;
+  overflow: hidden;
+}
+
+.hero-highlights li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.hl-bullet {
+  color: var(--accent);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+  position: relative;
+  top: -0.05em;
 }
 
 /* ── Section nav dots (right side) ── */

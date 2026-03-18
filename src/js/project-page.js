@@ -122,6 +122,15 @@ function renderPage(p, lang, profile) {
   title.textContent = name();
   header.appendChild(title);
 
+  /* Role badge */
+  if (p.roleRu || p.roleEn) {
+    const role = el('p', 'project-detail-role t');
+    role.dataset.ru = p.roleRu || '';
+    role.dataset.en = p.roleEn || '';
+    role.textContent = p.roleRu || '';
+    header.appendChild(role);
+  }
+
   /* ── Short desc — hidden on detail page, only shown on card ── */
   /* (descRu/descEn are for the card grid, detailsRu/En are for this page) */
 
@@ -168,10 +177,10 @@ function buildActions(p, lang) {
   const wrap = el('div', 'project-detail-actions');
 
   const btns = [
-    { href: p.github,  labelRu: 'GitHub',   labelEn: 'GitHub',   icon: SVG_GITHUB, cls: '' },
-    { href: p.page,    labelRu: 'Страница', labelEn: 'Page',     icon: SVG_LINK,   cls: '' },
-    { href: p.url,     labelRu: 'Открыть',  labelEn: 'Open',     icon: SVG_LINK,   cls: '' },
-    { href: p.play,    labelRu: 'Играть',   labelEn: 'Play',     icon: SVG_PLAY,   cls: 'detail-btn--play' },
+    { href: p.github,  labelRu: 'GitHub',                          labelEn: 'GitHub',               icon: SVG_GITHUB, cls: '' },
+    { href: p.page,    labelRu: p.pageLabelRu || 'Страница',       labelEn: p.pageLabelEn || 'Page', icon: SVG_LINK,   cls: '' },
+    { href: p.url,     labelRu: p.urlLabelRu  || 'Открыть',        labelEn: p.urlLabelEn  || 'Open', icon: SVG_LINK,   cls: '' },
+    { href: p.play,    labelRu: p.playLabelRu || 'Играть',         labelEn: p.playLabelEn || 'Play', icon: SVG_PLAY,   cls: 'detail-btn--play' },
   ];
 
   btns.forEach(({ href, labelRu, labelEn, icon, cls }) => {

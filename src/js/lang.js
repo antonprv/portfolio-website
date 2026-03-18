@@ -49,6 +49,15 @@ function setLang(lang) {
       if (el) el.textContent = i18n[lang][id];
     });
 
+    // Update highlights
+    const hlEl = document.getElementById('hero-highlights');
+    const hlData = i18n[lang]?.highlights;
+    if (hlEl && Array.isArray(hlData) && hlData.length) {
+      hlEl.innerHTML = hlData
+        .map(h => `<li><span class="hl-bullet" aria-hidden="true">▸</span>${h}</li>`)
+        .join('');
+    }
+
     // Update first/last name
     NAME_IDS.forEach(id => {
       const el = document.getElementById(id);
