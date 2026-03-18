@@ -204,23 +204,23 @@
             
             "detailsEn": "<b>Zenjex</b> is a production-ready DI framework for Unity that solves one specific, painful problem: your team uses Zenject / Extenject, Unity 6 migration is coming, and nobody wants to rewrite the entire injection layer from scratch.<br><br><b>Key facts:</b><br>• drop-in Zenject API compatibility - not a single installer needs to change<br>• powered by Reflex 14.1.0 under the hood - the fastest DI framework for Unity by benchmarks<br>• full Unity 6.3 LTS support, including a fixed debugger window<br>• three injection patterns, lifecycle management, per-scene scoped containers<br>• proven at scale: (Lone Brawler)[https://github.com/antonprv/LoneBrawler] - a 200k+ LOC production game built on this framework<br><br>The framework was born inside Lone Brawler out of necessity - Extenject had no Unity 6 support, and a cold migration to Reflex meant retraining the team and rewriting every installer. Zenjex eliminates that cost: the binding syntax is intentionally identical to Zenject, while Reflex runs underneath with its expression-tree-based activation and smart caching.<br><br>After Lone Brawler shipped, the framework was extracted into a standalone open-source library, fully documented, and published.<br><br><b>Framework architecture:</b><br><br>- <b>ProjectRootInstaller</b> - global composition root (equivalent to Zenject's ProjectContext + MonoInstaller). Runs at execution order -280, guaranteeing the container is fully built before any Awake() in the scene fires. Supports an async InstallGameInstanceRoutine() phase for Addressables loading and runtime bindings.<br><br>- <b>SceneInstaller</b> - creates a child container per scene that inherits all global bindings and adds local ones on top. Automatically disposed when the scene unloads.<br><br>- <b>ZenjexBehaviour</b> - MonoBehaviour base class with guaranteed pre-Awake() injection (execution order -100). Works for prefabs instantiated at runtime via Instantiate().<br><br>- <b>Lifecycle</b>: IInitializable is called automatically after the container is built, before LaunchGame(). RootContext.Runtime allows adding bindings to the live container post-initialization.<br><br><b>Injection patterns:</b><br><br>- RootContext.Resolve&lt;T&gt;() - direct resolve from anywhere, no base class or attribute needed.<br>- [Zenjex] on MonoBehaviour - declarative injection for objects present in the scene at load time.<br>- ZenjexBehaviour + [Zenjex] - guaranteed pre-Awake() injection, including runtime-instantiated objects.<br>- ZenjexRunner.InjectGameObject() - manual injection for Instantiate() without inheritance.<br><br><b>Full documentation:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
             
-            "screenshots": 
+            "screenshots":
             [
                 {
                     "type": "image",
                     "src": "images/projects/zenjex/zenjex_graph.png",
                     "captionRu": "",
-                    "captionEn": "" 
-                },
+                    "captionEn": ""
+                }
             ]
         },
         
         {
             "_comment": "Eye of the Basilisk - R&D parkour experiment",
             "preset": "links-bar",
-            
-            "github": "https://github.com/antonprv/EyeOfTheBasilisk"
-            
+
+            "github": "https://github.com/antonprv/EyeOfTheBasilisk",
+
             "image":  "images/prototypes/eye_of_the_basilisk/video_preview.png",
             "emoji":  "🗿",
             "color":  "c1",
