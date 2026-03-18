@@ -119,12 +119,8 @@ function renderPage(p, lang, profile) {
   title.textContent = name();
   header.appendChild(title);
 
-  /* ── Short desc ── */
-  const shortDesc = el('p', 'project-detail-desc t');
-  shortDesc.dataset.ru = p.descRu || '';
-  shortDesc.dataset.en = p.descEn || '';
-  shortDesc.textContent = desc();
-  header.appendChild(shortDesc);
+  /* ── Short desc — hidden on detail page, only shown on card ── */
+  /* (descRu/descEn are for the card grid, detailsRu/En are for this page) */
 
   /* ── Action buttons ── */
   const actions = buildActions(p, lang);
@@ -133,17 +129,14 @@ function renderPage(p, lang, profile) {
   /* ── Gallery ── */
   const shots = buildScreenshots(p);
 
-  /* ── Long description — rendered AFTER gallery ── */
-  const body = el('div', 'project-detail-body reveal');
+  /* ── Long description — rendered AFTER gallery, no reveal class ── */
+  const body = el('div', 'project-detail-body');
   body.dataset.ru          = p.detailsRu || '';
   body.dataset.en          = p.detailsEn || '';
   body.dataset.htmlTranslate = 'true';
-  /* Parse markdown-style links: (text)[url] → <a href="url">text</a>
-     Also make bare <a> tags in HTML clickable (they already are, but
-     ensure target/rel are set for security).                           */
   body.innerHTML = parseLinks(details());
 
-  /* After setting innerHTML, fix any bare <a> tags missing target */
+  /* Ensure all links open in new tab */
   body.querySelectorAll('a[href]').forEach(a => {
     if (!a.target) a.target = '_blank';
     if (!a.rel)    a.rel    = 'noopener noreferrer';
@@ -158,11 +151,11 @@ function renderPage(p, lang, profile) {
 
   root.appendChild(detail);
 
-  /* ── Scroll reveal ── */
+  /* ── Scroll reveal for header/gallery ── */
   requestAnimationFrame(() => {
     const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
     root.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   });
 }
