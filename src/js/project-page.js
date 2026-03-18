@@ -119,6 +119,7 @@ function renderPage(p, lang, profile) {
   title.textContent = name();
   header.appendChild(title);
 
+  /* ── Short desc ── */
   const shortDesc = el('p', 'project-detail-desc t');
   shortDesc.dataset.ru = p.descRu || '';
   shortDesc.dataset.en = p.descEn || '';
@@ -129,18 +130,26 @@ function renderPage(p, lang, profile) {
   const actions = buildActions(p, lang);
   if (actions.children.length) header.appendChild(actions);
 
-  /* ── Gallery (replaces standalone hero image) ── */
+  /* ── Gallery ── */
   const shots = buildScreenshots(p);
 
-  /* ── Long description ── */
+  /* ── Long description — rendered AFTER gallery ── */
   const body = el('div', 'project-detail-body reveal');
-  /* Mark as HTML-translatable (not .t — lang.js would overwrite innerHTML with textContent) */
-  body.dataset.ru = p.detailsRu || '';
-  body.dataset.en = p.detailsEn || '';
+  body.dataset.ru          = p.detailsRu || '';
+  body.dataset.en          = p.detailsEn || '';
   body.dataset.htmlTranslate = 'true';
-  body.innerHTML = details() || '';
+  /* Parse markdown-style links: (text)[url] → <a href="url">text</a>
+     Also make bare <a> tags in HTML clickable (they already are, but
+     ensure target/rel are set for security).                           */
+  body.innerHTML = parseLinks(details());
 
-  /* ── Assemble: back → header → gallery → description ── */
+  /* After setting innerHTML, fix any bare <a> tags missing target */
+  body.querySelectorAll('a[href]').forEach(a => {
+    if (!a.target) a.target = '_blank';
+    if (!a.rel)    a.rel    = 'noopener noreferrer';
+  });
+
+  /* ── Assemble: back → header → gallery → long description ── */
   const detail = el('div', 'project-detail');
   detail.appendChild(back);
   detail.appendChild(header);
@@ -786,6 +795,23 @@ function injectFont(fontCfg) {
 function hexToRgba(hex, alpha) {
   const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
   return `rgba(${r},${g},${b},${alpha})`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   LINK PARSER
+   Converts markdown-style links in HTML strings:
+     (текст)[https://url]  →  <a href="https://url" target="_blank" rel="noopener noreferrer">текст</a>
+   Plain <a href="..."> tags in the HTML are left intact and
+   get target/rel patched after innerHTML is set.
+   ════════════════════════════════════════════════════════════ */
+function parseLinks(html) {
+  if (!html) return '';
+  /* Match (label)[url] — supports multi-word labels and any URL */
+  return html.replace(
+    /\(([^)]+)\)\[([^\]]+)\]/g,
+    (_, label, url) =>
+      `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`
+  );
 }
 
 /* ── SVG icons ── */

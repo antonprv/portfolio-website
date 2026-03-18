@@ -58,7 +58,14 @@ function setLang(lang) {
     // Update inline data-ru / data-en attributes (includes project descs + link buttons)
     document.querySelectorAll('[data-ru]').forEach(el => {
       if (el.dataset.htmlTranslate) {
-        el.innerHTML = el.getAttribute('data-' + lang);
+        const raw = el.getAttribute('data-' + lang) || '';
+        /* Parse markdown links if parseLinks is available (project-page.js) */
+        el.innerHTML = typeof parseLinks === 'function' ? parseLinks(raw) : raw;
+        /* Ensure all links open in new tab */
+        el.querySelectorAll('a[href]').forEach(a => {
+          if (!a.target) a.target = '_blank';
+          if (!a.rel)    a.rel    = 'noopener noreferrer';
+        });
       } else {
         el.textContent = el.getAttribute('data-' + lang);
       }
