@@ -257,7 +257,7 @@
   border: 2px solid transparent;
   background: var(--card);
   cursor: pointer;
-  transition: border-color 0.18s, transform 0.18s;
+  transition: border-color 0.18s;
 }
 .gallery-thumb img {
   width: 100%;
@@ -265,7 +265,7 @@
   object-fit: cover;
   display: block;
 }
-.gallery-thumb:hover { transform: translateX(2px); border-color: var(--border); }
+.gallery-thumb:hover { border-color: var(--border); }
 .gallery-thumb.active { border-color: var(--accent); }
 
 /* video thumb fallback (no poster) */
@@ -535,7 +535,7 @@
     width: 80px;
     height: 50px;
   }
-  .gallery-thumb:hover { transform: translateY(-2px); }
+  .gallery-thumb:hover { border-color: var(--border); }
 }
 
 /* ── Gallery prev/next nav arrows ── */
