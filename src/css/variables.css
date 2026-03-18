@@ -63,7 +63,7 @@ body {
   overflow-x:   hidden;
 }
 
-/* Gradient overlay */
+/* Gradient overlay — above all snap sections */
 body::before {
   content: '';
   position: fixed;
@@ -75,7 +75,7 @@ body::before {
     var(--gradient-bottom) 100%
   );
   pointer-events: none;
-  z-index: 9999;
+  z-index: 10000;
 }
 
 /* Noise texture — merged into body rule above */
