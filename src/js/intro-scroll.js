@@ -1,15 +1,14 @@
 /* ============================================================
    intro-scroll.js
-   Section 0: stage — hero centred
-   Section 1: stage — hero right + skills left
-   Section 2: projects — separate fixed layer, z-index above stage
+   0 = stage hero centred (bio visible)
+   1 = stage split (hero right, skills left, bio hidden)
+   2 = projects
 
-   Architecture:
-   • snap-container (z:10) holds snap-stage
-   • snap-projects  (z:9→11) is a separate fixed element
-   • Transition 0↔1: continuity animation on hero/skills panels
-   • Transition 1→2: snap-stage slides up, snap-projects slides up from bottom
-   • Transition 2→1: reverse
+   Transition 0→1 animation sequence:
+   1. Hero + skills slide horizontally (hero right, skills left)
+   2. Bio fades out simultaneously
+   3. hero-top slides DOWN, hero-bottom slides UP — squeezing
+      together into the centre of the right panel
 ============================================================ */
 (function () {
   'use strict';
@@ -22,6 +21,8 @@
   const stageHero     = document.getElementById('stage-hero');
   const stageSkills   = document.getElementById('stage-skills');
   const heroBio       = document.getElementById('bio');
+  const heroTop       = document.getElementById('hero-top');
+  const heroBottom    = document.getElementById('hero-bottom');
   const projScroll    = document.getElementById('projects-scroll');
   const sbThumb       = document.getElementById('scrollbar-thumb');
   const sbTrack       = document.getElementById('custom-scrollbar');
@@ -29,15 +30,25 @@
 
   if (!snapContainer || !snapStage || !snapProj || !stageHero || !stageSkills) return;
 
-  let current      = 0;
+  let current       = 0;
   let transitioning = false;
-  const DUR        = 480;
-  const EASE       = 'cubic-bezier(0.22, 1, 0.36, 1)';
-  const EASE_SNAP  = 'cubic-bezier(0.77, 0, 0.18, 1)';
-  let wheelAccum   = 0, lastWheel = 0;
-  const WHEEL_THR  = 40;
+  const DUR         = 520;
+  const EASE        = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const EASE_SNAP   = 'cubic-bezier(0.77, 0, 0.18, 1)';
+  let wheelAccum    = 0, lastWheel = 0;
+  const WHEEL_THR   = 40;
 
-  const s = (el, p) => Object.assign(el.style, p);
+  const s = (el, p) => { if (el) Object.assign(el.style, p); };
+
+  /* ── Measure bio height once for collapse animation ── */
+  let bioHeight = 0;
+  function measureBio() {
+    if (!heroBio) return;
+    heroBio.style.maxHeight = '';
+    heroBio.style.margin = '';
+    bioHeight = heroBio.scrollHeight;
+  }
+  setTimeout(measureBio, 200);
 
   /* ── Init ── */
   s(snapStage, { position:'absolute', inset:'0' });
@@ -53,35 +64,78 @@
     zIndex:'1', transform:'translateX(-100%)', opacity:'0',
     borderRight:'1px solid transparent'
   });
-  if (heroBio) s(heroBio, { opacity:'1' });
+  /* Reset top/bottom */
+  s(heroTop,    { transform:'translateY(0)' });
+  s(heroBottom, { transform:'translateY(0)' });
+  if (heroBio) {
+    s(heroBio, { opacity:'1', maxHeight:'', marginTop:'', marginBottom:'' });
+  }
 
-  /* snap-projects starts below, z-index below stage */
   snapProj.style.transform = 'translateY(100%)';
   snapProj.classList.remove('is-active');
 
-  /* ── Dots ── */
+  /* ── Nav dots ── */
   function updateDots(i) {
     navDots.forEach((d, j) => d.classList.toggle('is-active', i === j));
   }
 
-  /* ── 0 → 1 ── */
+  /* ── 0 → 1: continuity animation ── */
   function animateToSplit() {
-    if (heroBio) s(heroBio, { transition:`opacity ${Math.round(DUR*0.35)}ms ease`, opacity:'0' });
-    s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'50%', width:'50%' });
-    s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.7)}ms ${EASE}`, transform:'translateX(0)', opacity:'1' });
-    setTimeout(() => { stageSkills.style.borderRight = '1px solid var(--border)'; }, DUR * 0.5);
-    setTimeout(() => { transitioning = false; }, DUR + 40);
+    if (!bioHeight) measureBio();
+
+    const half   = Math.round(DUR * 0.5);
+    const full   = DUR;
+    const sq     = Math.round(DUR * 0.35); // squeeze delay
+
+    /* Step 1 (immediate): hero panel slides right, skills slide in, bio fades */
+    s(stageHero,   { transition:`left ${full}ms ${EASE}, width ${full}ms ${EASE}`, left:'50%', width:'50%' });
+    s(stageSkills, { transition:`transform ${full}ms ${EASE}, opacity ${half}ms ${EASE}`, transform:'translateX(0)', opacity:'1' });
+    if (heroBio) {
+      s(heroBio, { transition:`opacity ${half}ms ease, max-height ${half}ms ease ${sq}ms, margin ${half}ms ease ${sq}ms`,
+                   opacity:'0' });
+    }
+
+    /* Step 2 (after bio starts collapsing): collapse height, squeeze top/bottom together */
+    setTimeout(() => {
+      if (heroBio) {
+        s(heroBio, { maxHeight:'0', marginTop:'0', marginBottom:'0' });
+      }
+      /* top slides down slightly, bottom slides up slightly — meeting in centre */
+      s(heroTop,    { transition:`transform ${half}ms ${EASE}`, transform:'translateY(12px)' });
+      s(heroBottom, { transition:`transform ${half}ms ${EASE}`, transform:'translateY(-12px)' });
+    }, sq);
+
+    /* Divider */
+    setTimeout(() => { stageSkills.style.borderRight = '1px solid var(--border)'; }, half);
+
+    setTimeout(() => { transitioning = false; }, full + 40);
   }
 
-  /* ── 1 → 0 ── */
+  /* ── 1 → 0: reverse ── */
   function animateToHero() {
-    s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.4)}ms ease`, transform:'translateX(-100%)', opacity:'0' });
-    s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'0', width:'100%' });
+    const half = Math.round(DUR * 0.5);
+    const full = DUR;
+
+    /* Expand bio, reset squeeze */
+    s(heroTop,    { transition:`transform ${half}ms ${EASE}`, transform:'translateY(0)' });
+    s(heroBottom, { transition:`transform ${half}ms ${EASE}`, transform:'translateY(0)' });
+    if (heroBio) {
+      s(heroBio, {
+        transition:`max-height ${half}ms ease, margin ${half}ms ease`,
+        maxHeight: bioHeight + 'px',
+        marginTop:'', marginBottom:''
+      });
+    }
+
+    /* Hero slides left back to centre, skills slide out */
     setTimeout(() => {
-      if (heroBio) s(heroBio, { transition:`opacity ${Math.round(DUR*0.5)}ms ease`, opacity:'1' });
+      s(stageHero,   { transition:`left ${full}ms ${EASE}, width ${full}ms ${EASE}`, left:'0', width:'100%' });
+      s(stageSkills, { transition:`transform ${full}ms ${EASE}, opacity ${half}ms ease`, transform:'translateX(-100%)', opacity:'0' });
+      if (heroBio) s(heroBio, { transition:`opacity ${half}ms ease`, opacity:'1' });
       stageSkills.style.borderRight = '1px solid transparent';
-    }, Math.round(DUR * 0.5));
-    setTimeout(() => { transitioning = false; }, DUR + 40);
+    }, Math.round(half * 0.3));
+
+    setTimeout(() => { transitioning = false; }, full + 40);
   }
 
   /* ── Navigate ── */
@@ -96,17 +150,21 @@
 
     const dur = instant ? '0s' : `${DUR}ms ${EASE_SNAP}`;
 
-    /* 0 ↔ 1: continuity, no page flip */
+    /* 0 ↔ 1: continuity */
     if ((prev === 0 && idx === 1) || (prev === 1 && idx === 0)) {
       if (instant) {
         if (idx === 1) {
           s(stageHero,   { transition:'none', left:'50%', width:'50%' });
           s(stageSkills, { transition:'none', transform:'translateX(0)', opacity:'1', borderRight:'1px solid var(--border)' });
-          if (heroBio) s(heroBio, { opacity:'0' });
+          if (heroBio) s(heroBio, { opacity:'0', maxHeight:'0', marginTop:'0', marginBottom:'0' });
+          s(heroTop,    { transition:'none', transform:'translateY(12px)' });
+          s(heroBottom, { transition:'none', transform:'translateY(-12px)' });
         } else {
           s(stageHero,   { transition:'none', left:'0', width:'100%' });
           s(stageSkills, { transition:'none', transform:'translateX(-100%)', opacity:'0', borderRight:'1px solid transparent' });
-          if (heroBio) s(heroBio, { opacity:'1' });
+          if (heroBio) s(heroBio, { opacity:'1', maxHeight:'', marginTop:'', marginBottom:'' });
+          s(heroTop,    { transition:'none', transform:'translateY(0)' });
+          s(heroBottom, { transition:'none', transform:'translateY(0)' });
         }
         transitioning = false;
       } else {
@@ -117,32 +175,26 @@
 
     /* Stage ↔ Projects */
     if (idx === 2) {
-      /* Projects come up from bottom, stage slides up */
+      /* Reset scroll BEFORE animation */
       if (projScroll) { projScroll.scrollTop = 0; updateScrollbar(); }
 
-      /* First: raise projects z-index so it appears above stage */
       snapProj.classList.add('is-active');
-
-      s(snapProj,      { transition:'none', transform:'translateY(100%)' });
-      s(snapContainer, { transition:'none' });
-      snapProj.getBoundingClientRect(); // reflow
+      s(snapProj, { transition:'none', transform:'translateY(100%)' });
+      snapProj.getBoundingClientRect();
 
       s(snapProj,      { transition:`transform ${dur}`, transform:'translateY(0)' });
       s(snapContainer, { transition:`transform ${dur}`, transform:'translateY(-100%)' });
 
     } else {
-      /* Projects go back down, stage slides back in */
       s(snapProj,      { transition:`transform ${dur}`, transform:'translateY(100%)' });
       s(snapContainer, { transition:`transform ${dur}`, transform:'translateY(0)' });
-
-      /* After animation, lower projects z-index */
       setTimeout(() => { snapProj.classList.remove('is-active'); }, DUR + 40);
     }
 
     setTimeout(() => { transitioning = false; }, instant ? 0 : DUR + 40);
   }
 
-  /* ── Custom scrollbar ── */
+  /* ── Scrollbar ── */
   function updateScrollbar() {
     if (!projScroll || !sbThumb || !sbTrack) return;
     const ratio  = projScroll.clientHeight / projScroll.scrollHeight;
@@ -172,7 +224,7 @@
       projScroll.scrollTop = r * (projScroll.scrollHeight - projScroll.clientHeight);
       updateScrollbar();
     });
-    setTimeout(updateScrollbar, 300);
+    setTimeout(updateScrollbar, 400);
     new ResizeObserver(updateScrollbar).observe(projScroll);
   }
 

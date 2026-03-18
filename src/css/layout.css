@@ -233,9 +233,24 @@ body {
   gap: 1.4rem;
 }
 
-/* Bio — fades out when hero slides right */
+/* Top block: avatar + title */
+.hero-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  will-change: transform;
+}
+
+/* Bottom block: links */
+.hero-bottom {
+  will-change: transform;
+}
+
+/* Bio — sits between top and bottom, fades + collapses */
 .hero-bio {
-  will-change: opacity;
+  will-change: opacity, max-height, margin;
+  overflow: hidden;
 }
 
 /* ── Section 3: projects with internal scroll ── */
