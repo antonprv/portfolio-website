@@ -803,11 +803,11 @@ function initProjectScrollbar() {
   const sbThumb = document.getElementById('scrollbar-thumb');
   if (!sbTrack || !sbThumb) return;
 
-  /* ── Position track: top = below header area, bottom = 0 ── */
+  /* ── Position track: align with content, exclude footer ── */
   function positionTrack() {
-    /* Start track at the back button / page top padding */
-    const topOffset    = 48; /* matches project-detail padding-top minus a bit */
-    const bottomOffset = 0;
+    const footer = document.querySelector('footer');
+    const topOffset    = 48;
+    const bottomOffset = footer ? footer.offsetHeight : 0;
     document.body.style.setProperty('--sb-top',    topOffset    + 'px');
     document.body.style.setProperty('--sb-bottom',  bottomOffset + 'px');
   }
@@ -871,9 +871,10 @@ function initProjectScrollbar() {
   });
 
   /* Re-run after content fully loads (images etc.) */
-  window.addEventListener('load', updateThumb);
-  setTimeout(updateThumb, 500);
-  new ResizeObserver(updateThumb).observe(document.body);
+  window.addEventListener('load', () => { positionTrack(); updateThumb(); });
+  setTimeout(() => { positionTrack(); updateThumb(); }, 300);
+  setTimeout(() => { positionTrack(); updateThumb(); }, 800);
+  new ResizeObserver(() => { positionTrack(); updateThumb(); }).observe(document.body);
 }
 
 
