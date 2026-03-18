@@ -32,11 +32,25 @@
 
   let current       = 0;
   let transitioning = false;
-  const DUR         = 520;
-  const EASE        = 'cubic-bezier(0.22, 1, 0.36, 1)';
-  const EASE_SNAP   = 'cubic-bezier(0.77, 0, 0.18, 1)';
+  const DUR         = 600;                              // slightly longer = smoother
+  const EASE        = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // ease-out-quad — natural deceleration
+  const EASE_SNAP   = 'cubic-bezier(0.4, 0, 0.2, 1)';         // material standard — not too snappy
   let wheelAccum    = 0, lastWheel = 0;
-  const WHEEL_THR   = 40;
+  const WHEEL_THR   = 60;   // higher threshold = less accidental triggers
+
+  /* Inertia / overscroll guard:
+     After a section transition fires, ignore all wheel events for
+     POST_LOCK ms. This prevents trackpad momentum from immediately
+     triggering the next section. */
+  const POST_LOCK   = 900;  // ms to lock after each transition
+  let wheelLocked   = false;
+  let wheelLockTimer = null;
+
+  function lockWheel() {
+    wheelLocked = true;
+    clearTimeout(wheelLockTimer);
+    wheelLockTimer = setTimeout(() => { wheelLocked = false; wheelAccum = 0; }, POST_LOCK);
+  }
 
   const s = (el, p) => { if (el) Object.assign(el.style, p); };
 
@@ -168,12 +182,14 @@
         }
         transitioning = false;
       } else {
+        if (!instant) lockWheel();
         idx === 1 ? animateToSplit() : animateToHero();
       }
       return;
     }
 
     /* Stage ↔ Projects */
+    if (!instant) lockWheel();
     if (idx === 2) {
       /* Reset scroll BEFORE animation */
       if (projScroll) { projScroll.scrollTop = 0; updateScrollbar(); }
@@ -228,25 +244,50 @@
     new ResizeObserver(updateScrollbar).observe(projScroll);
   }
 
-  /* ── Wheel ── */
+  /* ── Wheel — with inertia / overscroll protection ── */
   document.addEventListener('wheel', e => {
+    e.preventDefault();
+
+    /* On projects section */
     if (current === 2 && projScroll) {
+      if (wheelLocked) return; // absorb momentum after arriving here
+
       const atTop = projScroll.scrollTop <= 0;
-      if (e.deltaY < 0 && atTop) { e.preventDefault(); goTo(1); return; }
+
+      /* Scroll back to section 1: only on upward swipe at top, with threshold */
+      if (e.deltaY < 0 && atTop) {
+        const now = Date.now();
+        if (now - lastWheel > 350) wheelAccum = 0;
+        lastWheel = now;
+        wheelAccum += e.deltaY;
+        if (Math.abs(wheelAccum) >= WHEEL_THR) {
+          wheelAccum = 0;
+          goTo(1);
+          lockWheel();
+        }
+        return;
+      }
+
+      /* Normal internal scroll */
       projScroll.scrollTop += e.deltaY;
-      e.preventDefault();
       updateScrollbar();
       return;
     }
-    e.preventDefault();
+
+    /* On stage sections (0 and 1) */
+    if (wheelLocked) return;
+
     const now = Date.now();
-    if (now - lastWheel > 350) wheelAccum = 0;
+    if (now - lastWheel > 400) wheelAccum = 0;
     lastWheel = now;
     wheelAccum += e.deltaY;
     if (Math.abs(wheelAccum) < WHEEL_THR) return;
+
     const dir = wheelAccum > 0 ? 1 : -1;
     wheelAccum = 0;
+    lockWheel();
     goTo(current + dir);
+
   }, { passive: false });
 
   /* ── Touch ── */
@@ -273,5 +314,8 @@
 
   /* ── Init ── */
   goTo(0, true);
+  /* Lock wheel briefly on load — prevents accidental first-scroll from
+     immediately jumping to section 1 if user scrolled before page loaded */
+  lockWheel();
 
 })();
