@@ -120,6 +120,14 @@ body {
   overflow: hidden;
 }
 
+/* Project detail page — normal scroll, no snap */
+body.page-project {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* hide native, use custom */
+}
+body.page-project::-webkit-scrollbar { display: none; }
+
 /* Stage container — holds hero/skills sections */
 .snap-container {
   position: fixed;

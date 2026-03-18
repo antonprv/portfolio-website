@@ -57,6 +57,9 @@
   /* ── Render ── */
   renderPage(project, lang, cfg.profile);
 
+  /* ── Custom scrollbar for project page ── */
+  initProjectScrollbar();
+
   /* ── Lightbox ── */
   initLightbox();
 
@@ -789,6 +792,90 @@ function hexToRgba(hex, alpha) {
   const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
   return `rgba(${r},${g},${b},${alpha})`;
 }
+
+/* ════════════════════════════════════════════════════════════
+   PROJECT PAGE SCROLLBAR
+   Mirrors the custom scrollbar from the projects section.
+   Scrolls window (body.page-project has overflow-y: auto).
+   ════════════════════════════════════════════════════════════ */
+function initProjectScrollbar() {
+  const sbTrack = document.getElementById('custom-scrollbar');
+  const sbThumb = document.getElementById('scrollbar-thumb');
+  if (!sbTrack || !sbThumb) return;
+
+  /* ── Position track: top = below header area, bottom = 0 ── */
+  function positionTrack() {
+    /* Start track at the back button / page top padding */
+    const topOffset    = 48; /* matches project-detail padding-top minus a bit */
+    const bottomOffset = 0;
+    document.body.style.setProperty('--sb-top',    topOffset    + 'px');
+    document.body.style.setProperty('--sb-bottom',  bottomOffset + 'px');
+  }
+
+  /* ── Update thumb position ── */
+  function updateThumb() {
+    const scrollTop    = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = window.innerHeight;
+    const trackH       = sbTrack.clientHeight;
+
+    if (scrollHeight <= clientHeight) { sbThumb.style.display = 'none'; return; }
+    sbThumb.style.display = '';
+
+    const ratio  = clientHeight / scrollHeight;
+    const thumbH = Math.max(40, trackH * ratio);
+    const maxTop = trackH - thumbH;
+    const pct    = scrollTop / (scrollHeight - clientHeight);
+
+    sbThumb.style.height = thumbH + 'px';
+    sbThumb.style.top    = (maxTop * pct) + 'px';
+  }
+
+  positionTrack();
+  updateThumb();
+
+  window.addEventListener('scroll', updateThumb, { passive: true });
+  window.addEventListener('resize', () => { positionTrack(); updateThumb(); });
+
+  /* ── Drag thumb ── */
+  let drag = false, dragStartY = 0, dragStartScroll = 0;
+
+  sbThumb.addEventListener('mousedown', e => {
+    drag = true;
+    dragStartY = e.clientY;
+    dragStartScroll = window.scrollY;
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const trackH      = sbTrack.clientHeight;
+    const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+    const dy          = e.clientY - dragStartY;
+    window.scrollTo(0, dragStartScroll + dy * (scrollRange / trackH));
+  });
+
+  document.addEventListener('mouseup', () => {
+    drag = false;
+    document.body.style.userSelect = '';
+  });
+
+  /* ── Click track to jump ── */
+  sbTrack.addEventListener('click', e => {
+    if (e.target === sbThumb) return;
+    const rect        = sbTrack.getBoundingClientRect();
+    const pct         = (e.clientY - rect.top) / sbTrack.clientHeight;
+    const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: pct * scrollRange, behavior: 'smooth' });
+  });
+
+  /* Re-run after content fully loads (images etc.) */
+  window.addEventListener('load', updateThumb);
+  setTimeout(updateThumb, 500);
+  new ResizeObserver(updateThumb).observe(document.body);
+}
+
 
 /* ════════════════════════════════════════════════════════════
    LINK PARSER

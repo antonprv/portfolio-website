@@ -10,9 +10,12 @@
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/project-page.css" />
 </head>
-<body>
+<body class="page-project">
 
-  <!-- Theme & lang switchers (same as index) -->
+  <!-- Custom scrollbar (left side, same as projects section) -->
+  <div class="custom-scrollbar" id="custom-scrollbar">
+    <div class="custom-scrollbar__thumb" id="scrollbar-thumb"></div>
+  </div>
   <button class="theme-switcher" id="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
     <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="12" cy="12" r="5"/>
