@@ -123,7 +123,7 @@
           "embed": "<iframe src=\"https://rutube.ru/play/embed/ВАШ_ID/\"></iframe>"
         }
       ],
-      "detailsRu": "Галерея поддерживает четыре формата медиа:\n1. Строка — путь к изображению\n2. { type: 'image', src, caption } — изображение с подписью\n3. { type: 'video', src, poster } — видеофайл\n4. { type: 'embed', src, poster } — iframe-эмбед (Rutube, YouTube, Vimeo)\n   или { embed: '<iframe ...>' } — вставить код эмбеда напрямую",
+      "detailsRu": "Галерея поддерживает четыре формата медиа:\n1. Строка - путь к изображению\n2. { type: 'image', src, caption } - изображение с подписью\n3. { type: 'video', src, poster } - видеофайл\n4. { type: 'embed', src, poster } - iframe-эмбед (Rutube, YouTube, Vimeo)\n   или { embed: '<iframe ...>' } - вставить код эмбеда напрямую",
       "detailsEn": "Screenshots support two formats: a string path to an image, or an object { type: 'video', src: '...', poster: '...' } for video."
     },
     {
