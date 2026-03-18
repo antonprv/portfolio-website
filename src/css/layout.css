@@ -128,7 +128,7 @@ body {
   overflow: hidden;
 }
 
-/* ── Snap section base — all three stack in the same fixed layer ── */
+/* ── Snap section base — all sections positioned absolutely in container ── */
 .snap-section {
   position: absolute;
   top: 0;
@@ -140,26 +140,18 @@ body {
   align-items: center;
   justify-content: center;
   background: var(--bg);
-  /* Default: below viewport */
-  transform: translateY(100%);
-  /* Smooth flip transition */
-  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
   will-change: transform;
+  /* Sections off-screen have no pointer events */
+  pointer-events: none;
 }
 
-/* Active section: in viewport */
-.snap-section.is-current {
-  transform: translateY(0);
+/* Only the on-screen section is interactive */
+.snap-section.is-visible {
+  pointer-events: auto;
 }
 
-/* Previous section: above viewport */
-.snap-section.is-prev {
-  transform: translateY(-100%);
-}
-
-/* ── Background glow for intro sections ── */
-#snap-hero::before,
-#snap-split::before {
+/* ── Background glow for stage section ── */
+#snap-stage::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -209,8 +201,18 @@ body {
   justify-content: center;
   padding: 5rem 2rem 4rem;
   z-index: 2;
-  /* JS drives left + width transitions */
-  will-change: transform, left, width;
+  will-change: left, width;
+}
+
+/* Inner hero card — always centred within its panel */
+.stage-hero .hero {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.4rem;
 }
 
 /* Bio — fades out when hero slides right */
@@ -375,65 +377,7 @@ body {
   z-index: 0;
 }
 
-/* ── Section 1: hero centred ── */
-#snap-hero {
-  justify-content: center;
-}
-
-/* ── Section 2: hero right + skills left ── */
-#snap-split {
-  justify-content: stretch;
-}
-
-.split-skills {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 5rem 2rem 4rem 3rem;
-  border-right: 1px solid var(--border);
-  overflow-y: auto;
-  scrollbar-width: none;
-  position: relative;
-  z-index: 1;
-  /* entrance animation */
-  transform: translateX(-40px);
-  opacity: 0;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.split-skills::-webkit-scrollbar { display: none; }
-
-.split-skills .skills-inner {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-}
-
-.split-hero {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5rem 3rem 4rem 2rem;
-  position: relative;
-  z-index: 1;
-  /* entrance animation */
-  transform: translateX(40px);
-  opacity: 0;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
-              opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
-}
-
-/* When section 2 is active, panels animate in */
-#snap-split.is-active .split-skills,
-#snap-split.is-active .split-hero {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* ── Hero card (shared between both sections) ── */
+/* ── Hero card ── */
 .hero {
   display: flex;
   flex-direction: column;
@@ -444,9 +388,6 @@ body {
   max-width: 480px;
   position: relative;
   z-index: 1;
-}
-
-#snap-hero .hero {
   animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
