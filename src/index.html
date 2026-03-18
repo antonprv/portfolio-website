@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/projects.css" />
+  <link rel="stylesheet" href="css/skills.css" />
 </head>
 <body>
 
@@ -90,6 +91,18 @@
 
     </div>
   </header>
+
+  <!-- ════════════════════════════════════════
+       CORE SKILLS  (rendered by config-loader.js from config.json → skills)
+  ════════════════════════════════════════ -->
+  <section class="skills-section" id="skills-section" aria-label="Core Skills" style="display:none">
+    <div class="skills-inner">
+      <div class="skills-header reveal">
+        <span class="skills-eyebrow" id="skills-title">Core Skills</span>
+      </div>
+      <div class="skills-grid reveal" id="skills-grid"></div>
+    </div>
+  </section>
 
   <!-- ════════════════════════════════════════
        PROJECTS  (cards injected by config-loader.js)

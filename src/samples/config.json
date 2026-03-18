@@ -57,6 +57,35 @@
       "linkedin": "https://linkedin.com/in/username"
     }
   },
+  "skills": [
+    {
+      "_doc": "Each category: title, icon (star|grid|radio|code|wrench|cpu|layers|bolt|box), primary (true = accent tags), items []",
+      "title": "Core technologies",
+      "icon": "star",
+      "primary": true,
+      "items": ["Unity", "C#", "Unreal Engine", "C++"]
+    },
+    {
+      "title": "Architecture",
+      "icon": "grid",
+      "items": ["Dependency Injection", "State Machines", "Reactive Programming", "Async Systems"]
+    },
+    {
+      "title": "Gameplay",
+      "icon": "radio",
+      "items": ["AI Systems", "Gameplay Programming", "Physics", "Interaction Systems"]
+    },
+    {
+      "title": "Frameworks",
+      "icon": "code",
+      "items": ["R3", "UniRX", "Zenject", "UniTask", "Addressables", "Entitas"]
+    },
+    {
+      "title": "Tools",
+      "icon": "wrench",
+      "items": ["Git", "CI/CD", "WebGL", "Android"]
+    }
+  ],
   "projects": [
     {
       "_comment": "Preset 'no-links' - display only, nothing is clickable",

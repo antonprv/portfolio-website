@@ -33,6 +33,7 @@
   applyNoise(cfg.noise);
   if (cfg.font?.path || cfg.font?.files?.length) injectFont(cfg.font);
   applyProfilePhoto(cfg.profile);
+  renderSkills(cfg.skills);
   renderProjects(cfg.projects);
   patchI18n(cfg.profile);
 
@@ -275,6 +276,73 @@ function applyProfilePhoto({ photo, nameRu } = {}) {
     img.style.display = '';
     if (placeholder) placeholder.style.display = 'none';
   };
+}
+
+
+
+
+/* ════════════════════════════════════════════════════════════
+   SKILLS
+   Reads cfg.skills — an array of category objects:
+   [
+     {
+       "title": "Core technologies",
+       "primary": true,          ← optional, makes tags accent-coloured
+       "icon": "star",           ← optional, one of the icon keys below
+       "items": ["Unity","C#","Unreal Engine","C++"]
+     },
+     ...
+   ]
+   ════════════════════════════════════════════════════════════ */
+
+const SKILL_ICONS = {
+  star:    `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  grid:    `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
+  radio:   `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`,
+  code:    `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  wrench:  `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  cpu:     `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>`,
+  layers:  `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+  bolt:    `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  box:     `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
+};
+
+function renderSkills(skills) {
+  const section = document.getElementById('skills-section');
+  const grid    = document.getElementById('skills-grid');
+  if (!grid || !Array.isArray(skills) || skills.length === 0) return;
+
+  skills.forEach(category => {
+    if (!Array.isArray(category.items) || category.items.length === 0) return;
+
+    const group = document.createElement('div');
+    group.className = 'skill-group';
+
+    /* ── Icon + title ── */
+    const titleEl = document.createElement('div');
+    titleEl.className = 'skill-group-title';
+
+    const iconKey = category.icon || 'star';
+    titleEl.innerHTML = SKILL_ICONS[iconKey] || SKILL_ICONS.star;
+    titleEl.appendChild(document.createTextNode(' ' + (category.title || '')));
+    group.appendChild(titleEl);
+
+    /* ── Tags ── */
+    const tagsEl = document.createElement('div');
+    tagsEl.className = 'skill-tags';
+
+    category.items.forEach(item => {
+      const tag = document.createElement('span');
+      tag.className = 'skill-tag' + (category.primary ? ' skill-tag--primary' : '');
+      tag.textContent = item;
+      tagsEl.appendChild(tag);
+    });
+
+    group.appendChild(tagsEl);
+    grid.appendChild(group);
+  });
+
+  section.style.display = '';
 }
 
 
