@@ -212,7 +212,7 @@
             "preset": "no-links",
             "image": "images/projects/innopolis/innopolis3.png",
             "emoji": "🚗",
-            "color": "c5",1
+            "color": "c5",
             "nameRu": "Симулятор автономных транспортных средств",
             "nameEn": "Autonomous Vehicle Simulator",
             "roleRu": "Роль: Ведущий разработчик AI-систем",
