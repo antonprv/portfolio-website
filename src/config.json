@@ -29,7 +29,7 @@
             "200 000+ строк кода в сольном Unity-проекте",
             "436 автоматизированных тестов (EditMode + PlayMode)",
             "Автор open-source DI-фреймворка Zenjex",
-            "Релиз коммерческой мобильной игры в Google Play",
+            "Релиз собственной коммерческой midcore игры в Яндекс Играх и RuStore",
             "Ведущий разработчик AI-систем в симуляторе беспилотников"
         ],
         "highlightsEn": [
@@ -76,13 +76,13 @@
     ],
     
     "tagFilters": [
-        { "id": "Unity",      "label": "Unity" },
-        { "id": "Unreal",     "label": "Unreal" },
-        { "id": "AI",         "label": "AI" },
-        { "id": "Simulation", "label": "Simulation" },
-        { "id": "Mobile",     "label": "Mobile" },
-        { "id": "OpenSource", "label": "Open Source" },
-        { "id": "R&D",        "label": "R&D" }
+        { "id": "Unity",             "label": "Unity" },
+        { "id": "Unreal Engine",     "label": "Unreal Engine" },
+        { "id": "AI",                "label": "AI" },
+        { "id": "Simulation",        "label": "Simulation" },
+        { "id": "Mobile",            "label": "Mobile" },
+        { "id": "OpenSource",        "label": "Open Source" },
+        { "id": "R&D",               "label": "R&D" }
     ],
     
     "projects": [
@@ -204,7 +204,71 @@
             
             "detailsEn": "<b>Zenjex</b> is a production-ready DI framework for Unity that solves one specific, painful problem: your team uses Zenject / Extenject, Unity 6 migration is coming, and nobody wants to rewrite the entire injection layer from scratch.<br><br><b>Key facts:</b><br>• drop-in Zenject API compatibility - not a single installer needs to change<br>• powered by Reflex 14.1.0 under the hood - the fastest DI framework for Unity by benchmarks<br>• full Unity 6.3 LTS support, including a fixed debugger window<br>• three injection patterns, lifecycle management, per-scene scoped containers<br>• proven at scale: (Lone Brawler)[https://github.com/antonprv/LoneBrawler] - a 200k+ LOC production game built on this framework<br><br>The framework was born inside Lone Brawler out of necessity - Extenject had no Unity 6 support, and a cold migration to Reflex meant retraining the team and rewriting every installer. Zenjex eliminates that cost: the binding syntax is intentionally identical to Zenject, while Reflex runs underneath with its expression-tree-based activation and smart caching.<br><br>After Lone Brawler shipped, the framework was extracted into a standalone open-source library, fully documented, and published.<br><br><b>Framework architecture:</b><br><br>- <b>ProjectRootInstaller</b> - global composition root (equivalent to Zenject's ProjectContext + MonoInstaller). Runs at execution order -280, guaranteeing the container is fully built before any Awake() in the scene fires. Supports an async InstallGameInstanceRoutine() phase for Addressables loading and runtime bindings.<br><br>- <b>SceneInstaller</b> - creates a child container per scene that inherits all global bindings and adds local ones on top. Automatically disposed when the scene unloads.<br><br>- <b>ZenjexBehaviour</b> - MonoBehaviour base class with guaranteed pre-Awake() injection (execution order -100). Works for prefabs instantiated at runtime via Instantiate().<br><br>- <b>Lifecycle</b>: IInitializable is called automatically after the container is built, before LaunchGame(). RootContext.Runtime allows adding bindings to the live container post-initialization.<br><br><b>Injection patterns:</b><br><br>- RootContext.Resolve&lt;T&gt;() - direct resolve from anywhere, no base class or attribute needed.<br>- [Zenjex] on MonoBehaviour - declarative injection for objects present in the scene at load time.<br>- ZenjexBehaviour + [Zenjex] - guaranteed pre-Awake() injection, including runtime-instantiated objects.<br>- ZenjexRunner.InjectGameObject() - manual injection for Instantiate() without inheritance.<br><br><b>Full documentation:</b> (antonprv.github.io/zenjex-website)[https://antonprv.github.io/zenjex-website/docs.html]",
             
-            "screenshots": []
+            "screenshots": 
+            [
+                {
+                    "type": "image",
+                    "src": "images/projects/zenjex/zenjex_graph.png",
+                    "captionRu": "",
+                    "captionEn": "" 
+                },
+            ]
+        },
+        
+        {
+            "_comment": "Eye of the Basilisk - R&D parkour experiment",
+            "preset": "links-bar",
+            
+            "github": "https://github.com/antonprv/EyeOfTheBasilisk"
+            
+            "image":  "images/prototypes/eye_of_the_basilisk/video_preview.png",
+            "emoji":  "🗿",
+            "color":  "c1",
+            
+            "nameRu": "Eye of the Basilisk",
+            "nameEn": "Eye of the Basilisk",
+            
+            "roleRu": "Роль: Соло R&D разработчик",
+            "roleEn": "Role: Solo R&D developer",
+            
+            "descRu": "Экспериментальный прототип паркур-платформера, исследующий пересечение систем перемещения персонажа и симуляции обратимого времени. Проект пытается объединить аркадный паркур с прямым управлением игрока — wall jump, wall run и скольжение по рёбрам поверхностей и рампам, вдохновлённые Sunset Overdrive от Insomniac Games - с системой перемотки времени в духе Prince of Persia. Ключевая особенность прототипа — перемотка затрагивает не только игровые состояния, но и сами анимации: движения персонажа воспроизводятся назад. Игрок может замедлять время в воздухе и прямо из ресурсов создавать под собой новые элементы маршрута, динамически продолжая цепочку движения и формируя собственные паркурные пути в реальном времени.",
+            
+            "descEn": "Experimental parkour platformer prototype exploring the intersection of character traversal systems and reversible time simulation. The project combines arcade-style movement with direct player control — wall jumps, wall runs, and sliding across edges and ramps inspired by Sunset Overdrive by Insomniac Games - with time rewind mechanics reminiscent of Prince of Persia. A key feature is that rewind affects not only gameplay state but the animations themselves: character motion is played backwards. The player can also slow time mid-air and craft new traversal elements from resources directly beneath the character, dynamically extending movement chains and creating parkour routes in real time.",
+            
+            "tags": 
+            [
+                "Unreal Engine",
+                "R&D"
+            ],
+            
+            "subtags": 
+            [
+                "C++",
+                "Gameplay Programming",
+                "Parkour",
+                "Platforming",
+                "HLSL",
+                "Level Design"
+            ],
+            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• сольный R&D прототип, исследующий пересечение систем перемещения персонажа и симуляции обратимого времени<br>• паркурная система вдохновлена Sunset Overdrive (Insomniac Games) и ориентирована на прямой контроль игрока вместо flow-паркура и motion matching<br>• реализована система перемотки времени в духе Prince of Persia, воспроизводящая анимации движения назад, а не только восстанавливающая состояния объектов<br>• игрок может замедлять время в воздухе и крафтить новые элементы маршрута прямо во время движения<br><br>Прототип исследует альтернативный подход к паркурному геймплею: вместо систем, которые пытаются угадать намерения игрока по большому количеству входных данных (как в современных Assassin's Creed), управление построено вокруг прямого и предсказуемого контроля. Любое действие игрока немедленно отражается на траектории движения персонажа.<br><br><b>Ключевые инженерные системы:</b><br><br>— Система перемотки времени: состояние объектов и персонажа записывается в циклический буфер, позволяющий воспроизводить предыдущие состояния сцены. При перемотке не только восстанавливаются данные, но и проигрываются анимации движения в обратном направлении.<br><br>— Анимационная интеграция: поддержка обратного воспроизведения root motion, синхронизация перемещения персонажа и состояния анимационного графа при rewind.<br><br>— Паркурная система: механики wall jump, wall run и скольжения по рёбрам поверхностей и рампам, позволяющие строить непрерывные цепочки движения в вертикальной среде.<br><br>— Динамический крафт маршрутов: игрок может замедлять время в воздухе и создавать новые элементы паркурного пути из ресурсов прямо под персонажем, расширяя маршрут движения в реальном времени.",
+            
+            "detailsEn": "<b>Key project facts:</b><br>• solo R&D prototype exploring the intersection of character traversal systems and reversible time simulation<br>• traversal system inspired by Sunset Overdrive (Insomniac Games) focused on direct player control rather than flow-based parkour or motion matching<br>• Prince of Persia–style rewind system that reverses character animations instead of only restoring gameplay states<br>• the player can slow time mid-air and craft new traversal elements while moving<br><br>The prototype explores an alternative approach to parkour gameplay. Instead of systems that attempt to infer player intent from large animation datasets (as seen in modern Assassin's Creed titles), movement is built around direct and deterministic player control. Player input immediately and predictably affects the movement trajectory.<br><br><b>Core engineering systems:</b><br><br>— Time rewind system: gameplay state is recorded in a cyclic buffer allowing previous world states to be replayed. During rewind, character animations and movement are played backwards instead of simply restoring stored transforms.<br><br>— Animation integration: reverse playback of root motion with synchronization between animation graph state and character movement during rewind.<br><br>— Parkour traversal system: mechanics including wall-to-wall jumping, wall running, and sliding across surface edges and ramps, enabling continuous movement chains in vertical environments.<br><br>— Dynamic path crafting: the player can slow time mid-air and create new traversal elements from resources directly beneath the character, extending parkour routes in real time.",
+            
+            "screenshots": 
+            [
+                {
+                    "type": "embed",
+                    "src": "https://rutube.ru/play/embed/949a1b4b68bb53b82de6bd3f2ca774fd/",
+                    "poster": "images/prototypes/eye_of_the_basilisk/video_preview.png",
+                    "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://www.youtube.com/embed/LJlaXGLLo38?si=NwW4sAjsLeUku66T",
+                    "captionRu": "Референсный геймплей из Sunset Overdrive", "captionEn": "Reference parkour gameplay from Sunset Overdrive"
+                }
+            ]
         },
         
         {
@@ -272,9 +336,9 @@
         
         {
             "_comment": "Last Dawn: Zombie Siege - mobile tower defense",
-            "preset": "link",
+            "preset": "links-bar",
             
-            "url":   "https://play.google.com/store/apps/details?id=tower.defense.hero.strategy",
+            "play":   "https://play.google.com/store/apps/details?id=tower.defense.hero.strategy",
             
             "image": "images/projects/zombie_siege/zombie_siege4.webp",
             
@@ -354,6 +418,9 @@
             "page":   "https://gamejolt.com/games/Crypt_Raider/1009990",
             "play":   "https://github.com/antonprv/CryptRaider/releases/download/release/CryptRaider.zip",
             
+            "pageLabelRu": "Страница игры на GameJolt (с саундтреком)",
+            "pageLabelEn": "GameJolt page (with Soundtrack)",
+            
             "image":  "images/projects/crypt_raider/crypt_raider_logo.png",
             "emoji":  "🗿",
             "color":  "c1",
@@ -361,7 +428,7 @@
             "nameRu": "Crypt Raider",
             "nameEn": "Crypt Raider",
             
-            "roleRu": "Роль: Сольный R&D разработчик",
+            "roleRu": "Роль: Соло R&D разработчик",
             "roleEn": "Role: Solo R&D developer",
             
             "descRu": "R&D проект на Unreal Engine: процедурная генерация музыки через MetaSounds, где каждое игровое событие напрямую влияет на музыкальную композицию в реальном времени.",
@@ -370,7 +437,7 @@
             
             "tags": 
             [
-                "Unreal",
+                "Unreal Engine",
                 "R&D"
             ],
             
@@ -385,9 +452,9 @@
                 "Level Design"
             ],
             
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• R&D проект, исследующий возможности MetaSounds в Unreal Engine 5<br>• полностью процедурный саундтрек - ни одного заранее записанного трека<br>• геймплейные события управляют параметрами процедурного музыкального графа в реальном времени<br>• среда, геймплей и арт-дирекшн реализованы одним разработчиком<br><br>Crypt Raider - исследовательский проект, основная цель которого: проверить, насколько далеко можно зайти с интерактивной музыкой, не написав ни одного статичного трека. Игрок исследует крипту и взаимодействует с окружением - каждое действие немедленно отражается в звуковой картине.<br><br><b>Ключевые инженерные системы:</b><br><br>- MetaSounds граф: многослойная процедурная композиция с динамическим миксом напряжённости. Темп, тональность, плотность инструментов и интенсивность эмбиента изменяются плавно через параметры, не через кроссфейды треков.<br><br>- Геймплейные триггеры: C++ компоненты-детекторы передают нормализованные значения (близость к врагу, уровень здоровья, статус головоломки) напрямую в MetaSounds параметры через Blueprint-интерфейс.<br><br>- Физическое взаимодействие: система захвата объектов на основе PhysicsHandle с поддержкой веса и инерции - горгульи, факелы и рычаги реагируют физически достоверным образом.<br><br>- Среда и освещение: ручная расстановка Lumen-источников света для достижения нужной атмосферы при удержании производительности; статические меши оптимизированы под Nanite.",
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• R&D проект, исследующий возможности MetaSounds в Unreal Engine 5<br>• полностью процедурный саундтрек - ни одного заранее записанного трека<br>• геймплейные события управляют параметрами процедурного музыкального графа в реальном времени<br>• среда, геймплей и арт-дирекшн реализованы одним разработчиком<br><br>Crypt Raider - исследовательский проект, основная цель которого: проверить, насколько далеко можно зайти с интерактивной музыкой, не написав ни одного статичного трека. Игрок исследует крипту и взаимодействует с окружением - каждое действие немедленно отражается в звуковой картине.<br><br><b>Ключевые инженерные системы:</b><br><br>- MetaSounds граф: многослойная процедурная композиция с динамическим миксом напряжённости. Темп, тональность, плотность инструментов и интенсивность эмбиента изменяются плавно через параметры, не через кроссфейды треков.<br><br>- Геймплейные триггеры: C++ компоненты-детекторы передают нормализованные значения (близость к врагу, уровень здоровья, статус головоломки) напрямую в MetaSounds параметры через Blueprint-интерфейс.<br><br>- Физическое взаимодействие: система захвата объектов на основе PhysicsHandle с поддержкой веса и инерции - горгульи, факелы и рычаги реагируют физически достоверным образом.",
             
-            "detailsEn": "<b>Key project facts:</b><br>• R&D project exploring MetaSounds capabilities in Unreal Engine 5<br>• fully procedural soundtrack - not a single pre-recorded track<br>• gameplay events drive parameters of the procedural audio graph<br>• environment, gameplay, and art direction implemented by a single developer<br><br>Crypt Raider is a research project with one central question: how far can interactive music go without writing a single static track? The player explores a crypt and interacts with the environment - every action is immediately reflected in the soundscape.<br><br><b>Core engineering systems:</b><br><br>- MetaSounds graph: multi-layer procedural composition with a dynamic tension mix. Tempo, key, instrument density, and ambience intensity shift smoothly through parameters - no track crossfades.<br><br>- Gameplay triggers: C++ detector components pass normalised values (enemy proximity, health level, puzzle state) directly into MetaSounds parameters through a Blueprint interface.<br><br>- Physical interaction: PhysicsHandle-based object grab system with weight and inertia support - gargoyles, torches, and levers respond in a physically convincing way.<br><br>- Environment and lighting: manual Lumen light source placement to achieve the right atmosphere while maintaining performance; static meshes optimised for Nanite.",
+            "detailsEn": "<b>Key project facts:</b><br>• R&D project exploring MetaSounds capabilities in Unreal Engine 5<br>• fully procedural soundtrack - not a single pre-recorded track<br>• gameplay events drive parameters of the procedural audio graph<br>• environment, gameplay, and art direction implemented by a single developer<br><br>Crypt Raider is a research project with one central question: how far can interactive music go without writing a single static track? The player explores a crypt and interacts with the environment - every action is immediately reflected in the soundscape.<br><br><b>Core engineering systems:</b><br><br>- MetaSounds graph: multi-layer procedural composition with a dynamic tension mix. Tempo, key, instrument density, and ambience intensity shift smoothly through parameters - no track crossfades.<br><br>- Gameplay triggers: C++ detector components pass normalised values (enemy proximity, health level, puzzle state) directly into MetaSounds parameters through a Blueprint interface.<br><br>- Physical interaction: PhysicsHandle-based object grab system with weight and inertia support - gargoyles, torches, and levers respond in a physically convincing way.",
             
             "screenshots": 
             [
@@ -414,15 +481,31 @@
                     "src": "https://rutube.ru/play/embed/9987d2e6af8c7996681dbafe6937cad5/",
                     "poster": "images/projects/crypt_raider/crypt_raider_logo.png",
                     "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://rutube.ru/play/embed/767c6dacdb7c30810a7a5ef1c3c07af8/",
+                    "poster": "images/projects/crypt_raider/crypt_raider_logo.png",
+                    "captionRu": "Полное прохождение", "captionEn": "Full walkthrough"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://www.youtube.com/embed/Cbx3RklP5lU?si=iM6_aB2ocO_9_MSU",
+                    "captionRu": "Видео от блоггера 1", "captionEn": "Blogger letsplay 1"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://www.youtube.com/embed/80E1CjPKZek?si=DIqnYBf1sao7qHQI",
+                    "captionRu": "Видео от блоггера 2", "captionEn": "Blogger letsplay 2"
                 }
             ]
         },
         
         {
             "_comment": "My Super Hotel Simulator 3D - mobile hotel management game",
-            "preset": "link",
+            "preset": "links-bar",
             
-            "github": "https://play.google.com/store/apps/details?id=shop.booking.star.city",
+            "play": "https://play.google.com/store/apps/details?id=shop.booking.star.city",
             "image":  "images/projects/hotel_sim/hotel_sim1.webp",
             
             "emoji":  "🏨",
