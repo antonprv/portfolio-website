@@ -223,6 +223,25 @@
 
   if (projScroll && sbThumb && sbTrack) {
     projScroll.addEventListener('scroll', updateScrollbar, { passive: true });
+
+    /* ── Position scrollbar track to match content area ──
+       top  = distance from top of #snap-projects to where grid begins
+       bottom = height of footer                                         */
+    function positionScrollbarTrack() {
+      const projectsSection = projScroll.querySelector('.projects-section');
+      const footer          = projScroll.querySelector('footer');
+      if (!projectsSection) return;
+
+      // offsetTop of .projects-section relative to projScroll
+      const topPx    = projectsSection.offsetTop;
+      const bottomPx = footer ? footer.offsetHeight : 0;
+
+      snapProj.style.setProperty('--sb-top',    topPx    + 'px');
+      snapProj.style.setProperty('--sb-bottom',  bottomPx + 'px');
+
+      updateScrollbar();
+    }
+
     let drag = false, dy0 = 0, st0 = 0;
     sbThumb.addEventListener('mousedown', e => {
       drag=true; dy0=e.clientY; st0=projScroll.scrollTop;
@@ -241,7 +260,8 @@
       updateScrollbar();
     });
     setTimeout(updateScrollbar, 400);
-    new ResizeObserver(updateScrollbar).observe(projScroll);
+    setTimeout(positionScrollbarTrack, 400);
+    new ResizeObserver(() => { positionScrollbarTrack(); updateScrollbar(); }).observe(projScroll);
   }
 
   /* ── Wheel — with inertia / overscroll protection ── */
