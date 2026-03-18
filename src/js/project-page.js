@@ -274,20 +274,28 @@ function renderSlotContent(slot, item, instant) {
 
 /* ── Build portrait (2-up) gallery ── */
 function buildPortraitGallery(gallery, shots, thumbStrip) {
-  /* ── Decide how many slots fit: measure available width after thumbstrip ──
-     Minimum width to show 2 portrait slots side by side: ~560px of content area.
-     We measure the gallery container after a rAF so layout has settled.        */
+  /*
+   * Portrait gallery: shows 1 or 2 vertical screenshots side-by-side,
+   * depending on available container width. Switches responsively via ResizeObserver.
+   *
+   * THUMB STRIP:
+   *   - pair mode  → vertical column on the LEFT, rows of 2 thumbs each
+   *   - single mode → horizontal row BELOW the featured area, 1 thumb each
+   *
+   * All thumb elements are created fresh from `shots` here and never reused
+   * from the DOM to avoid stale click-handler accumulation.
+   */
 
-  let pairMode = true; /* start optimistic, corrected after first measure */
+  let pairMode = null; /* null = not yet decided */
+  let activeIdx = 0;
 
-  /* ── Slots ── */
+  /* ── Featured slots ── */
   const pair  = el('div', 'gallery-featured-pair');
   const slot0 = el('div', 'gallery-featured-slot');
   const slot1 = el('div', 'gallery-featured-slot');
   pair.appendChild(slot0);
   pair.appendChild(slot1);
 
-  /* Nav arrows */
   const btnPrev = el('button', 'gallery-nav gallery-nav--prev');
   btnPrev.setAttribute('aria-label', 'Previous');
   btnPrev.innerHTML = SVG_CHEVRON_LEFT;
@@ -299,163 +307,161 @@ function buildPortraitGallery(gallery, shots, thumbStrip) {
 
   gallery.appendChild(pair);
 
-  let activeIdx = 0;
+  /* ── Build a fresh thumb element from a shot (no click yet) ── */
+  function makeThumb(shot) {
+    const item  = normalizeMedia(shot);
+    const thumb = el('div', 'gallery-thumb');
 
-  /* ── Highlight helpers ── */
-  function highlightThumbs(startIdx) {
-    if (pairMode) {
-      thumbStrip.querySelectorAll('.gallery-thumb-row').forEach((row, ri) => {
-        const pairIdx = ri * 2;
-        const isActive = pairIdx === startIdx;
-        row.classList.toggle('active', isActive);
-        row.querySelectorAll('.gallery-thumb').forEach(t => t.classList.toggle('active', isActive));
-        if (isActive) row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      });
+    if (item.type === 'embed' || item.type === 'video') {
+      if (item.poster) {
+        const img = document.createElement('img');
+        img.src = item.poster; img.alt = '';
+        thumb.appendChild(img);
+      } else {
+        thumb.classList.add('gallery-thumb--video-fallback');
+      }
+      const playIcon = el('div', 'gallery-thumb-play');
+      playIcon.innerHTML = item.type === 'embed' ? SVG_EMBED_THUMB : SVG_PLAY_THUMB;
+      thumb.appendChild(playIcon);
     } else {
-      thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
-        t.classList.toggle('active', i === startIdx);
-        if (i === startIdx) t.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      });
+      const img = document.createElement('img');
+      img.src = item.src; img.alt = ''; img.loading = 'lazy';
+      thumb.appendChild(img);
     }
+    return thumb;
   }
 
-  /* ── Render the featured area ── */
+  /* ── Render featured slots ── */
   function renderPair(startIdx, instant) {
     activeIdx = startIdx;
 
-    const itemA = normalizeMedia(shots[startIdx]);
-    const itemB = (pairMode && startIdx + 1 < shots.length)
-      ? normalizeMedia(shots[startIdx + 1])
-      : null;
+    renderSlotContent(slot0, normalizeMedia(shots[startIdx]), instant);
 
-    renderSlotContent(slot0, itemA, instant);
-    if (itemB) {
+    const hasSecond = pairMode && startIdx + 1 < shots.length;
+    if (hasSecond) {
       slot1.classList.remove('slot-empty');
-      renderSlotContent(slot1, itemB, instant);
+      renderSlotContent(slot1, normalizeMedia(shots[startIdx + 1]), instant);
     } else {
       slot1.innerHTML = '';
       slot1.classList.add('slot-empty');
     }
 
-    highlightThumbs(startIdx);
+    /* Highlight active thumb(s) */
+    thumbStrip.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+      const active = pairMode
+        ? (i === startIdx || i === startIdx + 1)
+        : (i === startIdx);
+      t.classList.toggle('active', active);
+    });
+
+    /* Highlight active row (pair mode) */
+    thumbStrip.querySelectorAll('.gallery-thumb-row').forEach((row, ri) => {
+      row.classList.toggle('active', ri * 2 === startIdx);
+    });
+
+    /* Scroll active row/thumb into view */
+    const activeThumb = thumbStrip.querySelector('.gallery-thumb.active');
+    if (activeThumb) activeThumb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
-  /* ── Build thumb strip ── */
-  const allThumbs = Array.from(thumbStrip.querySelectorAll('.gallery-thumb'));
-
+  /* ── Build thumb strip in PAIR mode (vertical column, rows of 2) ── */
   function buildThumbsPaired() {
     thumbStrip.innerHTML = '';
-    thumbStrip.classList.add('gallery-thumbs--portrait');
-    thumbStrip.classList.remove('gallery-thumbs--single');
-    /* vertical strip with scrollbar on the right */
-    thumbStrip.style.flexDirection = '';
-    thumbStrip.style.overflowX     = '';
-    thumbStrip.style.overflowY     = '';
-    thumbStrip.style.maxHeight     = '';
-    thumbStrip.style.width         = '';
+    thumbStrip.className = 'gallery-thumbs gallery-thumbs--portrait';
+    /* Reset any single-mode inline styles */
+    thumbStrip.style.cssText = '';
 
-    for (let i = 0; i < allThumbs.length; i += 2) {
-      const row      = el('div', 'gallery-thumb-row');
-      const tA       = allThumbs[i];
-      const tB       = allThumbs[i + 1];
+    for (let i = 0; i < shots.length; i += 2) {
+      const row       = el('div', 'gallery-thumb-row');
       const pairStart = i;
+
+      const tA = makeThumb(shots[i]);
       tA.addEventListener('click', () => renderPair(pairStart));
       row.appendChild(tA);
-      if (tB) {
+
+      if (i + 1 < shots.length) {
+        const tB = makeThumb(shots[i + 1]);
         tB.addEventListener('click', () => renderPair(pairStart));
         row.appendChild(tB);
       }
+
       thumbStrip.appendChild(row);
     }
   }
 
+  /* ── Build thumb strip in SINGLE mode (horizontal row below) ── */
   function buildThumbsSingle() {
     thumbStrip.innerHTML = '';
-    thumbStrip.classList.remove('gallery-thumbs--portrait');
-    thumbStrip.classList.add('gallery-thumbs--single');
-    /* horizontal strip below, scrollbar at bottom */
-    thumbStrip.style.flexDirection = 'row';
-    thumbStrip.style.overflowX     = 'auto';
-    thumbStrip.style.overflowY     = 'hidden';
-    thumbStrip.style.maxHeight     = 'none';
-    thumbStrip.style.width         = '100%';
+    thumbStrip.className = 'gallery-thumbs gallery-thumbs--single';
+    thumbStrip.style.cssText = '';
 
-    allThumbs.forEach((t, i) => {
-      t.addEventListener('click', () => renderPair(i));
-      thumbStrip.appendChild(t);
-    });
+    for (let i = 0; i < shots.length; i++) {
+      const idx   = i;
+      const thumb = makeThumb(shots[i]);
+      thumb.addEventListener('click', () => renderPair(idx));
+      thumbStrip.appendChild(thumb);
+    }
   }
 
-  /* ── Apply layout based on measured width ── */
+  /* ── Switch layout ── */
   function applyLayout(wide) {
-    if (wide === pairMode && thumbStrip.children.length > 0) return; /* no change */
+    if (wide === pairMode) return; /* nothing changed */
     pairMode = wide;
 
     if (wide) {
-      /* Pair mode: thumbs left (vertical), two slots right */
-      gallery.style.flexDirection = '';           /* row */
-      thumbStrip.style.display    = '';
-      slot1.classList.remove('slot-empty');
+      /* Pair mode: strip on the LEFT (gallery is row), two slots visible */
+      gallery.style.flexDirection = '';
+      /* Move thumbStrip to be first child */
+      if (gallery.firstChild !== thumbStrip) gallery.insertBefore(thumbStrip, gallery.firstChild);
       buildThumbsPaired();
     } else {
-      /* Single mode: thumbs below (horizontal), one slot */
+      /* Single mode: strip BELOW (gallery is column) */
       gallery.style.flexDirection = 'column';
-      thumbStrip.style.display    = '';
-      slot1.classList.add('slot-empty');
+      /* Move thumbStrip to be last child (after pair) */
+      gallery.appendChild(thumbStrip);
       buildThumbsSingle();
     }
 
-    /* Snap to nearest valid index for the new step size */
-    const step = wide ? 2 : 1;
-    const snapped = wide ? (activeIdx % 2 === 0 ? activeIdx : activeIdx - 1) : activeIdx;
+    /* Snap active index to valid position for new step size */
+    const snapped = wide
+      ? (activeIdx % 2 === 0 ? activeIdx : Math.max(0, activeIdx - 1))
+      : activeIdx;
     renderPair(Math.max(0, snapped), true);
   }
 
-  /* ── Measure and decide layout ── */
+  /* ── Measure available width and choose layout ── */
+  const MIN_PAIR_WIDTH = 680; /* px — minimum gallery width to show 2 portrait slots */
+
   function measureAndApply() {
-    /* Available width = gallery container width minus thumb strip width (if in row mode) */
-    const galleryW = gallery.getBoundingClientRect().width;
-    /* Two 9:16 slots + gap need roughly: 2 * (height/16*9) + gap
-       We use a simpler threshold: if container > 680px, show 2 slots */
-    const MIN_PAIR_WIDTH = 680;
-    applyLayout(galleryW >= MIN_PAIR_WIDTH);
+    applyLayout(gallery.getBoundingClientRect().width >= MIN_PAIR_WIDTH);
   }
 
-  /* Run after layout settles */
-  requestAnimationFrame(() => {
-    measureAndApply();
-    /* Re-check on resize */
-    const ro = new ResizeObserver(measureAndApply);
-    ro.observe(gallery);
-  });
-
-  /* ── Arrow nav ── */
+  /* ── Arrow navigation ── */
   btnPrev.addEventListener('click', () => {
     const step = pairMode ? 2 : 1;
-    const next = activeIdx - step;
-    if (next >= 0) renderPair(next);
+    if (activeIdx - step >= 0) renderPair(activeIdx - step);
   });
   btnNext.addEventListener('click', () => {
     const step = pairMode ? 2 : 1;
-    const next = activeIdx + step;
-    if (next < shots.length) renderPair(next);
+    if (activeIdx + step < shots.length) renderPair(activeIdx + step);
   });
 
-  /* ── Keyboard ── */
+  /* ── Keyboard navigation ── */
   gallery.addEventListener('keydown', e => {
     const step = pairMode ? 2 : 1;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      const next = activeIdx + step;
-      if (next < shots.length) renderPair(next);
+      if (activeIdx + step < shots.length) renderPair(activeIdx + step);
     }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      const next = activeIdx - step;
-      if (next >= 0) renderPair(next);
+      if (activeIdx - step >= 0) renderPair(activeIdx - step);
     }
   });
 
-  /* Initial render (will be re-run after measure) */
-  renderPair(0, true);
+  /* ── Initial layout (measure after first paint) ── */
+  requestAnimationFrame(() => {
+    measureAndApply();
+    new ResizeObserver(measureAndApply).observe(gallery);
+  });
 }
 
 /* ── Screenshots grid ── */
@@ -635,16 +641,13 @@ function buildScreenshots(p) {
   gallery.setAttribute('tabindex', '0');
   gallery.setAttribute('aria-label', 'Project gallery');
 
-  /* ── Portrait detection: if all images are vertical and screen is wide,
-     replace the standard featured slot with a side-by-side pair ── */
+  /* ── Portrait detection: if images are vertical, switch to portrait gallery ── */
   if (hasMultiple) {
     detectPortrait(shots).then(isPortrait => {
-      if (!isPortrait || window.innerWidth < 700) return;
-      /* Switch to portrait layout */
+      if (!isPortrait) return;
       gallery.classList.add('gallery-portrait');
-      /* Remove the standard .gallery-featured (already in DOM) */
-      featured.remove();
-      /* Build the pair view */
+      featured.remove();      /* remove standard featured slot */
+      thumbStrip.innerHTML = ''; /* clear standard thumbs — portrait gallery rebuilds them */
       buildPortraitGallery(gallery, shots, thumbStrip);
     });
   }

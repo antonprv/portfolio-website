@@ -437,49 +437,60 @@
 }
 .gallery-featured-slot:hover .gallery-zoom-hint { opacity: 0.6; }
 
-/* Portrait thumb strip — pair mode: vertical column on the left */
-.gallery-portrait .gallery-thumbs {
-  /* Width = 2 thumbs (64px each) + gap (6px) + row padding (6px) + scrollbar gutter (12px) */
-  width: 158px;
+/* ══ PORTRAIT GALLERY ══════════════════════════════════════════════════════ */
+
+/* Thumb strip — PAIR mode (vertical column, left side) */
+.gallery-portrait .gallery-thumbs.gallery-thumbs--portrait {
+  flex-direction: column;
+  width: 152px;          /* 2×64px thumbs + 6px gap + 6px row padding + 12px scrollbar */
   flex-shrink: 0;
+  max-height: 600px;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-right: 12px;   /* gap between last thumb and scrollbar */
+  overflow-y: auto;
+  padding-right: 12px;   /* space before scrollbar */
   scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
   box-sizing: border-box;
+  gap: 0.4rem;
 }
+.gallery-portrait .gallery-thumbs.gallery-thumbs--portrait::-webkit-scrollbar { width: 4px; }
+.gallery-portrait .gallery-thumbs.gallery-thumbs--portrait::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* Portrait thumb strip — single mode: horizontal row below featured */
+/* Thumb strip — SINGLE mode (horizontal row, below featured) */
 .gallery-portrait .gallery-thumbs.gallery-thumbs--single {
-  width: 100% !important;
+  flex-direction: row;
+  flex-shrink: 0;
+  width: 100%;
   max-height: 100px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-right: 0;
-  padding-bottom: 4px;
-  scrollbar-gutter: auto;
+  padding: 0 0 6px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
   box-sizing: border-box;
+  gap: 0.5rem;
 }
 .gallery-portrait .gallery-thumbs.gallery-thumbs--single .gallery-thumb {
-  width: 60px;
-  height: 86px;   /* 9:16 */
+  width: 58px;
+  height: 84px;   /* 9:16 */
   flex-shrink: 0;
 }
 
-/* Pair row: two thumbs side by side */
+/* Paired row of 2 thumbs */
 .gallery-thumb-row {
   display: flex;
   gap: 0.4rem;
   flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
   border-radius: 10px;
   padding: 3px;
   border: 2px solid transparent;
   transition: border-color 0.18s;
   cursor: pointer;
-  /* Critical: prevent row from overflowing its container */
-  box-sizing: border-box;
-  width: calc(100% - 0px);
-  overflow: hidden;
 }
 .gallery-thumb-row.active {
   border-color: var(--accent);
@@ -487,52 +498,25 @@
 .gallery-thumb-row:hover:not(.active) {
   border-color: var(--border);
 }
+/* Thumbs inside a row share width equally; border handled by the row */
 .gallery-thumb-row .gallery-thumb {
-  /* Each thumb takes exactly half the row minus padding and gap */
   flex: 1 1 0;
   min-width: 0;
-  width: auto !important;   /* override fixed width, let flex control it */
-  height: 90px;
-  border-color: transparent !important;
+  height: 88px;
+  border: none !important;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-/* Nav arrows for portrait pair mode */
+/* Nav arrows for portrait pair featured area */
+.gallery-featured-pair {
+  position: relative;
+}
 .gallery-featured-pair .gallery-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-}
-.gallery-featured-pair {
-  position: relative;
-}
-
-/* ── Portrait responsive: JS handles pair/single via ResizeObserver,
-   CSS just ensures correct direction when single mode is active on small screens ── */
-@media (max-width: 700px) {
-  .gallery-portrait .gallery-featured-pair {
-    flex-direction: row; /* JS switches to column via flexDirection if needed */
-  }
-  .gallery-featured-slot {
-    aspect-ratio: 9 / 16;
-    min-width: 0;
-  }
-  /* single-mode thumb strip on mobile */
-  .gallery-portrait .gallery-thumbs.gallery-thumbs--single {
-    flex-direction: row !important;
-    width: 100% !important;
-    max-height: 80px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-right: 0;
-    padding-bottom: 4px;
-  }
-  .gallery-portrait .gallery-thumbs.gallery-thumbs--single .gallery-thumb {
-    width: 48px !important;
-    height: 68px !important;
-    flex: none !important;
-  }
 }
 
 /* ── Responsive ── */
