@@ -8,9 +8,9 @@
   padding: 4rem 2rem 5rem;
 }
 
-/* When inside .skills-panel the panel handles layout */
-.skills-panel .skills-section,
-.skills-panel .skills-inner {
+/* When inside .split-skills the parent handles layout/padding */
+.split-skills .skills-section,
+.split-skills .skills-inner {
   padding: 0;
   max-width: 100%;
   margin: 0;

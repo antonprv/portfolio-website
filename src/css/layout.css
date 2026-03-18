@@ -110,29 +110,50 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   INTRO SCENE — scroll-driven animation
-   The scene is 200vh tall (phase 1: hero centred, phase 2: split).
-   .intro-sticky pins to viewport and JS drives the transform via
-   CSS custom properties --hero-x and --skills-x (0→1 progress).
+   SNAP SECTIONS
+   Three full-viewport sections that snap on scroll.
+   Section 1: hero centred
+   Section 2: hero right + skills left (side-by-side)
+   Section 3: projects (normal scroll)
    ════════════════════════════════════════════════════════════ */
 
-.intro-scene {
-  /* 200vh: first 100vh = hero centred, next 100vh = transition to split */
-  height: 200vh;
-  position: relative;
+/* The snap container wraps only the first two snap sections.
+   Section 3 (projects) is outside and scrolls normally. */
+.snap-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* Full viewport, sits on top of everything */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
-.intro-sticky {
-  position: sticky;
-  top: 0;
+/* When projects are in view, snap container slides up and out */
+.snap-container.is-hidden {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* ── Snap section base ── */
+.snap-section {
   height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
   overflow: hidden;
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Background glow */
-.intro-sticky::before {
+/* Background glow shared */
+.snap-section::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -143,114 +164,195 @@
   z-index: 0;
 }
 
-/* ── Skills panel — occupies left half, slides in from left ── */
-.skills-panel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
+/* ── Section 1: hero centred ── */
+#snap-hero {
+  justify-content: center;
+}
+
+/* ── Section 2: hero right + skills left ── */
+#snap-split {
+  justify-content: stretch;
+}
+
+.split-skills {
+  flex: 1;
   height: 100%;
   display: flex;
   align-items: center;
   padding: 5rem 2rem 4rem 3rem;
+  border-right: 1px solid var(--border);
   overflow-y: auto;
-  /* starts fully off-screen to the left */
-  transform: translateX(calc(-1 * var(--skills-x, 0) * 0px)) translateX(calc((1 - var(--skills-x, 0)) * -100%));
-  opacity: var(--skills-x, 0);
-  transition: none; /* driven by JS rAF, no CSS transition */
-  z-index: 1;
-  /* hide scrollbar */
   scrollbar-width: none;
+  position: relative;
+  z-index: 1;
+  /* entrance animation */
+  transform: translateX(-40px);
+  opacity: 0;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.skills-panel::-webkit-scrollbar { display: none; }
+.split-skills::-webkit-scrollbar { display: none; }
 
-.skills-panel .skills-inner {
+.split-skills .skills-inner {
   width: 100%;
   max-width: 100%;
+  margin: 0;
 }
 
-/* ── Hero panel — starts centred, moves to right half ── */
-.hero-panel {
-  position: absolute;
-  top: 0;
-  /* left: moves from 25% (centred for 50%-wide card) → 50% */
-  left: calc(25% + var(--hero-x, 0) * 25%);
-  width: 50%;
+.split-hero {
+  flex: 1;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem 2rem 4rem;
-  z-index: 2;
-  transition: none;
+  padding: 5rem 3rem 4rem 2rem;
+  position: relative;
+  z-index: 1;
+  /* entrance animation */
+  transform: translateX(40px);
+  opacity: 0;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+              opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
 }
 
-/* Divider line that appears between panels */
-.hero-panel::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 10%;
-  bottom: 10%;
-  width: 1px;
-  background: var(--border);
-  opacity: var(--hero-x, 0);
-  transition: none;
+/* When section 2 is active, panels animate in */
+#snap-split.is-active .split-skills,
+#snap-split.is-active .split-hero {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-/* Hero card */
+/* ── Hero card (shared between both sections) ── */
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.6rem;
   text-align: center;
-  animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
   width: 100%;
   max-width: 480px;
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Mobile: no scroll animation, stack vertically ── */
+#snap-hero .hero {
+  animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Section nav dots (right side) ── */
+.section-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.section-nav__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s, opacity 0.25s;
+  padding: 0;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.section-nav__dot svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.25s;
+}
+
+.section-nav__dot.is-active {
+  background: var(--accent);
+  transform: scale(1.3);
+  opacity: 1;
+}
+
+.section-nav__dot.is-active svg {
+  opacity: 0; /* dots only, no icon when active */
+}
+
+/* Projects nav dot is always visible since projects are outside snap */
+.section-nav__dot--projects {
+  border-style: dashed;
+}
+
+/* ── Mobile: disable snap, stack vertically ── */
 @media (max-width: 900px) {
-  .intro-scene {
+  .snap-container {
+    position: static;
     height: auto;
+    overflow-y: visible;
+    scroll-snap-type: none;
   }
 
-  .intro-sticky {
-    position: relative;
+  .snap-section {
     height: auto;
+    min-height: 100svh;
+    scroll-snap-align: none;
+  }
+
+  #snap-split {
     flex-direction: column;
-    overflow: visible;
   }
 
-  .skills-panel {
-    position: relative;
+  .split-skills,
+  .split-hero {
     width: 100%;
+    height: auto;
+    padding: 3rem 1.5rem;
     transform: none !important;
     opacity: 1 !important;
-    padding: 2rem 1.5rem 3rem;
-    order: 2;
+    border-right: none;
+  }
+
+  .split-skills {
     border-top: 1px solid var(--border);
-    overflow-y: visible;
+    order: 2;
   }
 
-  .hero-panel {
-    position: relative;
-    width: 100%;
-    left: 0 !important;
-    padding: 6rem 1.5rem 2.5rem;
+  .split-hero {
     order: 1;
+    padding-top: 5rem;
   }
 
-  .hero-panel::before {
+  .section-nav {
     display: none;
-  }
-
-  .hero {
-    max-width: 600px;
   }
 }
 
+/* ── Compact hero for split section ── */
+.hero--compact {
+  gap: 1rem;
+}
+
+.avatar-wrap--sm {
+  width: 110px;
+  height: 110px;
+}
+
+.h1--sm {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+}
+
+/* ════════════════════════════════════════════════════════════
+   AVATAR
+   ════════════════════════════════════════════════════════════ */
 /* ── Avatar ── */
 .avatar-wrap {
   position: relative;
