@@ -66,6 +66,15 @@
         }
     ],
     
+    "tagFilters": [
+        { "id": "Unity",         "label": "Unity" },
+        { "id": "Unreal Engine", "label": "Unreal Engine" },
+        { "id": "Mobile",        "label": "Mobile" },
+        { "id": "AI Systems",    "label": "AI" },
+        { "id": "Simulation",    "label": "Simulation" },
+        { "id": "R&D",           "label": "R&D" }
+    ],
+
     "projects": [
         {
             "_comment": "Lone Brawler — solo full-cycle Unity project",
@@ -86,20 +95,8 @@
             
             "descEn": "Solo project — full production cycle from game design to release. Third-person 3D action about surviving hordes of undead. 442 C# files and over 200,000 lines of code.",
             
-            "tags": [
-                "Unity",
-                "C#",
-                "Game Architecture",
-                "Dependency Injection",
-                "State Machines",
-                "Reactive Programming",
-                "UniTask",
-                "Zenject",
-                "R3 / UniRX",
-                "Performance Optimization",
-                "WebGL",
-                "Android"
-            ],
+            "tags": ["Unity", "WebGL", "Android"],
+            "subtags": ["C#", "Game Architecture", "Dependency Injection", "State Machines", "Reactive Programming", "UniTask", "Zenject", "R3 / UniRX", "Performance Optimization"],
             
             "detailsRu": "<b>Lone Brawler</b> — сольный <b>full-cycle</b> проект, в котором я исследовал архитектуру масштабируемого Unity-проекта: от DI и state-machine архитектуры до тестовой инфраструктуры и мультиплатформенного билда.<br><br><b>Ключевые факты проекта:</b><br>• 442 файла C# и более 200 000 строк кода<br>• 436 автоматизированных тестов (364 EditMode + 72 PlayMode)<br>• собственный DI-фреймворк Zenjex, опубликованный как open-source библиотека<br>• мультиплатформенный релиз: WebGL (Яндекс Игры) и Android<br><br>Игра находится в релизе на Яндекс Играх (WebGL) и RuStore (Android) и активно поддерживается. Проект реализован одним разработчиком: геймдизайн, архитектура, кодовая база, инфраструктура разработки, сборка и публикация.<br><br>Кодовая база состоит из 442 файлов C# (более 200 000 строк). Для проекта был разработан собственный DI-фреймворк Zenjex, который впоследствии выделен в отдельную open-source библиотеку. Полная техническая документация проекта доступна на antonprv.github.io/lonebrawler-website.<br><br><b>Ключевые инженерные системы:</b><br><br>- Архитектура на generic State Machine с payload-переходами (Bootstrap / LoadProgress / MainMenu / LoadLevel / GameLoop). Каждое состояние изолировано и создаётся через StateFactory.<br><br>- DI-контейнер Zenjex оборачивает Reflex и предоставляет Zenject-подобный fluent API, трёхфазную инъекцию зависимостей и редакторный debugger для анализа графа зависимостей.<br><br>- Асинхронный asset pipeline на UniTask и Addressables: предзагрузка и кеширование хэндлов обеспечивают плавную загрузку даже при медленном соединении, а все ресурсы выгружаются одним Cleanup()-проходом при смене сцены.<br><br>- Мультиплатформенная архитектура сборки: статические данные и конфиги управляют платформенными различиями, единый codebase без conditional compilation в геймплейном коде.<br><br><b>Технические детали реализации:</b><br><br>- Математическая библиотека FastMath: Fast Inverse Square Root из Quake3 (0x5f3759df + Ньютон-Рафсон) и BurstMath на Unity.Mathematics с [BurstCompile] и [AggressiveInlining].<br><br>- Система баффов с режимами активации Burst / Constant / Duration. BuffTrackerService сохраняет снапшот активных баффов с оставшимся временем и восстанавливает их при загрузке.<br><br>- Игровая валюта хранится как ReadOnlyReactiveProperty через R3, списание реализовано атомарным вызовом TrySpendSouls.<br><br>- Система сохранений LiveProgressSync: автосейв каждые 5 секунд, финальный сейв при закрытии страницы и облачная синхронизация через Yandex Games SDK с приоритетом облачной копии.<br><br>- Тестовая инфраструктура: 50 файлов тестов, 364 Edit Mode теста (unit + integration) и 72 Play Mode теста (smoke-тесты и performance benchmarks через Unity Performance Testing Package).",
             
@@ -145,7 +142,8 @@
             "nameEn": "Autonomous Vehicle Simulator",
             "descRu": "Промышленный симулятор для тестирования систем управления автономным транспортом. NDA — ссылки недоступны.",
             "descEn": "Industrial simulator for testing autonomous vehicle control systems. NDA — links unavailable.",
-            "tags": ["Unity", "C#", "Simulation", "Vehicle Physics", "AI Systems", "Industrial"],
+            "tags": ["Unity", "Simulation", "AI Systems"],
+            "subtags": ["C#", "Vehicle Physics", "Industrial"],
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• промышленный заказной проект под NDA<br>• физически точная модель поведения автономного транспорта<br>• интеграция с реальными системами управления через внешний API<br>• визуализация сенсорных данных (лидар, камеры, радар) в реальном времени<br><br>Симулятор разработан для тестирования и валидации алгоритмов управления автономными транспортными средствами в контролируемой среде без риска для реального оборудования. Заказчик — промышленное предприятие, использующее АТС для внутренней логистики.<br><br><b>Ключевые инженерные системы:</b><br><br>- Физическая модель транспортного средства: кастомный vehicle controller с поддержкой различных типов шасси, кинематической и динамической моделью движения, симуляцией нагрузки и центра масс.<br><br>- Система сенсоров: процедурная генерация точечных облаков лидара, симуляция угла обзора и дальности камер, радарное обнаружение с учётом материалов объектов.<br><br>- Интеграционный слой: двусторонний обмен данными с внешним контроллером АТС через TCP-сокеты, нормализация форматов команд и телеметрии.<br><br>- Сценарная система: редактор тестовых сценариев с поддержкой скриптовых триггеров, записью и воспроизведением сессий, автоматической генерацией отчётов по заданным метрикам.",
             "detailsEn": "<b>Key project facts:</b><br>• custom industrial project under NDA<br>• physically accurate autonomous vehicle behaviour model<br>• real-time integration with vehicle control systems via external API<br>• live visualisation of sensor data (lidar, cameras, radar)<br><br>The simulator was built for testing and validating autonomous vehicle control algorithms in a controlled environment, eliminating risk to real hardware. The client is an industrial facility using AVs for internal logistics.<br><br><b>Core engineering systems:</b><br><br>- Vehicle physics model: custom vehicle controller supporting multiple chassis types, kinematic and dynamic motion models, load and centre-of-mass simulation.<br><br>- Sensor system: procedural lidar point-cloud generation, camera field-of-view and range simulation, radar detection with per-material reflection properties.<br><br>- Integration layer: bidirectional data exchange with an external AV controller over TCP sockets, command and telemetry format normalisation.<br><br>- Scenario system: test-scenario editor with scriptable triggers, session recording and playback, automated report generation against configurable metrics.",
             "screenshots": [
@@ -181,7 +179,8 @@
             "nameEn": "VR Emergency Drill Simulator",
             "descRu": "VR-симулятор аварийных ситуаций для промышленных объектов. Подготовка персонала к действиям в нештатных ситуациях. NDA — ссылки недоступны.",
             "descEn": "VR emergency drill simulator for industrial facilities. Personnel training for non-standard situation response. NDA — links unavailable.",
-            "tags": ["Unreal Engine", "C++", "VR", "HTC Vive", "Simulation", "Industrial"],
+            "tags": ["Unreal Engine", "Simulation"],
+            "subtags": ["C++", "VR", "HTC Vive", "Industrial"],
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• VR-тренажёр для промышленного предприятия, проект под NDA<br>• поддержка HTC Vive с полным room-scale трекингом<br>• процедурная генерация сценариев аварийных ситуаций<br>• система оценки действий оператора с детализированным отчётом<br><br>Симулятор разработан для обучения персонала промышленных объектов действиям при аварийных ситуациях: пожаре, утечке опасных веществ, отказе оборудования. VR-формат обеспечивает реалистичное погружение без риска для жизни и здоровья сотрудников.<br><br><b>Ключевые инженерные системы:</b><br><br>- VR-взаимодействие: физические руки с хват-системой, поддержка инструментов и защитного снаряжения, тактильная обратная связь через контроллеры HTC Vive.<br><br>- Система сценариев: конфигурируемые тренировочные модули с вариативными условиями старта, таймерами и контрольными точками. Инструктор управляет ходом тренировки из отдельного UI.<br><br>- Оценочная система: журнал всех действий оператора с временными метками, сравнение с эталонным сценарием, автоматический отчёт с оценкой по ключевым показателям.<br><br>- Оптимизация для VR: стабильный 90 FPS достигнут через aggressive culling, LOD-систему для промышленного окружения и оптимизацию draw calls через static/dynamic batching.",
             "detailsEn": "<b>Key project facts:</b><br>• VR training simulator for an industrial facility, project under NDA<br>• HTC Vive support with full room-scale tracking<br>• procedural emergency scenario generation<br>• operator action scoring system with detailed reporting<br><br>The simulator was built to train industrial facility personnel to respond to emergency situations: fire, hazardous material leaks, and equipment failure. The VR format provides realistic immersion without putting employees at risk.<br><br><b>Core engineering systems:</b><br><br>- VR interaction: physical hands with a grab system, tool and protective equipment support, haptic feedback through HTC Vive controllers.<br><br>- Scenario system: configurable training modules with variable start conditions, timers, and checkpoints. The instructor controls the session flow from a separate UI.<br><br>- Scoring system: full operator action log with timestamps, comparison against a reference scenario, automatic report with scores across key performance indicators.<br><br>- VR optimisation: stable 90 FPS achieved through aggressive culling, an LOD system for industrial environments, and draw call optimisation via static and dynamic batching.",
             "screenshots": [
@@ -224,17 +223,8 @@
             
             "descEn": "Commercial mobile tower defense game. Role: AI systems programmer, graphics and animation optimization, CI/CD, code review.",
             
-            "tags": [
-                "Unity",
-                "C#",
-                "Mobile",
-                "Tower Defense",
-                "AI Systems",
-                "Gameplay Programming",
-                "Performance Optimization",
-                "CI/CD",
-                "Team Collaboration"
-            ],
+            "tags": ["Unity", "Mobile", "AI Systems"],
+            "subtags": ["C#", "Tower Defense", "Gameplay Programming", "Performance Optimization", "CI/CD", "Team Collaboration"],
             
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект совместно со студией Yohoho Games<br>• роль: программист с зоной ответственности в AI, графике и технической инфраструктуре<br>• релиз в Google Play, активная аудитория<br>• оптимизация под широкий спектр Android-устройств<br><br>Last Dawn: Zombie Siege — мобильная tower defense с акцентом на стратегическую оборону базы. Игрок строит укрепления, расставляет башни и лично участвует в бою против волн зомби. Я работал на проекте в роли программиста с совмещёнными обязанностями.<br><br><b>Ключевые инженерные задачи:</b><br><br>- AI-системы врагов: поведение зомби на основе иерархического конечного автомата. Агенты динамически переключаются между патрулированием, преследованием, атакой стен и атакой игрока в зависимости от контекста.<br><br>- Pathfinding: кастомная надстройка над Unity NavMesh для группового передвижения больших волн — агенты расходятся по разным маршрутам, избегая взаимных столкновений и равномерно нагружая оборонительные позиции.<br><br>- Оптимизация анимаций: LOD-система скелетных анимаций с понижением частоты обновления для дальних объектов, culling невидимых агентов, object pooling для всех врагов и снарядов.<br><br>- CI/CD: настройка автосборки через Unity Cloud Build с дифференцированными конфигурациями для QA и релизных билдов, автоматическая загрузка в Google Play Internal Track.",
             
@@ -294,17 +284,8 @@
             
             "descEn": "R&D Unreal Engine project: procedural music generation through MetaSounds, where every gameplay event directly shapes the musical composition in real time.",
             
-            "tags": [
-                "Unreal Engine",
-                "C++",
-                "Gameplay Programming",
-                "Procedural Audio",
-                "MetaSounds",
-                "Interactive Music",
-                "Environment Art",
-                "Level Design",
-                "R&D"
-            ],
+            "tags": ["Unreal Engine", "R&D"],
+            "subtags": ["C++", "Gameplay Programming", "Procedural Audio", "MetaSounds", "Interactive Music", "Environment Art", "Level Design"],
             
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• R&D проект, исследующий возможности MetaSounds в Unreal Engine 5<br>• полностью процедурный саундтрек — ни одного заранее записанного трека<br>• геймплейные события управляют параметрами процедурного музыкального графа в реальном времени<br>• среда, геймплей и арт-дирекшн реализованы одним разработчиком<br><br>Crypt Raider — исследовательский проект, основная цель которого: проверить, насколько далеко можно зайти с интерактивной музыкой, не написав ни одного статичного трека. Игрок исследует крипту и взаимодействует с окружением — каждое действие немедленно отражается в звуковой картине.<br><br><b>Ключевые инженерные системы:</b><br><br>- MetaSounds граф: многослойная процедурная композиция с динамическим миксом напряжённости. Темп, тональность, плотность инструментов и интенсивность эмбиента изменяются плавно через параметры, не через кроссфейды треков.<br><br>- Геймплейные триггеры: C++ компоненты-детекторы передают нормализованные значения (близость к врагу, уровень здоровья, статус головоломки) напрямую в MetaSounds параметры через Blueprint-интерфейс.<br><br>- Физическое взаимодействие: система захвата объектов на основе PhysicsHandle с поддержкой веса и инерции — горгульи, факелы и рычаги реагируют на физически достоверным образом.<br><br>- Среда и освещение: ручная расстановка Lumen-источников света для достижения нужной атмосферы при удержании производительности; статические меши оптимизированы под Nanite.",
             
@@ -355,17 +336,8 @@
             
             "descEn": "Commercial mobile hotel management simulator. Role: technical lead — AI systems, graphics and animation optimization, tech art, CI/CD, code review.",
             
-            "tags": [
-                "Unity",
-                "C#",
-                "Mobile",
-                "AI Systems",
-                "Tech Art",
-                "Animation Optimization",
-                "Rendering Optimization",
-                "CI/CD",
-                "Technical Leadership"
-            ],
+            "tags": ["Unity", "Mobile", "AI Systems"],
+            "subtags": ["C#", "Tech Art", "Animation Optimization", "Rendering Optimization", "CI/CD", "Technical Leadership"],
             
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• коммерческий мобильный проект совместно со студией Yohoho Games<br>• роль: технический лид с совмещёнными инженерными обязанностями<br>• релиз в Google Play и App Store<br>• высокие требования к производительности на mid-range Android-устройствах<br><br>My Super Hotel Simulator 3D — симулятор управления отелем с механиками тайм-менеджмента. Игрок нанимает персонал, обустраивает номера и обслуживает гостей, удерживая рейтинг заведения. Я выступал техническим лидом и отвечал за несколько ключевых направлений.<br><br><b>Ключевые инженерные задачи:</b><br><br>- AI-системы NPC: поведение гостей и персонала на основе Utility AI — агенты оценивают приоритеты задач через таблицу весовых коэффициентов, что даёт органичное и непредсказуемое поведение без жёсткого скрипта.<br><br>- Оптимизация анимаций: аудит и рефакторинг анимационных графов — устранение лишних слоёв и нерабочих переходов, переход на Animator Override Controller для вариантов персонажей вместо дублирования контроллеров.<br><br>- Техарт: настройка текстурного пайплайна (атласы, mip-уровни, форматы сжатия под платформу), оптимизация draw calls через static batching и GPU instancing для однотипных объектов интерьера.<br><br>- Техническое лидерство: еженедельное код-ревью, стандарты именования и архитектурные гайдлайны для команды, настройка CI/CD на базе Unity Cloud Build.",
             
@@ -416,15 +388,8 @@
             
             "descEn": "Mobile game — hybrid of a 10×10 puzzle mechanic, squad strategy combat, and city-builder style base development. In-house project at Uniday studio.",
             
-            "tags": [
-                "Unity",
-                "C#",
-                "Mobile",
-                "Puzzle Mechanics",
-                "Strategy Systems",
-                "Game Systems",
-                "LiveOps"
-            ],
+            "tags": ["Unity", "Mobile"],
+            "subtags": ["C#", "Puzzle Mechanics", "Strategy Systems", "Game Systems", "LiveOps"],
             
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• in-house проект студии Uniday<br>• уникальный гибрид трёх жанров: казуальная головоломка, стратегическая боёвка и сити-билдер<br>• прошёл несколько итераций геймдизайна и смену сеттинга<br>• глубокая система LiveOps: сезонные события, ежедневные задания, аналитика поведения<br><br>Puzzle Squad — оригинальная разработка студии. Идея родилась из желания взять хорошо знакомую механику 10×10 и наслоить на неё боевую стратегию: выкладываешь блоки — наносишь урон врагам. Базовое строительство добавляет прогрессию между боями.<br><br><b>Ключевые инженерные системы:</b><br><br>- Ядро головоломки: расширенная механика 10×10 с модификаторами поля — специальные клетки активируют эффекты (массовые сдвиги блоков, цепные взрывы, дополнительные разрушения линий). Все модификаторы компонуются без конфликтов через приоритетную очередь.<br><br>- Боевая система: параллельное разрешение атак — ходы игрока транслируются в урон по врагам через таблицу коэффициентов, зависящих от типа блока, позиции и активных баффов отряда.<br><br>- Система героев и гачи: пул персонажей с уникальными пассивными и активными способностями, система редкости, механика призыва с гарантированными дроп-ставками (pity system).<br><br>- LiveOps-инфраструктура: серверная конфигурация балансировочных параметров без обновления клиента, A/B тестирование геймплейных переменных, аналитический пайплайн для отслеживания drop-off по сессиям.",
             
@@ -469,16 +434,8 @@
             
             "descEn": "Team-based isometric 3D network shooter. Role: technical pipeline, artist tools, optimization, and 3D assets.",
             
-            "tags": [
-                "Unity",
-                "C#",
-                "Multiplayer",
-                "SmartFox",
-                "Tools Development",
-                "Optimization",
-                "Tech Art",
-                "3D Modeling"
-            ],
+            "tags": ["Unity"],
+            "subtags": ["C#", "Multiplayer", "SmartFox", "Tools Development", "Optimization", "Tech Art", "3D Modeling"],
             
             "detailsRu": "<b>Ключевые факты проекта:</b><br>• командный проект студии Uniday<br>• сетевой 3D-шутер: матчи 5 минут, режимы Deathmatch и Capture the Flag<br>• SmartFox Server в качестве сетевого бэкенда<br>• роль: технический пайплайн, инструментарий, оптимизация, 3D-ассеты<br><br>EXOWAR — быстрый сетевой шутер с видом изометрической камеры. Игроки управляют боевыми роботами разных классов, прокачивают их между матчами и используют расходники. Я отвечал за техническую часть проекта и параллельно закрывал часть арт-задач.<br><br><b>Ключевые инженерные задачи:</b><br><br>- Инструменты для художников: редакторные утилиты для пакетной обработки ассетов — автоматическая настройка import settings, валидация текстурных размеров и форматов, батчевый re-import с отчётом об ошибках. Сократили время подготовки ассетов к интеграции в несколько раз.<br><br>- Студийные инструменты: система загрузки статических данных из ScriptableObject-конфигураций с горячей перезагрузкой в Editor Play Mode; дебаг-оверлей для отображения состояния сетевого соединения, FPS и стейта персонажа.<br><br>- Оптимизация: LOD-менеджер для анимаций — частота обновления скелетных анимаций снижается в зависимости от дистанции до камеры; процедурная генерация текстурных атласов для спрайтов эффектов; аудио-пулинг и ограничение одновременно играющих источников.<br><br>- 3D-моделирование: роботы и окружение — low-poly меши с запечёнными normal maps, подготовка UV-развёрток под единый текстурный атлас, соблюдение бюджета полигонов для мобильного таргета.",
             

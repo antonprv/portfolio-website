@@ -33,6 +33,7 @@
   applyNoise(cfg.noise);
   if (cfg.font?.path || cfg.font?.files?.length) injectFont(cfg.font);
   applyProfilePhoto(cfg.profile);
+  wireSocialLinks(cfg.profile?.links || {});
   renderSkills(cfg.skills);
   renderProjects(cfg.projects);
   patchI18n(cfg.profile);
@@ -282,6 +283,29 @@ function applyProfilePhoto({ photo, nameRu } = {}) {
 
 
 /* ════════════════════════════════════════════════════════════
+   SOCIAL LINKS
+   Sets hrefs from config and hides any button whose link is absent.
+   ════════════════════════════════════════════════════════════ */
+function wireSocialLinks(links) {
+  const map = {
+    'link-github':   links.github,
+    'link-telegram': links.telegram,
+    'link-email':    links.email,
+    'link-linkedin': links.linkedin,
+  };
+  Object.entries(map).forEach(([id, href]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (href) {
+      el.href = href;
+    } else {
+      el.style.display = 'none'; /* hide pill when link not configured */
+    }
+  });
+}
+
+
+/* ════════════════════════════════════════════════════════════
    SKILLS
    Reads cfg.skills — an array of category objects:
    [
@@ -373,11 +397,10 @@ function renderProjects(projects) {
   const grid    = document.getElementById('projects-grid');
   if (!grid || !Array.isArray(projects)) return;
 
-  /* ── Collect all unique tags ── */
-  const allTags = [...new Set(projects.flatMap(p => p.tags || []))];
+  /* ── Tag filter bar from cfg.tagFilters (top-level config key) ── */
+  const tagFilters = (window.__cfg?.tagFilters) || [];
 
-  /* ── Render tag filter bar ── */
-  if (allTags.length && section) {
+  if (tagFilters.length && section) {
     const existing = document.getElementById('tag-filter-bar');
     if (existing) existing.remove();
 
@@ -386,17 +409,15 @@ function renderProjects(projects) {
     bar.className = 'tag-filter-bar';
 
     /* "All" button */
-    const allBtn = makeFilterBtn('all', true);
+    const allBtn = makeFilterBtn('all', 'Все / All', true);
     bar.appendChild(allBtn);
 
-    allTags.forEach(tag => {
-      bar.appendChild(makeFilterBtn(tag, false));
+    tagFilters.forEach(({ id, label }) => {
+      bar.appendChild(makeFilterBtn(id, label, false));
     });
 
-    /* Insert before the grid */
     grid.parentNode.insertBefore(bar, grid);
 
-    /* Filter logic */
     let active = 'all';
     bar.addEventListener('click', e => {
       const btn = e.target.closest('.filter-btn');
@@ -416,11 +437,11 @@ function renderProjects(projects) {
   projects.forEach((p, i) => grid.appendChild(buildCard(p, i)));
 }
 
-function makeFilterBtn(tag, isActive) {
+function makeFilterBtn(tag, label, isActive) {
   const btn = document.createElement('button');
   btn.className = `filter-btn${isActive ? ' active' : ''}`;
   btn.dataset.tag = tag;
-  btn.textContent = tag === 'all' ? 'Все' : tag;
+  btn.textContent = tag === 'all' ? 'Все' : label;
   return btn;
 }
 
@@ -432,7 +453,8 @@ function buildCard(p, index) {
   const card = document.createElement('div');
   card.className = 'project-card';
   card.dataset.preset = preset;
-  card.dataset.tags   = (p.tags || []).join(',');
+  const allCardTags = [...(p.tags || []), ...(p.subtags || [])];
+  card.dataset.tags = allCardTags.join(',');
   card.style.animationDelay = `${0.05 + index * 0.05}s`;
 
   /* Navigate to detail page on card click */
@@ -570,10 +592,26 @@ function buildInfo(p) {
   info.appendChild(desc);
 
   if (Array.isArray(p.tags) && p.tags.length) {
-    const tag = document.createElement('span');
-    tag.className   = 'project-tag';
-    tag.textContent = p.tags.join(' - ');
-    info.appendChild(tag);
+    const tagWrap = document.createElement('div');
+    tagWrap.className = 'project-tags';
+
+    p.tags.forEach(t => {
+      const span = document.createElement('span');
+      span.className = 'project-tag project-tag--main';
+      span.textContent = t;
+      tagWrap.appendChild(span);
+    });
+
+    if (Array.isArray(p.subtags) && p.subtags.length) {
+      p.subtags.forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'project-tag project-tag--sub';
+        span.textContent = t;
+        tagWrap.appendChild(span);
+      });
+    }
+
+    info.appendChild(tagWrap);
   }
 
   return info;
@@ -673,8 +711,11 @@ function applyCurrentLang() {
   set('first-name',  t.firstName);
   set('last-name',   t.lastName);
   set('tagline',     t.tagline);
-  set('bio',         t.bio);
   set('footer-text', t['footer-text']);
+
+  /* Bio supports HTML tags (<br> etc.) */
+  const bioEl = document.getElementById('bio');
+  if (bioEl) bioEl.innerHTML = t.bio || '';
 
   document.querySelectorAll('[data-ru]').forEach(el => {
     el.textContent = el.getAttribute('data-' + currentLang);

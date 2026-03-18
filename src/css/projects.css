@@ -124,17 +124,38 @@
   line-height: 1.5;
 }
 
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
 .project-tag {
   display: inline-block;
-  margin-top: 0.7rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid var(--border);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
   padding: 0.2rem 0.6rem;
-  border-radius: 4px;
+  border-radius: 999px;
   font-weight: 500;
+  border: 1px solid var(--border);
+}
+
+/* Main tags: bright accent, more visible */
+.project-tag--main {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+/* Subtags: muted, secondary */
+.project-tag--sub {
+  color: var(--muted);
+  border-color: var(--border);
+  font-size: 0.63rem;
 }
 
 /* ── "Подробнее" badge ── */
@@ -197,9 +218,13 @@
     font-size: 0.78rem;
   }
   
-  .project-tag {
-    font-size: 0.65rem;
-    padding: 0.18rem 0.5rem;
+  .project-tag--main {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .project-tag--sub {
+    font-size: 0.58rem;
   }
   
   .project-arrow {
@@ -220,8 +245,9 @@
     font-size: 0.75rem;
   }
   
-  .project-tag {
-    font-size: 0.6rem;
+  .project-tag--main,
+  .project-tag--sub {
+    font-size: 0.58rem;
   }
 }
 

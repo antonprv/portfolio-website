@@ -109,33 +109,67 @@
   color: var(--accent2);
 }
 
-/* ── Hero section ── */
-header {
-  min-height: 100vh;
+/* ── Intro split: sticky hero left + skills right ── */
+.intro-split {
   display: grid;
-  place-items: center;
+  grid-template-columns: 420px 1fr;
+  min-height: 100vh;
   position: relative;
-  padding: 4rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-header::after {
+.intro-left {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem 4rem 3rem;
+  /* Subtle right border */
+  border-right: 1px solid var(--border);
+}
+
+/* Glow behind sticky panel */
+.intro-left::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 30%, var(--glow) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 60% at 20% 80%, var(--gradient-bottom) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 60% at 50% 30%, var(--glow) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 50% at 10% 80%, var(--gradient-bottom) 0%, transparent 60%);
   pointer-events: none;
+  z-index: 0;
 }
 
+.intro-right {
+  padding: 5rem 3rem 4rem 2rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.intro-right .skills-section {
+  width: 100%;
+  padding: 0;
+}
+
+.intro-right .skills-inner {
+  max-width: 100%;
+}
+
+/* Hero card */
 .hero {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  max-width: 680px;
+  gap: 1.6rem;
   text-align: center;
   animation: fadeUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  width: 100%;
 }
 
 /* ── Avatar ── */
@@ -293,6 +327,30 @@ footer {
 /* ════════════════════════════════════════════════════════════
    MOBILE RESPONSIVE
    ════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  /* Stack intro vertically on smaller screens */
+  .intro-split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .intro-left {
+    position: static;
+    height: auto;
+    padding: 6rem 1.5rem 2.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intro-right {
+    padding: 2.5rem 1.5rem 3rem;
+  }
+
+  .intro-right .skills-section {
+    padding: 0;
+  }
+}
+
 @media (max-width: 768px) {
   /* ── Theme & Lang switchers ── */
   .theme-switcher {
@@ -310,15 +368,6 @@ footer {
   .lang-btn {
     padding: 0.3rem 0.7rem;
     font-size: 0.65rem;
-  }
-  
-  /* ── Hero section ── */
-  header {
-    padding: 5rem 1.2rem 3rem;
-  }
-  
-  .hero {
-    gap: 1.5rem;
   }
   
   /* ── Avatar ── */
