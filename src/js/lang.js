@@ -2,7 +2,23 @@
    lang.js - Language switcher logic
    ============================================================ */
 
-let currentLang = 'ru';
+/**
+ * Read preferred language from URL query string.
+ * Supports:
+ *   ?lang=en  |  ?lang=ru   — explicit param
+ *   ?en       |  ?ru        — shorthand (also works as &en / &ru when chained)
+ * Returns 'en' | 'ru' | null.
+ */
+function getLangFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const explicit = params.get('lang');
+  if (explicit === 'en' || explicit === 'ru') return explicit;
+  if (params.has('en')) return 'en';
+  if (params.has('ru')) return 'ru';
+  return null;
+}
+
+let currentLang = getLangFromURL() || 'ru';
 
 /** IDs whose textContent maps directly to i18n keys */
 const KEYED_IDS = [
@@ -95,3 +111,61 @@ function setLang(lang) {
     translatables.forEach(el => el.classList.remove('fading'));
   }, 180);
 }
+
+/**
+ * Apply the initial language on page load without animation.
+ * Called once the DOM is ready; syncs buttons and content to currentLang.
+ */
+function applyInitialLang() {
+  const lang = currentLang;
+
+  // Sync toggle buttons
+  const btnRu = document.getElementById('btn-ru');
+  const btnEn = document.getElementById('btn-en');
+  if (btnRu) btnRu.classList.toggle('active', lang === 'ru');
+  if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+
+  if (lang === 'ru') return; // default — HTML is already in Russian, nothing to do
+
+  // Apply English content without fade
+  document.documentElement.lang = i18n[lang].htmlLang;
+  document.title               = i18n[lang].pageTitle;
+
+  KEYED_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = i18n[lang][id];
+  });
+
+  const hlEl = document.getElementById('hero-highlights');
+  const hlData = i18n[lang]?.highlights;
+  if (hlEl && Array.isArray(hlData) && hlData.length) {
+    hlEl.innerHTML = hlData
+      .map(h => `<li><span class="hl-bullet" aria-hidden="true">▸</span>${h}</li>`)
+      .join('');
+  }
+
+  NAME_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = i18n[lang][NAME_ID_TO_KEY[id]];
+  });
+
+  document.querySelectorAll('[data-ru]').forEach(el => {
+    if (el.dataset.htmlTranslate) {
+      const raw = el.getAttribute('data-' + lang) || '';
+      el.innerHTML = typeof parseLinks === 'function' ? parseLinks(raw) : raw;
+      el.querySelectorAll('a[href]').forEach(a => {
+        if (!a.target) a.target = '_blank';
+        if (!a.rel)    a.rel    = 'noopener noreferrer';
+      });
+    } else {
+      el.textContent = el.getAttribute('data-' + lang);
+    }
+  });
+
+  const avatar = document.querySelector('.avatar');
+  if (avatar) {
+    avatar.alt = i18n.en.firstName + ' ' + i18n.en.lastName;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', applyInitialLang);
