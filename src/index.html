@@ -46,7 +46,7 @@
     <button class="section-nav__dot" data-target="snap-split" aria-label="Skills">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
     </button>
-    <button class="section-nav__dot" data-target="section-projects" aria-label="Projects">
+    <button class="section-nav__dot" data-target="snap-projects" aria-label="Projects">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="6" height="6" rx="1"/><rect x="9" y="3" width="6" height="6" rx="1"/><rect x="16" y="3" width="6" height="6" rx="1"/><rect x="2" y="12" width="6" height="6" rx="1"/><rect x="9" y="12" width="6" height="6" rx="1"/></svg>
     </button>
   </nav>
@@ -145,32 +145,35 @@
   </div><!-- /snap-container -->
 
   <!-- ════════════════════════════════════════
-       SECTION 3: PROJECTS (outside snap, normal scroll)
+       SECTION 3: PROJECTS — inside snap container
   ════════════════════════════════════════ -->
-  <div id="section-projects">
+  <div class="snap-section" id="snap-projects">
 
-  <!-- ════════════════════════════════════════
-       PROJECTS  (cards injected by config-loader.js)
-  ════════════════════════════════════════ -->
-  <div class="divider reveal" role="separator">
-    <span class="divider-label t" id="projects-title">Проекты</span>
-  </div>
-
-  <section class="projects-section" aria-label="Projects">
-    <div class="section-intro reveal">
-      <p class="t" id="projects-sub">Некоторые из моих работ</p>
+    <!-- Custom scrollbar track (left side) -->
+    <div class="custom-scrollbar" id="custom-scrollbar">
+      <div class="custom-scrollbar__thumb" id="scrollbar-thumb"></div>
     </div>
-    <div class="grid" id="projects-grid"></div>
-  </section>
 
-  <!-- ════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════ -->
-  <footer>
-    <p class="t" id="footer-text"></p>
-  </footer>
+    <!-- Scrollable content -->
+    <div class="projects-scroll" id="projects-scroll">
 
-  </div><!-- /section-projects -->
+      <div class="divider" role="separator">
+        <span class="divider-label t" id="projects-title">Проекты</span>
+      </div>
+
+      <section class="projects-section" aria-label="Projects">
+        <div class="section-intro">
+          <p class="t" id="projects-sub">Некоторые из моих работ</p>
+        </div>
+        <div class="grid" id="projects-grid"></div>
+      </section>
+
+      <footer>
+        <p class="t" id="footer-text"></p>
+      </footer>
+
+    </div>
+  </div>
 
   <!--
     Script load order (matters):
