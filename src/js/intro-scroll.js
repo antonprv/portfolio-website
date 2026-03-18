@@ -1,14 +1,13 @@
 /* ============================================================
    intro-scroll.js
-   0 = stage hero centred (bio visible)
-   1 = stage split (hero right, skills left, bio hidden)
-   2 = projects
+   0 = stage hero    (#hero)
+   1 = stage split   (#skills)
+   2 = projects      (#projects)
 
-   Transition 0→1 animation sequence:
-   1. Hero + skills slide horizontally (hero right, skills left)
-   2. Bio fades out simultaneously
-   3. hero-top slides DOWN, hero-bottom slides UP — squeezing
-      together into the centre of the right panel
+   Hash navigation:
+   - URL hash updates on every section change
+   - On page load, reads hash and jumps to correct section
+   - Shareable links: index.html#hero / #skills / #projects
 ============================================================ */
 (function () {
   'use strict';
@@ -32,19 +31,20 @@
 
   let current       = 0;
   let transitioning = false;
-  const DUR         = 600;                              // slightly longer = smoother
-  const EASE        = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // ease-out-quad — natural deceleration
-  const EASE_SNAP   = 'cubic-bezier(0.4, 0, 0.2, 1)';         // material standard — not too snappy
+  const DUR         = 600;
+  const EASE        = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  const EASE_SNAP   = 'cubic-bezier(0.4, 0, 0.2, 1)';
   let wheelAccum    = 0, lastWheel = 0;
-  const WHEEL_THR   = 60;   // higher threshold = less accidental triggers
-
-  /* Inertia / overscroll guard:
-     After a section transition fires, ignore all wheel events for
-     POST_LOCK ms. This prevents trackpad momentum from immediately
-     triggering the next section. */
-  const POST_LOCK   = 900;  // ms to lock after each transition
+  const WHEEL_THR   = 60;
+  const POST_LOCK   = 900;
   let wheelLocked   = false;
   let wheelLockTimer = null;
+
+  /* ── Hash ── */
+  const HASH = ['#hero', '#skills', '#projects'];
+  function updateHash(idx) {
+    history.replaceState(null, '', HASH[idx] || '#hero');
+  }
 
   function lockWheel() {
     wheelLocked = true;
@@ -54,7 +54,7 @@
 
   const s = (el, p) => { if (el) Object.assign(el.style, p); };
 
-  /* ── Measure bio height once for collapse animation ── */
+  /* ── Bio height ── */
   let bioHeight = 0;
   function measureBio() {
     if (!heroBio) return;
@@ -64,7 +64,7 @@
   }
   setTimeout(measureBio, 200);
 
-  /* ── Init ── */
+  /* ── Init positions ── */
   s(snapStage, { position:'absolute', inset:'0' });
   s(stageHero, {
     position:'absolute', inset:'0',
@@ -78,78 +78,51 @@
     zIndex:'1', transform:'translateX(-100%)', opacity:'0',
     borderRight:'1px solid transparent'
   });
-  /* Reset top/bottom */
   s(heroTop,    { transform:'translateY(0)' });
   s(heroBottom, { transform:'translateY(0)' });
-  if (heroBio) {
-    s(heroBio, { opacity:'1', maxHeight:'', marginTop:'', marginBottom:'' });
-  }
+  if (heroBio) s(heroBio, { opacity:'1', maxHeight:'', marginTop:'', marginBottom:'' });
 
   snapProj.style.transform = 'translateY(100%)';
   snapProj.classList.remove('is-active');
 
-  /* ── Nav dots ── */
+  /* ── Dots ── */
   function updateDots(i) {
     navDots.forEach((d, j) => d.classList.toggle('is-active', i === j));
   }
 
-  /* ── 0 → 1: continuity animation ── */
+  /* ── 0 → 1 ── */
   function animateToSplit() {
     if (!bioHeight) measureBio();
+    const half = Math.round(DUR * 0.5);
+    const sq   = Math.round(DUR * 0.35);
 
-    const half   = Math.round(DUR * 0.5);
-    const full   = DUR;
-    const sq     = Math.round(DUR * 0.35); // squeeze delay
+    if (heroBio) s(heroBio, { transition:`opacity ${Math.round(DUR*0.35)}ms ease`, opacity:'0' });
+    s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'50%', width:'50%' });
+    s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${Math.round(DUR*0.7)}ms ${EASE}`, transform:'translateX(0)', opacity:'1' });
 
-    /* Step 1 (immediate): hero panel slides right, skills slide in, bio fades */
-    s(stageHero,   { transition:`left ${full}ms ${EASE}, width ${full}ms ${EASE}`, left:'50%', width:'50%' });
-    s(stageSkills, { transition:`transform ${full}ms ${EASE}, opacity ${half}ms ${EASE}`, transform:'translateX(0)', opacity:'1' });
-    if (heroBio) {
-      s(heroBio, { transition:`opacity ${half}ms ease, max-height ${half}ms ease ${sq}ms, margin ${half}ms ease ${sq}ms`,
-                   opacity:'0' });
-    }
-
-    /* Step 2 (after bio starts collapsing): collapse height, squeeze top/bottom together */
     setTimeout(() => {
-      if (heroBio) {
-        s(heroBio, { maxHeight:'0', marginTop:'0', marginBottom:'0' });
-      }
-      /* top slides down slightly, bottom slides up slightly — meeting in centre */
+      if (heroBio) s(heroBio, { maxHeight:'0', marginTop:'0', marginBottom:'0' });
       s(heroTop,    { transition:`transform ${half}ms ${EASE}`, transform:'translateY(12px)' });
       s(heroBottom, { transition:`transform ${half}ms ${EASE}`, transform:'translateY(-12px)' });
     }, sq);
-
-    /* Divider */
-    setTimeout(() => { stageSkills.style.borderRight = '1px solid var(--border)'; }, half);
-
-    setTimeout(() => { transitioning = false; }, full + 40);
+    setTimeout(() => { stageSkills.style.borderRight = '1px solid var(--border)'; }, DUR * 0.5);
+    setTimeout(() => { transitioning = false; }, DUR + 40);
   }
 
-  /* ── 1 → 0: reverse ── */
+  /* ── 1 → 0 ── */
   function animateToHero() {
     const half = Math.round(DUR * 0.5);
-    const full = DUR;
-
-    /* Expand bio, reset squeeze */
     s(heroTop,    { transition:`transform ${half}ms ${EASE}`, transform:'translateY(0)' });
     s(heroBottom, { transition:`transform ${half}ms ${EASE}`, transform:'translateY(0)' });
-    if (heroBio) {
-      s(heroBio, {
-        transition:`max-height ${half}ms ease, margin ${half}ms ease`,
-        maxHeight: bioHeight + 'px',
-        marginTop:'', marginBottom:''
-      });
-    }
+    if (heroBio) s(heroBio, { transition:`max-height ${half}ms ease, margin ${half}ms ease`, maxHeight: bioHeight + 'px', marginTop:'', marginBottom:'' });
 
-    /* Hero slides left back to centre, skills slide out */
     setTimeout(() => {
-      s(stageHero,   { transition:`left ${full}ms ${EASE}, width ${full}ms ${EASE}`, left:'0', width:'100%' });
-      s(stageSkills, { transition:`transform ${full}ms ${EASE}, opacity ${half}ms ease`, transform:'translateX(-100%)', opacity:'0' });
+      s(stageHero,   { transition:`left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}`, left:'0', width:'100%' });
+      s(stageSkills, { transition:`transform ${DUR}ms ${EASE}, opacity ${half}ms ease`, transform:'translateX(-100%)', opacity:'0' });
       if (heroBio) s(heroBio, { transition:`opacity ${half}ms ease`, opacity:'1' });
       stageSkills.style.borderRight = '1px solid transparent';
     }, Math.round(half * 0.3));
-
-    setTimeout(() => { transitioning = false; }, full + 40);
+    setTimeout(() => { transitioning = false; }, DUR + 40);
   }
 
   /* ── Navigate ── */
@@ -161,6 +134,7 @@
     current = idx;
     transitioning = true;
     updateDots(idx);
+    if (!instant) updateHash(idx);
 
     const dur = instant ? '0s' : `${DUR}ms ${EASE_SNAP}`;
 
@@ -190,17 +164,14 @@
 
     /* Stage ↔ Projects */
     if (!instant) lockWheel();
-    if (idx === 2) {
-      /* Reset scroll BEFORE animation */
-      if (projScroll) { projScroll.scrollTop = 0; updateScrollbar(); }
 
+    if (idx === 2) {
+      if (projScroll) { projScroll.scrollTop = 0; updateScrollbar(); }
       snapProj.classList.add('is-active');
       s(snapProj, { transition:'none', transform:'translateY(100%)' });
       snapProj.getBoundingClientRect();
-
       s(snapProj,      { transition:`transform ${dur}`, transform:'translateY(0)' });
       s(snapContainer, { transition:`transform ${dur}`, transform:'translateY(-100%)' });
-
     } else {
       s(snapProj,      { transition:`transform ${dur}`, transform:'translateY(100%)' });
       s(snapContainer, { transition:`transform ${dur}`, transform:'translateY(0)' });
@@ -224,21 +195,14 @@
   if (projScroll && sbThumb && sbTrack) {
     projScroll.addEventListener('scroll', updateScrollbar, { passive: true });
 
-    /* ── Position scrollbar track to match content area ──
-       top  = distance from top of #snap-projects to where grid begins
-       bottom = height of footer                                         */
     function positionScrollbarTrack() {
       const projectsSection = projScroll.querySelector('.projects-section');
       const footer          = projScroll.querySelector('footer');
       if (!projectsSection) return;
-
-      // offsetTop of .projects-section relative to projScroll
       const topPx    = projectsSection.offsetTop;
       const bottomPx = footer ? footer.offsetHeight : 0;
-
       snapProj.style.setProperty('--sb-top',    topPx    + 'px');
       snapProj.style.setProperty('--sb-bottom',  bottomPx + 'px');
-
       updateScrollbar();
     }
 
@@ -261,20 +225,17 @@
     });
     setTimeout(updateScrollbar, 400);
     setTimeout(positionScrollbarTrack, 400);
+    setTimeout(() => { positionScrollbarTrack(); updateScrollbar(); }, 800);
     new ResizeObserver(() => { positionScrollbarTrack(); updateScrollbar(); }).observe(projScroll);
   }
 
-  /* ── Wheel — with inertia / overscroll protection ── */
+  /* ── Wheel ── */
   document.addEventListener('wheel', e => {
     e.preventDefault();
 
-    /* On projects section */
     if (current === 2 && projScroll) {
-      if (wheelLocked) return; // absorb momentum after arriving here
-
+      if (wheelLocked) return;
       const atTop = projScroll.scrollTop <= 0;
-
-      /* Scroll back to section 1: only on upward swipe at top, with threshold */
       if (e.deltaY < 0 && atTop) {
         const now = Date.now();
         if (now - lastWheel > 350) wheelAccum = 0;
@@ -282,32 +243,25 @@
         wheelAccum += e.deltaY;
         if (Math.abs(wheelAccum) >= WHEEL_THR) {
           wheelAccum = 0;
-          goTo(1);
-          lockWheel();
+          goTo(1); lockWheel();
         }
         return;
       }
-
-      /* Normal internal scroll */
       projScroll.scrollTop += e.deltaY;
       updateScrollbar();
       return;
     }
 
-    /* On stage sections (0 and 1) */
     if (wheelLocked) return;
-
     const now = Date.now();
     if (now - lastWheel > 400) wheelAccum = 0;
     lastWheel = now;
     wheelAccum += e.deltaY;
     if (Math.abs(wheelAccum) < WHEEL_THR) return;
-
     const dir = wheelAccum > 0 ? 1 : -1;
     wheelAccum = 0;
     lockWheel();
     goTo(current + dir);
-
   }, { passive: false });
 
   /* ── Touch ── */
@@ -332,10 +286,11 @@
   /* ── Nav dots ── */
   navDots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
-  /* ── Init ── */
-  goTo(0, true);
-  /* Lock wheel briefly on load — prevents accidental first-scroll from
-     immediately jumping to section 1 if user scrolled before page loaded */
+  /* ── Init: read hash and jump to correct section ── */
+  const hashMap = { '#hero': 0, '#skills': 1, '#projects': 2 };
+  const initHash = window.location.hash.toLowerCase();
+  const initIdx  = hashMap[initHash] ?? 0;
+  goTo(initIdx, true);
   lockWheel();
 
 })();

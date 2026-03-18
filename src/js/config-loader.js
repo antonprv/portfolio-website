@@ -537,7 +537,6 @@ function filterCards(grid, tag) {
 
 /* ── Smooth page transition to detail ── */
 function navigateToProject(index) {
-  /* Inject overlay into page */
   let overlay = document.getElementById('page-transition');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -546,6 +545,8 @@ function navigateToProject(index) {
     document.body.appendChild(overlay);
   }
   overlay.classList.add('active');
+  /* Store that we came from projects so Back returns there */
+  sessionStorage.setItem('returnSection', 'projects');
   setTimeout(() => {
     window.location.href = `project.html?id=${index}`;
   }, 320);

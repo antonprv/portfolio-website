@@ -725,7 +725,11 @@ function initLightbox() {
 function navigateBack() {
   const overlay = document.getElementById('page-transition');
   overlay.classList.add('active');
-  setTimeout(() => { window.location.href = 'index.html'; }, 350);
+  const returnTo = sessionStorage.getItem('returnSection') || 'projects';
+  sessionStorage.removeItem('returnSection');
+  setTimeout(() => {
+    window.location.href = `index.html#${returnTo}`;
+  }, 350);
 }
 
 
