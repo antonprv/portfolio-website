@@ -216,62 +216,6 @@
         },
         
         {
-            "_comment": "Eye of the Basilisk - R&D parkour experiment",
-            "preset": "links-bar",
-
-            "github": "https://github.com/antonprv/EyeOfTheBasilisk",
-
-            "image":  "images/prototypes/eye_of_the_basilisk/video_preview.png",
-            "emoji":  "🗿",
-            "color":  "c1",
-            
-            "nameRu": "Eye of the Basilisk",
-            "nameEn": "Eye of the Basilisk",
-            
-            "roleRu": "Роль: Соло R&D разработчик",
-            "roleEn": "Role: Solo R&D developer",
-            
-            "descRu": "Экспериментальный прототип паркур-платформера, исследующий пересечение систем перемещения персонажа и симуляции обратимого времени. Проект пытается объединить аркадный паркур с прямым управлением игрока — wall jump, wall run и скольжение по рёбрам поверхностей и рампам, вдохновлённые Sunset Overdrive от Insomniac Games - с системой перемотки времени в духе Prince of Persia. Ключевая особенность прототипа — перемотка затрагивает не только игровые состояния, но и сами анимации: движения персонажа воспроизводятся назад. Игрок может замедлять время в воздухе и прямо из ресурсов создавать под собой новые элементы маршрута, динамически продолжая цепочку движения и формируя собственные паркурные пути в реальном времени.",
-            
-            "descEn": "Experimental parkour platformer prototype exploring the intersection of character traversal systems and reversible time simulation. The project combines arcade-style movement with direct player control — wall jumps, wall runs, and sliding across edges and ramps inspired by Sunset Overdrive by Insomniac Games - with time rewind mechanics reminiscent of Prince of Persia. A key feature is that rewind affects not only gameplay state but the animations themselves: character motion is played backwards. The player can also slow time mid-air and craft new traversal elements from resources directly beneath the character, dynamically extending movement chains and creating parkour routes in real time.",
-            
-            "tags": 
-            [
-                "Unreal Engine",
-                "R&D"
-            ],
-            
-            "subtags": 
-            [
-                "C++",
-                "Gameplay Programming",
-                "Parkour",
-                "Platforming",
-                "HLSL",
-                "Level Design"
-            ],
-            
-            "detailsRu": "<b>Ключевые факты проекта:</b><br>• сольный R&D прототип, исследующий пересечение систем перемещения персонажа и симуляции обратимого времени<br>• паркурная система вдохновлена Sunset Overdrive (Insomniac Games) и ориентирована на прямой контроль игрока вместо flow-паркура и motion matching<br>• реализована система перемотки времени в духе Prince of Persia, воспроизводящая анимации движения назад, а не только восстанавливающая состояния объектов<br>• игрок может замедлять время в воздухе и крафтить новые элементы маршрута прямо во время движения<br><br>Прототип исследует альтернативный подход к паркурному геймплею: вместо систем, которые пытаются угадать намерения игрока по большому количеству входных данных (как в современных Assassin's Creed), управление построено вокруг прямого и предсказуемого контроля. Любое действие игрока немедленно отражается на траектории движения персонажа.<br><br><b>Ключевые инженерные системы:</b><br><br>— Система перемотки времени: состояние объектов и персонажа записывается в циклический буфер, позволяющий воспроизводить предыдущие состояния сцены. При перемотке не только восстанавливаются данные, но и проигрываются анимации движения в обратном направлении.<br><br>— Анимационная интеграция: поддержка обратного воспроизведения root motion, синхронизация перемещения персонажа и состояния анимационного графа при rewind.<br><br>— Паркурная система: механики wall jump, wall run и скольжения по рёбрам поверхностей и рампам, позволяющие строить непрерывные цепочки движения в вертикальной среде.<br><br>— Динамический крафт маршрутов: игрок может замедлять время в воздухе и создавать новые элементы паркурного пути из ресурсов прямо под персонажем, расширяя маршрут движения в реальном времени.",
-            
-            "detailsEn": "<b>Key project facts:</b><br>• solo R&D prototype exploring the intersection of character traversal systems and reversible time simulation<br>• traversal system inspired by Sunset Overdrive (Insomniac Games) focused on direct player control rather than flow-based parkour or motion matching<br>• Prince of Persia–style rewind system that reverses character animations instead of only restoring gameplay states<br>• the player can slow time mid-air and craft new traversal elements while moving<br><br>The prototype explores an alternative approach to parkour gameplay. Instead of systems that attempt to infer player intent from large animation datasets (as seen in modern Assassin's Creed titles), movement is built around direct and deterministic player control. Player input immediately and predictably affects the movement trajectory.<br><br><b>Core engineering systems:</b><br><br>— Time rewind system: gameplay state is recorded in a cyclic buffer allowing previous world states to be replayed. During rewind, character animations and movement are played backwards instead of simply restoring stored transforms.<br><br>— Animation integration: reverse playback of root motion with synchronization between animation graph state and character movement during rewind.<br><br>— Parkour traversal system: mechanics including wall-to-wall jumping, wall running, and sliding across surface edges and ramps, enabling continuous movement chains in vertical environments.<br><br>— Dynamic path crafting: the player can slow time mid-air and create new traversal elements from resources directly beneath the character, extending parkour routes in real time.",
-            
-            "screenshots": 
-            [
-                {
-                    "type": "embed",
-                    "src": "https://rutube.ru/play/embed/949a1b4b68bb53b82de6bd3f2ca774fd/",
-                    "poster": "images/prototypes/eye_of_the_basilisk/video_preview.png",
-                    "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer"
-                },
-                {
-                    "type": "embed",
-                    "src": "https://www.youtube.com/embed/LJlaXGLLo38?si=NwW4sAjsLeUku66T",
-                    "captionRu": "Референсный геймплей из Sunset Overdrive", "captionEn": "Reference parkour gameplay from Sunset Overdrive"
-                }
-            ]
-        },
-        
-        {
             "_comment": "Innopolis autonomous vehicle simulator - NDA project",
             "preset": "no-links",
             "image": "images/projects/innopolis/innopolis3.png",
@@ -330,6 +274,63 @@
                     "src": "images/projects/innopolis/innopolis4.png", 
                     "captionRu": "", 
                     "captionEn": "" 
+                }
+            ]
+        },
+        
+        
+        {
+            "_comment": "Eye of the Basilisk - R&D parkour experiment",
+            "preset": "links-bar",
+
+            "github": "https://github.com/antonprv/EyeOfTheBasilisk",
+
+            "image":  "images/prototypes/eye_of_the_basilisk/video_preview.png",
+            "emoji":  "🗿",
+            "color":  "c1",
+            
+            "nameRu": "Eye of the Basilisk",
+            "nameEn": "Eye of the Basilisk",
+            
+            "roleRu": "Роль: Соло R&D разработчик",
+            "roleEn": "Role: Solo R&D developer",
+            
+            "descRu": "Экспериментальный прототип паркур-платформера, исследующий пересечение систем перемещения персонажа и симуляции обратимого времени. Проект пытается объединить аркадный паркур с прямым управлением игрока — wall jump, wall run и скольжение по рёбрам поверхностей и рампам, вдохновлённые Sunset Overdrive от Insomniac Games - с системой перемотки времени в духе Prince of Persia. Ключевая особенность прототипа — перемотка затрагивает не только игровые состояния, но и сами анимации: движения персонажа воспроизводятся назад. Игрок может замедлять время в воздухе и прямо из ресурсов создавать под собой новые элементы маршрута, динамически продолжая цепочку движения и формируя собственные паркурные пути в реальном времени.",
+            
+            "descEn": "Experimental parkour platformer prototype exploring the intersection of character traversal systems and reversible time simulation. The project combines arcade-style movement with direct player control — wall jumps, wall runs, and sliding across edges and ramps inspired by Sunset Overdrive by Insomniac Games - with time rewind mechanics reminiscent of Prince of Persia. A key feature is that rewind affects not only gameplay state but the animations themselves: character motion is played backwards. The player can also slow time mid-air and craft new traversal elements from resources directly beneath the character, dynamically extending movement chains and creating parkour routes in real time.",
+            
+            "tags": 
+            [
+                "Unreal Engine",
+                "R&D"
+            ],
+            
+            "subtags": 
+            [
+                "C++",
+                "Gameplay Programming",
+                "Parkour",
+                "Platforming",
+                "HLSL",
+                "Level Design"
+            ],
+            
+            "detailsRu": "<b>Ключевые факты проекта:</b><br>• сольный R&D прототип, исследующий пересечение систем перемещения персонажа и симуляции обратимого времени<br>• паркурная система вдохновлена Sunset Overdrive (Insomniac Games) и ориентирована на прямой контроль игрока вместо flow-паркура и motion matching<br>• реализована система перемотки времени в духе Prince of Persia, воспроизводящая анимации движения назад, а не только восстанавливающая состояния объектов<br>• игрок может замедлять время в воздухе и крафтить новые элементы маршрута прямо во время движения<br><br>Прототип исследует альтернативный подход к паркурному геймплею: вместо систем, которые пытаются угадать намерения игрока по большому количеству входных данных (как в современных Assassin's Creed), управление построено вокруг прямого и предсказуемого контроля. Любое действие игрока немедленно отражается на траектории движения персонажа.<br><br><b>Ключевые инженерные системы:</b><br><br>— Система перемотки времени: состояние объектов и персонажа записывается в циклический буфер, позволяющий воспроизводить предыдущие состояния сцены. При перемотке не только восстанавливаются данные, но и проигрываются анимации движения в обратном направлении.<br><br>— Анимационная интеграция: поддержка обратного воспроизведения root motion, синхронизация перемещения персонажа и состояния анимационного графа при rewind.<br><br>— Паркурная система: механики wall jump, wall run и скольжения по рёбрам поверхностей и рампам, позволяющие строить непрерывные цепочки движения в вертикальной среде.<br><br>— Динамический крафт маршрутов: игрок может замедлять время в воздухе и создавать новые элементы паркурного пути из ресурсов прямо под персонажем, расширяя маршрут движения в реальном времени.",
+            
+            "detailsEn": "<b>Key project facts:</b><br>• solo R&D prototype exploring the intersection of character traversal systems and reversible time simulation<br>• traversal system inspired by Sunset Overdrive (Insomniac Games) focused on direct player control rather than flow-based parkour or motion matching<br>• Prince of Persia–style rewind system that reverses character animations instead of only restoring gameplay states<br>• the player can slow time mid-air and craft new traversal elements while moving<br><br>The prototype explores an alternative approach to parkour gameplay. Instead of systems that attempt to infer player intent from large animation datasets (as seen in modern Assassin's Creed titles), movement is built around direct and deterministic player control. Player input immediately and predictably affects the movement trajectory.<br><br><b>Core engineering systems:</b><br><br>— Time rewind system: gameplay state is recorded in a cyclic buffer allowing previous world states to be replayed. During rewind, character animations and movement are played backwards instead of simply restoring stored transforms.<br><br>— Animation integration: reverse playback of root motion with synchronization between animation graph state and character movement during rewind.<br><br>— Parkour traversal system: mechanics including wall-to-wall jumping, wall running, and sliding across surface edges and ramps, enabling continuous movement chains in vertical environments.<br><br>— Dynamic path crafting: the player can slow time mid-air and create new traversal elements from resources directly beneath the character, extending parkour routes in real time.",
+            
+            "screenshots": 
+            [
+                {
+                    "type": "embed",
+                    "src": "https://rutube.ru/play/embed/949a1b4b68bb53b82de6bd3f2ca774fd/",
+                    "poster": "images/prototypes/eye_of_the_basilisk/video_preview.png",
+                    "captionRu": "Геймплейный трейлер", "captionEn": "Gameplay trailer"
+                },
+                {
+                    "type": "embed",
+                    "src": "https://www.youtube.com/embed/LJlaXGLLo38?si=NwW4sAjsLeUku66T",
+                    "captionRu": "Референсный геймплей из Sunset Overdrive", "captionEn": "Reference parkour gameplay from Sunset Overdrive"
                 }
             ]
         },
